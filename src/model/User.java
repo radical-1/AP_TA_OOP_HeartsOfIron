@@ -22,7 +22,7 @@ public class User {
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public String getEmail() {
@@ -44,6 +44,9 @@ public class User {
             }
         }
         return null;
+    }
+    public static void logout() {
+        currentUser = null;
     }
 
 
