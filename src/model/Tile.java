@@ -2,7 +2,6 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public enum Tile {
     TILE1(1, Country.SOVIET_UNION),
@@ -64,15 +63,20 @@ public enum Tile {
 
     private final int index;
     private Country owner;
-    private ArrayList<Factory> factories;
+    private final ArrayList<Factory> factories;
     private final ArrayList<Tile> landNeighbors;
     private final ArrayList<Tile> maritimeNeighbors;
+    private Terrain terrain;
+    private Weather weather;
+
+    private Battalion battalion;
 
     Tile(int index, Country owner) {
         this.index = index;
         this.owner = owner;
         this.landNeighbors = new ArrayList<>();
         this.maritimeNeighbors = new ArrayList<>();
+        this.factories = new ArrayList<>();
     }
 
     static {
@@ -159,11 +163,39 @@ public enum Tile {
         return factories;
     }
 
+    public void addFactory(Factory factory) {
+        factories.add(factory);
+    }
+
     public ArrayList<Tile> getLandNeighbors() {
         return landNeighbors;
     }
 
     public ArrayList<Tile> getMaritimeNeighbors() {
         return maritimeNeighbors;
+    }
+
+    public Terrain getTerrain() {
+        return terrain;
+    }
+
+    public void setTerrain(Terrain terrain) {
+        this.terrain = terrain;
+    }
+
+    public Weather getWeather() {
+        return weather;
+    }
+
+    public void setWeather(Weather weather) {
+        this.weather = weather;
+    }
+
+    public Battalion getBattalion() {
+        return battalion;
+    }
+
+    public void setBattalion(Battalion battalion) {
+        this.battalion = battalion;
     }
 }
