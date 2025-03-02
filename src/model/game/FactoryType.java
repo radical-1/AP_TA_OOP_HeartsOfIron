@@ -1,4 +1,4 @@
-package model;
+package model.game;
 
 public enum FactoryType {
     STEEL(10000, 0, 10, 30000),

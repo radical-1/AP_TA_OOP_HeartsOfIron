@@ -1,4 +1,4 @@
-package model;
+package model.game;
 
 public enum Leader {
     ADENAUER(Ideology.DEMOCRACY),
