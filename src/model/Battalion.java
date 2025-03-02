@@ -1,7 +1,7 @@
 package model;
 
 public class Battalion {
-    private Military military;
+    private BattalionType type;
     private String name;
     private int level;
     private int power;

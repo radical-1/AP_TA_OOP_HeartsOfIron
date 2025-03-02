@@ -14,15 +14,15 @@ public enum Country {
 
     private int manpower;
     private int fuel;
-    private int iron;
+    private int steel;
     private int sulfur;
     private ArrayList<Country> puppets;
 
-    Country(Leader leader, int manpower, int fuel, int iron, int sulfur) {
+    Country(Leader leader, int manpower, int fuel, int steel, int sulfur) {
         this.leader = leader;
         this.manpower = manpower;
         this.fuel = fuel;
-        this.iron = iron;
+        this.steel = steel;
         this.sulfur = sulfur;
         this.puppets = new ArrayList<>();
     }

@@ -74,6 +74,7 @@ public enum Tile {
     Tile(int index, Country owner) {
         this.index = index;
         this.owner = owner;
+        this.terrain = Terrain.PLAIN;
         this.weather = Weather.SUNNY;
         this.landNeighbors = new ArrayList<>();
         this.maritimeNeighbors = new ArrayList<>();
