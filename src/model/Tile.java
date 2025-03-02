@@ -69,14 +69,16 @@ public enum Tile {
     private Terrain terrain;
     private Weather weather;
 
-    private Battalion battalion;
+    private final ArrayList<Battalion> battalions;
 
     Tile(int index, Country owner) {
         this.index = index;
         this.owner = owner;
+        this.weather = Weather.SUNNY;
         this.landNeighbors = new ArrayList<>();
         this.maritimeNeighbors = new ArrayList<>();
         this.factories = new ArrayList<>();
+        this.battalions = new ArrayList<>();
     }
 
     static {
@@ -191,11 +193,7 @@ public enum Tile {
         this.weather = weather;
     }
 
-    public Battalion getBattalion() {
-        return battalion;
-    }
-
-    public void setBattalion(Battalion battalion) {
-        this.battalion = battalion;
+    public void addBattalion(Battalion battalion) {
+        battalions.add(battalion);
     }
 }
