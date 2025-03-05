@@ -65,7 +65,7 @@ public enum Tile {
     private Country owner;
     private final ArrayList<Factory> factories;
     private final ArrayList<Tile> landNeighbors;
-    private final ArrayList<Tile> maritimeNeighbors;
+    private final ArrayList<Tile> seaNeighbors;
     private Terrain terrain;
     private Weather weather;
 
@@ -77,7 +77,7 @@ public enum Tile {
         this.terrain = Terrain.PLAIN;
         this.weather = Weather.SUNNY;
         this.landNeighbors = new ArrayList<>();
-        this.maritimeNeighbors = new ArrayList<>();
+        this.seaNeighbors = new ArrayList<>();
         this.factories = new ArrayList<>();
         this.battalions = new ArrayList<>();
     }
@@ -139,15 +139,15 @@ public enum Tile {
         TILE54.landNeighbors.addAll(Arrays.asList(TILE37, TILE55));
         TILE55.landNeighbors.addAll(Arrays.asList(TILE38, TILE54, TILE56));
         TILE56.landNeighbors.add(TILE55);
-        TILE8.maritimeNeighbors.addAll(Arrays.asList(TILE35, TILE36, TILE54));
-        TILE35.maritimeNeighbors.addAll(Arrays.asList(TILE8, TILE36, TILE54));
-        TILE36.maritimeNeighbors.addAll(Arrays.asList(TILE8, TILE35, TILE54));
-        TILE54.maritimeNeighbors.addAll(Arrays.asList(TILE8, TILE35, TILE36));
-        TILE34.maritimeNeighbors.addAll(Arrays.asList(TILE47, TILE48, TILE49, TILE52));
-        TILE47.maritimeNeighbors.addAll(Arrays.asList(TILE34, TILE48, TILE49, TILE52));
-        TILE48.maritimeNeighbors.addAll(Arrays.asList(TILE34, TILE47, TILE49, TILE52));
-        TILE49.maritimeNeighbors.addAll(Arrays.asList(TILE34, TILE47, TILE48, TILE52));
-        TILE52.maritimeNeighbors.addAll(Arrays.asList(TILE34, TILE47, TILE48, TILE49));
+        TILE8.seaNeighbors.addAll(Arrays.asList(TILE35, TILE36, TILE54));
+        TILE35.seaNeighbors.addAll(Arrays.asList(TILE8, TILE36, TILE54));
+        TILE36.seaNeighbors.addAll(Arrays.asList(TILE8, TILE35, TILE54));
+        TILE54.seaNeighbors.addAll(Arrays.asList(TILE8, TILE35, TILE36));
+        TILE34.seaNeighbors.addAll(Arrays.asList(TILE47, TILE48, TILE49, TILE52));
+        TILE47.seaNeighbors.addAll(Arrays.asList(TILE34, TILE48, TILE49, TILE52));
+        TILE48.seaNeighbors.addAll(Arrays.asList(TILE34, TILE47, TILE49, TILE52));
+        TILE49.seaNeighbors.addAll(Arrays.asList(TILE34, TILE47, TILE48, TILE52));
+        TILE52.seaNeighbors.addAll(Arrays.asList(TILE34, TILE47, TILE48, TILE49));
     }
 
     public int getIndex() {
@@ -174,8 +174,8 @@ public enum Tile {
         return landNeighbors;
     }
 
-    public ArrayList<Tile> getMaritimeNeighbors() {
-        return maritimeNeighbors;
+    public ArrayList<Tile> getSeaNeighbors() {
+        return seaNeighbors;
     }
 
     public Terrain getTerrain() {
@@ -196,5 +196,10 @@ public enum Tile {
 
     public void addBattalion(Battalion battalion) {
         battalions.add(battalion);
+    }
+
+    public static Tile getTileByIndex(int index) {
+        for (Tile tile : values()) if (tile.index == index) return tile;
+        return null;
     }
 }

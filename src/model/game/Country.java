@@ -7,17 +7,17 @@ public enum Country {
     UNITED_STATES(Leader.ROOSEVELT, 120000000, 200000, 200000, 100000),
     GERMAN_REICH(Leader.HITLER, 60000000, 100000, 300000, 200000),
     UNITED_KINGDOM(Leader.CHURCHILL, 30000000, 0, 10, 1),
-    JAPAN(Leader.TOKUDA, 70000000, 50000, 50000, 50000);
+    JAPAN(Leader.HIROHITO, 70000000, 50000, 50000, 50000);
 
-    private String name;
     private Leader leader;
+    private final ArrayList<Faction> factions;
     private int stability;
 
     private int manpower;
     private int fuel;
     private int steel;
     private int sulfur;
-    private ArrayList<Country> puppets;
+    private final ArrayList<Country> puppets;
 
     Country(Leader leader, int manpower, int fuel, int steel, int sulfur) {
         this.leader = leader;
@@ -25,6 +25,7 @@ public enum Country {
         this.fuel = fuel;
         this.steel = steel;
         this.sulfur = sulfur;
+        this.factions = new ArrayList<>();
         this.puppets = new ArrayList<>();
     }
 
@@ -34,6 +35,14 @@ public enum Country {
 
     public void setLeader(Leader leader) {
         this.leader = leader;
+    }
+
+    public ArrayList<Faction> getFactions() {
+        return factions;
+    }
+
+    public void addFaction(Faction faction) {
+        factions.add(faction);
     }
 
     public int getStability() {
@@ -74,6 +83,25 @@ public enum Country {
 
     public void setSulfur(int sulfur) {
         this.sulfur = sulfur;
+    }
+
+    public ArrayList<Country> getPuppets() {
+        return puppets;
+    }
+
+    public void addPuppet(Country puppet) {
+        this.puppets.add(puppet);
+    }
+
+    public static Country getCountryByName(String name) {
+        return switch (name) {
+            case "Soviet Union" -> SOVIET_UNION;
+            case "United States" -> UNITED_STATES;
+            case "German Reich" -> GERMAN_REICH;
+            case "United Kingdom" -> UNITED_KINGDOM;
+            case "Japan" -> JAPAN;
+            default -> null;
+        };
     }
 
     @Override

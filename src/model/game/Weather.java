@@ -5,5 +5,16 @@ public enum Weather {
     RAINY,
     BLIZZARD,
     SANDSTORM,
-    FOG
+    FOG;
+
+    @Override
+    public String toString() {
+        return switch (this) {
+            case SUNNY -> "sunny";
+            case RAINY -> "rainy";
+            case BLIZZARD -> "blizzard";
+            case SANDSTORM -> "sandstorm";
+            case FOG -> "fog";
+        };
+    }
 }

@@ -2,18 +2,91 @@ package controller;
 
 import model.Result;
 import model.game.Country;
+import model.game.Tile;
+
+import java.util.ArrayList;
 
 public class GameMenuController {
-    public static Result getCountryDetails(Country country) {
-        String message = country.toString() + "\n";
-        message += "leader : " + country.getLeader().toString() + "\n";
-        message += "stability : " + country.getStability() + "\n";
-        message += "man power : " + country.getManpower() + "\n";
-        message += "fuel amount : " + country.getFuel() + "\n";
-        message += "sulfur : " + country.getSulfur() + "\n";
-        message += "steel : " + country.getSteel() + "\n";
-//        message += "faction : " + country. + "\n";
-        // TODO
-        return null;
+    public static Result getCountryDetails(String countryName) {
+        Country country = Country.getCountryByName(countryName);
+        if (country == null) return new Result(false, "country doesn't exist");
+
+        StringBuilder message = new StringBuilder(country + "\n");
+        message.append("leader : ").append(country.getLeader().toString()).append("\n");
+        message.append("stability : ").append(country.getStability()).append("\n");
+        message.append("man power : ").append(country.getManpower()).append("\n");
+        message.append("fuel amount : ").append(country.getFuel()).append("\n");
+        message.append("sulfur : ").append(country.getSulfur()).append("\n");
+        message.append("steel : ").append(country.getSteel()).append("\n");
+        message.append("faction : ");
+        int factionSize = country.getFactions().size();
+        for (int i = 0; i < factionSize; i++) {
+            message.append(country.getFactions().get(i).name());
+            if (i < factionSize - 1) message.append(",");
+            else message.append("\n");
+        }
+        message.append("puppet : ");
+        int puppetSize = country.getPuppets().size();
+        for (int i = 0; i < puppetSize; i++) {
+            message.append(country.getPuppets().get(i).toString());
+            if (i < puppetSize - 1) message.append(",");
+            else message.append("\n");
+        }
+
+        return new Result(true, message.toString());
+    }
+
+    public static Result getTileOwner(String indexString) {
+        int index = Integer.parseInt(indexString);
+        Tile tile = Tile.getTileByIndex(index);
+        if (tile != null) return new Result(true, tile.getOwner().toString());
+        return new Result(false, "tile doesn't exist");
+    }
+
+    public static Result getTileLandNeighbors(String indexString) {
+        int index = Integer.parseInt(indexString);
+        Tile tile = Tile.getTileByIndex(index);
+        if (tile != null) {
+            StringBuilder message = new StringBuilder();
+            ArrayList<Tile> neighbors = tile.getLandNeighbors();
+            for (int i = 0; i < neighbors.size(); i++) {
+                message.append(neighbors.get(i));
+                if (i < neighbors.size() - 1) message.append(" , ");
+                else message.append("\n");
+            }
+            return new Result(true, message.toString());
+        }
+        return new Result(false, "tile doesn't exist");
+    }
+
+    public static Result getTileSeaNeighbors(String indexString) {
+        int index = Integer.parseInt(indexString);
+        Tile tile = Tile.getTileByIndex(index);
+        if (tile != null) {
+            StringBuilder message = new StringBuilder();
+            ArrayList<Tile> neighbors = tile.getSeaNeighbors();
+            for (int i = 0; i < neighbors.size(); i++) {
+                message.append(neighbors.get(i));
+                if (i < neighbors.size() - 1) message.append(" , ");
+                else message.append("\n");
+            }
+            if (neighbors.isEmpty()) message.append("no sea neighbors");
+            return new Result(true, message.toString());
+        }
+        return new Result(false, "tile doesn't exist");
+    }
+
+    public static Result getTileWeather(String indexString) {
+        int index = Integer.parseInt(indexString);
+        Tile tile = Tile.getTileByIndex(index);
+        if (tile != null) return new Result(true, tile.getWeather().toString());
+        return new Result(false, "tile doesn't exist");
+    }
+
+    public static Result getTileTerrain(String indexString) {
+        int index = Integer.parseInt(indexString);
+        Tile tile = Tile.getTileByIndex(index);
+        if (tile != null) return new Result(true, tile.getTerrain().toString());
+        return new Result(false, "tile doesn't exist");
     }
 }

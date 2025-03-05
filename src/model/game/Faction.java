@@ -1,6 +1,4 @@
 package model.game;
 
-public class Faction {
-    private String name;
-
+public record Faction(String name) {
 }

@@ -16,4 +16,15 @@ public enum Terrain {
             case PLAIN: break;
         }
     }
+
+    @Override
+    public String toString() {
+        return switch(this) {
+            case MOUNTAIN -> "mountain";
+            case FOREST -> "forest";
+            case DESERT -> "desert";
+            case URBAN -> "urban";
+            case PLAIN -> "plain";
+        };
+    }
 }

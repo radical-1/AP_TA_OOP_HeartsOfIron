@@ -18,16 +18,22 @@ public enum Command {
     LOGIN_USER("login\\s+username\\s+(?<username>\\S+)\\s+password\\s+(?<password>\\S+)"),
     GO_TO_LOGIN_MENU("login"),
     GO_TO_PROFILE_MENU("go to profile menu"),
-    FORGET_PASSWORD("forget-password\\s+-username\\s+(?<username>\\S+)\\s+-email\\s+(?<email>\\S+)");
-    final String regex;
+    FORGET_PASSWORD("forget-password\\s+-username\\s+(?<username>\\S+)\\s+-email\\s+(?<email>\\S+)"),
+    SHOW_COUNTRY_DETAIL("show detail (?<countryName>\\S+)"),
+    TILE_OWNER("tile owner (?<index>-?\\d+)"),
+    TILE_LAND_NEIGHBORS("tile neighbors (?<index>-?\\d+)"),
+    TILE_SEA_NEIGHBORS("tile sea neighbors (?<index>-?\\d+)"),
+    TILE_WEATHER("show weather (?<index>-?\\d+)"),
+    TILE_TERRAIN("show terrain (?<index>-?\\d+)");
+
+    private final String regex;
     Command(String regex) {
         this.regex = regex;
     }
     private Matcher getMatcher(String input) {
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher  = pattern.matcher(input);
-        matcher.matches();
-        return matcher;
+        Matcher matcher  = Pattern.compile(regex).matcher(input);
+        if (matcher.matches()) return matcher;
+        return null;
     }
     public boolean matches(String input) {
         return getMatcher(input).matches();

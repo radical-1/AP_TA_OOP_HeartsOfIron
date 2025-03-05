@@ -36,17 +36,17 @@ public class LoginMenuView implements Menu {
             }
         }
     }
-    public static void showCurrentMenu() {
+    private static void showCurrentMenu() {
         System.out.println("login menu");
     }
-    public static void loginUser(String username, String password, Scanner scanner) {
+    private static void loginUser(String username, String password, Scanner scanner) {
         Result loginResult = LoginMenuController.login(username, password);
         System.out.println(loginResult.getMessage());
         if(loginResult.isValid()) {
             MainMenuView.run(scanner);
         }
     }
-    public static void forgetPassword(String username, String email, Scanner scanner) {
+    private static void forgetPassword(String username, String email, Scanner scanner) {
         Result forgetPasswordResult = LoginMenuController.forgetPassword(username, email);
         System.out.println(forgetPasswordResult.getMessage());
     }
