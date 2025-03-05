@@ -1,10 +1,11 @@
 package controller;
 
 import model.Result;
-import model.game.Country;
-import model.game.Tile;
+import model.game.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class GameMenuController {
     public static Result getCountryDetails(String countryName) {
@@ -87,6 +88,79 @@ public class GameMenuController {
         int index = Integer.parseInt(indexString);
         Tile tile = Tile.getTileByIndex(index);
         if (tile != null) return new Result(true, tile.getTerrain().toString());
+        return new Result(false, "tile doesn't exist");
+    }
+
+    public static Result getTileBattalions(String indexString) {
+        int index = Integer.parseInt(indexString);
+        Tile tile = Tile.getTileByIndex(index);
+        if (tile != null) {
+            ArrayList<Battalion> battalions = tile.getBattalions();
+            battalions.sort(Comparator.comparing(Battalion::getName));
+
+            StringBuilder message = new StringBuilder();
+            message.append("infantry:\n");
+            for (Battalion battalion: battalions) {
+                if (battalion.getType() == BattalionType.INFANTRY)
+                    message.append(battalion).append("\n");
+            }
+            message.append("\n");
+
+            message.append("panzer:\n");
+            for (Battalion battalion: battalions) {
+                if (battalion.getType() == BattalionType.PANZER)
+                    message.append(battalion).append("\n");
+            }
+            message.append("\n");
+
+            message.append("airforce:\n");
+            for (Battalion battalion: battalions) {
+                if (battalion.getType() == BattalionType.AIRFORCE)
+                    message.append(battalion).append("\n");
+            }
+            message.append("\n");
+
+            message.append("navy:\n");
+            for (Battalion battalion: battalions) {
+                if (battalion.getType() == BattalionType.NAVY)
+                    message.append(battalion).append("\n");
+            }
+
+            return new Result(true, message.toString());
+        }
+        return new Result(false, "tile doesn't exist");
+    }
+
+    public static Result getTileFactories(String indexString) {
+        int index = Integer.parseInt(indexString);
+        Tile tile = Tile.getTileByIndex(index);
+        if (tile != null) {
+            ArrayList<Factory> factories = tile.getFactories();
+            factories.sort(Comparator.comparing(Factory::getName));
+
+            StringBuilder message = new StringBuilder();
+            message.append("fuel refinery:\n");
+            for (Factory factory: factories) {
+                if (factory.getType() == FactoryType.FUEL)
+                    message.append(factory).append("\n");
+            }
+            message.append("\n");
+
+            message.append("steel factory:\n");
+            for (Factory factory: factories) {
+                if (factory.getType() == FactoryType.STEEL)
+                    message.append(factory).append("\n");
+            }
+            message.append("\n");
+
+            message.append("sulfur factory:\n");
+            for (Factory factory: factories) {
+                if (factory.getType() == FactoryType.SULFUR)
+                    message.append(factory).append("\n");
+            }
+
+            return new Result(true, message.toString());
+        }
         return new Result(false, "tile doesn't exist");
     }
 }

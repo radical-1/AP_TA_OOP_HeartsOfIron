@@ -38,6 +38,14 @@ public class GameMenuView implements Menu {
                 String indexString = Command.TILE_WEATHER.getGroup(input, "index");
                 getTileTerrain(indexString);
             }
+            else if (Command.SHOW_BATTALIONS.matches(input)) {
+                String indexString = Command.TILE_WEATHER.getGroup(input, "index");
+                getTileBattalions(indexString);
+            }
+            else if (Command.SHOW_FACTORIES.matches(input)) {
+                String indexString = Command.TILE_WEATHER.getGroup(input, "index");
+                getTileFactories(indexString);
+            }
             else {
                 Menu.invalidCommand();
             }
@@ -70,6 +78,16 @@ public class GameMenuView implements Menu {
 
     private static void getTileTerrain(String indexString) {
         Result result = GameMenuController.getTileTerrain(indexString);
+        System.out.println(result.getMessage());
+    }
+
+    private static void getTileBattalions(String indexString) {
+        Result result = GameMenuController.getTileBattalions(indexString);
+        System.out.println(result.getMessage());
+    }
+
+    private static void getTileFactories(String indexString) {
+        Result result = GameMenuController.getTileFactories(indexString);
         System.out.println(result.getMessage());
     }
 }

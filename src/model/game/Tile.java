@@ -194,6 +194,10 @@ public enum Tile {
         this.weather = weather;
     }
 
+    public ArrayList<Battalion> getBattalions() {
+        return battalions;
+    }
+
     public void addBattalion(Battalion battalion) {
         battalions.add(battalion);
     }

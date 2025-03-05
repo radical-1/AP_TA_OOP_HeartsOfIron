@@ -24,7 +24,9 @@ public enum Command {
     TILE_LAND_NEIGHBORS("tile neighbors (?<index>-?\\d+)"),
     TILE_SEA_NEIGHBORS("tile sea neighbors (?<index>-?\\d+)"),
     TILE_WEATHER("show weather (?<index>-?\\d+)"),
-    TILE_TERRAIN("show terrain (?<index>-?\\d+)");
+    TILE_TERRAIN("show terrain (?<index>-?\\d+)"),
+    SHOW_BATTALIONS("show battalions (?<index>-?\\d+)"),
+    SHOW_FACTORIES("show factories (?<index>-?\\d+)");
 
     private final String regex;
     Command(String regex) {

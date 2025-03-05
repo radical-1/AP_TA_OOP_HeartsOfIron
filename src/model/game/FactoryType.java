@@ -16,4 +16,25 @@ public enum FactoryType {
         this.productionPerManpower = productionPerManpower;
         this.maxPower = maxPower;
     }
+
+    public int getManpowerCost() {
+        return manpowerCost;
+    }
+
+    public int getSteelCost() {
+        return steelCost;
+    }
+
+    public int getProductionPerManpower() {
+        return productionPerManpower;
+    }
+
+    public int getMaxPower() {
+        return maxPower;
+    }
+
+    @Override
+    public String toString() {
+        return ""; //TODO
+    }
 }
