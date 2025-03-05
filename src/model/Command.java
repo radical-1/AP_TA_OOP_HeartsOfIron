@@ -26,7 +26,9 @@ public enum Command {
     TILE_WEATHER("show weather (?<index>-?\\d+)"),
     TILE_TERRAIN("show terrain (?<index>-?\\d+)"),
     SHOW_BATTALIONS("show battalions (?<index>-?\\d+)"),
-    SHOW_FACTORIES("show factories (?<index>-?\\d+)");
+    SHOW_FACTORIES("show factories (?<index>-?\\d+)"),
+    SET_TERRAIN("set terrain (?<index>-?\\d+) (?<name>\\S+)"),
+    SET_WEATHER("set weather (?<index>-?\\d+) (?<name>\\S+)");
 
     private final String regex;
     Command(String regex) {

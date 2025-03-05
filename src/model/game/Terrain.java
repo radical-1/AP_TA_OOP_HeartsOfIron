@@ -17,6 +17,17 @@ public enum Terrain {
         }
     }
 
+    public static Terrain getTerrainByName(String name) {
+        return switch (name) {
+            case "mountain" -> MOUNTAIN;
+            case "forest" -> FOREST;
+            case "desert" -> DESERT;
+            case "urban" -> URBAN;
+            case "plain" -> PLAIN;
+            default -> null;
+        };
+    }
+
     @Override
     public String toString() {
         return switch(this) {
