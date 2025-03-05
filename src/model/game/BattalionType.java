@@ -4,5 +4,5 @@ public enum BattalionType {
     INFANTRY,
     PANZER,
     AIRFORCE,
-    NAVY
+    NAVY;
 }
