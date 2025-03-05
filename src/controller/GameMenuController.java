@@ -1,6 +1,7 @@
 package controller;
 
 import model.Result;
+import model.User;
 import model.game.*;
 
 import java.util.ArrayList;
@@ -20,10 +21,13 @@ public class GameMenuController {
         message.append("sulfur : ").append(country.getSulfur()).append("\n");
         message.append("steel : ").append(country.getSteel()).append("\n");
         message.append("faction : ");
-        int factionSize = country.getFactions().size();
-        for (int i = 0; i < factionSize; i++) {
-            message.append(country.getFactions().get(i).name());
-            if (i < factionSize - 1) message.append(",");
+        ArrayList<Faction> factions = new ArrayList<>();
+        for (Faction faction: Faction.getFactions()) {
+            if (faction.countryExists(country)) factions.add(faction);
+        }
+        for (int i = 0; i < factions.size(); i++) {
+            message.append(factions.get(i).toString());
+            if (i < factions.size() - 1) message.append(",");
             else message.append("\n");
         }
         message.append("puppet : ");
@@ -188,5 +192,33 @@ public class GameMenuController {
             return new Result(true, "weather set successfully");
         }
         return new Result(false, "tile doesn't exist");
+    }
+
+    public static Result createFaction(String name) {
+        Faction faction = Faction.getFactionByName(name);
+        if (faction != null)
+            return new Result(false, "faction name already taken");
+        new Faction(name);
+        return new Result(true, "faction created successfully");
+    }
+
+    public static Result joinFaction(String name) {
+        Faction faction = Faction.getFactionByName(name);
+        if (faction == null)
+            return new Result(false, "faction doesn't exist");
+        Country country = User.currentUser.getCountry();
+        faction.addCountry(country);
+        return new Result(true, country + " joined " + faction);
+    }
+
+    public static Result leaveFaction(String name) {
+        Faction faction = Faction.getFactionByName(name);
+        if (faction == null)
+            return new Result(false, "faction doesn't exist");
+        Country country = User.currentUser.getCountry();
+        if (!faction.countryExists(country))
+            return new Result(false, "your country isn't in this faction");
+        faction.removeCountry(country);
+        return new Result(true, country + " left " + faction);
     }
 }

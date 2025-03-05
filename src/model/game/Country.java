@@ -10,7 +10,6 @@ public enum Country {
     JAPAN(Leader.HIROHITO, 70000000, 50000, 50000, 50000);
 
     private Leader leader;
-    private final ArrayList<Faction> factions;
     private int stability;
 
     private int manpower;
@@ -25,7 +24,6 @@ public enum Country {
         this.fuel = fuel;
         this.steel = steel;
         this.sulfur = sulfur;
-        this.factions = new ArrayList<>();
         this.puppets = new ArrayList<>();
     }
 
@@ -35,14 +33,6 @@ public enum Country {
 
     public void setLeader(Leader leader) {
         this.leader = leader;
-    }
-
-    public ArrayList<Faction> getFactions() {
-        return factions;
-    }
-
-    public void addFaction(Faction faction) {
-        factions.add(faction);
     }
 
     public int getStability() {

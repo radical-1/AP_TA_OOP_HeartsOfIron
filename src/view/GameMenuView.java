@@ -56,6 +56,18 @@ public class GameMenuView implements Menu {
                 String name = Command.SET_WEATHER.getGroup(input, "name");
                 setTileWeather(indexString, name);
             }
+            else if (Command.CREATE_FACTION.matches(input)) {
+                String name = Command.CREATE_FACTION.getGroup(input, "name");
+                createFaction(name);
+            }
+            else if (Command.JOIN_FACTION.matches(input)) {
+                String name = Command.JOIN_FACTION.getGroup(input, "name");
+                joinFaction(name);
+            }
+            else if (Command.LEAVE_FACTION.matches(input)) {
+                String name = Command.LEAVE_FACTION.getGroup(input, "name");
+                leaveFaction(name);
+            }
             else {
                 Menu.invalidCommand();
             }
@@ -108,6 +120,21 @@ public class GameMenuView implements Menu {
 
     private static void setTileWeather(String indexString, String name) {
         Result result = GameMenuController.setTileWeather(indexString, name);
+        System.out.println(result.getMessage());
+    }
+
+    private static void createFaction(String name) {
+        Result result = GameMenuController.createFaction(name);
+        System.out.println(result.getMessage());
+    }
+
+    private static void joinFaction(String name) {
+        Result result = GameMenuController.joinFaction(name);
+        System.out.println(result.getMessage());
+    }
+
+    private static void leaveFaction(String name) {
+        Result result = GameMenuController.leaveFaction(name);
         System.out.println(result.getMessage());
     }
 }

@@ -28,7 +28,10 @@ public enum Command {
     SHOW_BATTALIONS("show battalions (?<index>-?\\d+)"),
     SHOW_FACTORIES("show factories (?<index>-?\\d+)"),
     SET_TERRAIN("set terrain (?<index>-?\\d+) (?<name>\\S+)"),
-    SET_WEATHER("set weather (?<index>-?\\d+) (?<name>\\S+)");
+    SET_WEATHER("set weather (?<index>-?\\d+) (?<name>\\S+)"),
+    CREATE_FACTION("create faction (?<name>\\S+)"),
+    JOIN_FACTION("join faction (?<name>\\S+)"),
+    LEAVE_FACTION("leave faction (?<name>\\S+)");
 
     private final String regex;
     Command(String regex) {
