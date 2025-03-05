@@ -163,4 +163,30 @@ public class GameMenuController {
         }
         return new Result(false, "tile doesn't exist");
     }
+
+    public static Result setTileTerrain(String indexString, String name) {
+        int index = Integer.parseInt(indexString);
+        Tile tile = Tile.getTileByIndex(index);
+        if (tile != null) {
+            Terrain terrain = Terrain.getTerrainByName(name);
+            if (terrain == null)
+                return new Result(false, "terrain doesn't exist");
+            tile.setTerrain(terrain);
+            return new Result(true, "terrain set successfully");
+        }
+        return new Result(false, "tile doesn't exist");
+    }
+
+    public static Result setTileWeather(String indexString, String name) {
+        int index = Integer.parseInt(indexString);
+        Tile tile = Tile.getTileByIndex(index);
+        if (tile != null) {
+            Weather weather = Weather.getWeatherByName(name);
+            if (weather == null)
+                return new Result(false, "weather doesn't exist");
+            tile.setWeather(weather);
+            return new Result(true, "weather set successfully");
+        }
+        return new Result(false, "tile doesn't exist");
+    }
 }

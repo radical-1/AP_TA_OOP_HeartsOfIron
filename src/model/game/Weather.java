@@ -7,6 +7,17 @@ public enum Weather {
     SANDSTORM,
     FOG;
 
+    public static Weather getWeatherByName(String name) {
+        return switch (name) {
+            case "sunny" -> SUNNY;
+            case "rainy" -> RAINY;
+            case "blizzard" -> BLIZZARD;
+            case "sandstorm" -> SANDSTORM;
+            case "fog" -> FOG;
+            default -> null;
+        };
+    }
+
     @Override
     public String toString() {
         return switch (this) {

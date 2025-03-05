@@ -35,16 +35,25 @@ public class GameMenuView implements Menu {
                 getTileWeather(indexString);
             }
             else if (Command.TILE_TERRAIN.matches(input)) {
-                String indexString = Command.TILE_WEATHER.getGroup(input, "index");
+                String indexString = Command.TILE_TERRAIN.getGroup(input, "index");
                 getTileTerrain(indexString);
             }
             else if (Command.SHOW_BATTALIONS.matches(input)) {
-                String indexString = Command.TILE_WEATHER.getGroup(input, "index");
+                String indexString = Command.SHOW_BATTALIONS.getGroup(input, "index");
                 getTileBattalions(indexString);
             }
             else if (Command.SHOW_FACTORIES.matches(input)) {
-                String indexString = Command.TILE_WEATHER.getGroup(input, "index");
+                String indexString = Command.SHOW_FACTORIES.getGroup(input, "index");
                 getTileFactories(indexString);
+            }
+            else if (Command.SET_TERRAIN.matches(input)) {
+                String indexString = Command.SET_TERRAIN.getGroup(input, "index");
+                String name = Command.SET_TERRAIN.getGroup(input, "name");
+                setTileTerrain(indexString, name);
+            } else if (Command.SET_WEATHER.matches(input)) {
+                String indexString = Command.SET_WEATHER.getGroup(input, "index");
+                String name = Command.SET_WEATHER.getGroup(input, "name");
+                setTileWeather(indexString, name);
             }
             else {
                 Menu.invalidCommand();
@@ -88,6 +97,16 @@ public class GameMenuView implements Menu {
 
     private static void getTileFactories(String indexString) {
         Result result = GameMenuController.getTileFactories(indexString);
+        System.out.println(result.getMessage());
+    }
+
+    private static void setTileTerrain(String indexString, String name) {
+        Result result = GameMenuController.setTileTerrain(indexString, name);
+        System.out.println(result.getMessage());
+    }
+
+    private static void setTileWeather(String indexString, String name) {
+        Result result = GameMenuController.setTileWeather(indexString, name);
         System.out.println(result.getMessage());
     }
 }
