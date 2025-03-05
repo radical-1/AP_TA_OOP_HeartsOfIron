@@ -221,4 +221,16 @@ public class GameMenuController {
         faction.removeCountry(country);
         return new Result(true, country + " left " + faction);
     }
+
+    public static Result buildFactory(String indexString, String typeString, String name) {
+        Tile tile = Tile.getTileByIndex(Integer.parseInt(indexString));
+        if (tile == null)
+            return new Result(false, "invalid tile");
+        FactoryType type = FactoryType.getFactoryTypeByName(typeString);
+        if (type == null)
+            return new Result(false, "invalid factory type");
+        Factory factory = new Factory(type, name);
+        tile.addFactory(factory);
+        return new Result(true, "factory built successfully");
+    }
 }

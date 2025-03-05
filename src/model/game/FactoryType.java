@@ -33,8 +33,21 @@ public enum FactoryType {
         return maxPower;
     }
 
+    public static FactoryType getFactoryTypeByName(String typeName) {
+        return switch (typeName) {
+            case "steel" -> STEEL;
+            case "sulfur" -> SULFUR;
+            case "fuel" -> FUEL;
+            default -> null;
+        };
+    }
+
     @Override
     public String toString() {
-        return ""; //TODO
+        return switch (this) {
+            case STEEL -> "steel";
+            case SULFUR -> "sulfur";
+            case FUEL -> "fuel";
+        };
     }
 }

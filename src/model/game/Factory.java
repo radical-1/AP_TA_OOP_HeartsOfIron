@@ -5,10 +5,9 @@ public class Factory {
     private final String name;
     private int manpower;
 
-    public Factory(FactoryType type, String name, int manpower) {
+    public Factory(FactoryType type, String name) {
         this.type = type;
         this.name = name;
-        this.manpower = manpower;
     }
 
     public FactoryType getType() {
@@ -21,5 +20,10 @@ public class Factory {
 
     public int getManpower() {
         return manpower;
+    }
+
+    @Override
+    public String toString() {
+        return ""; //TODO
     }
 }

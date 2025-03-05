@@ -68,6 +68,12 @@ public class GameMenuView implements Menu {
                 String name = Command.LEAVE_FACTION.getGroup(input, "name");
                 leaveFaction(name);
             }
+            else if (Command.BUILD_FACTORY.matches(input)) {
+                String indexString = Command.BUILD_FACTORY.getGroup(input, "index");
+                String typeString = Command.BUILD_FACTORY.getGroup(input, "type");
+                String name = Command.BUILD_FACTORY.getGroup(input, "name");
+                buildFactory(indexString, typeString, name);
+            }
             else {
                 Menu.invalidCommand();
             }
@@ -135,6 +141,11 @@ public class GameMenuView implements Menu {
 
     private static void leaveFaction(String name) {
         Result result = GameMenuController.leaveFaction(name);
+        System.out.println(result.getMessage());
+    }
+
+    private static void buildFactory(String indexString, String typeString, String name) {
+        Result result = GameMenuController.buildFactory(indexString, typeString, name);
         System.out.println(result.getMessage());
     }
 }

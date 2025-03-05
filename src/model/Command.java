@@ -31,7 +31,8 @@ public enum Command {
     SET_WEATHER("set weather (?<index>-?\\d+) (?<name>\\S+)"),
     CREATE_FACTION("create faction (?<name>\\S+)"),
     JOIN_FACTION("join faction (?<name>\\S+)"),
-    LEAVE_FACTION("leave faction (?<name>\\S+)");
+    LEAVE_FACTION("leave faction (?<name>\\S+)"),
+    BUILD_FACTORY("build factory (?<index>-?\\d+) (?<type>\\S+) (?<name>\\S+)");
 
     private final String regex;
     Command(String regex) {
