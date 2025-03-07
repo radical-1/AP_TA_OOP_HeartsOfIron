@@ -38,6 +38,6 @@ public class LeaderboardView implements Menu {
 
     public static  void showHistory() {
         System.out.println("History:");
-        // TODO : implement thisc
+        // TODO : implement this
     }
 }

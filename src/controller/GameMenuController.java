@@ -5,7 +5,6 @@ import model.User;
 import model.game.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
 public class GameMenuController {
