@@ -12,6 +12,7 @@ public class LoginMenuController {
         if(!user.getPassword().equals(password)) {
             return new Result(false, "password is incorrect!");
         }
+        User.currentUser = user;
         return new Result(true, "user logged in successfully");
     }
     public static Result forgetPassword(String username, String email) {
@@ -26,6 +27,4 @@ public class LoginMenuController {
         return new Result(true, result);
 
     }
-
-
 }

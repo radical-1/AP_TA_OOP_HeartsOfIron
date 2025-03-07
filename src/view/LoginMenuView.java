@@ -29,7 +29,7 @@ public class LoginMenuView implements Menu {
             else if(Command.FORGET_PASSWORD.matches(input)) {
                 String username = Command.FORGET_PASSWORD.getGroup(input, "username");
                 String email = Command.FORGET_PASSWORD.getGroup(input, "email");
-                forgetPassword(username, email, scanner);
+                forgetPassword(username, email);
             }
             else {
                 Menu.invalidCommand();
@@ -46,7 +46,7 @@ public class LoginMenuView implements Menu {
             MainMenuView.run(scanner);
         }
     }
-    private static void forgetPassword(String username, String email, Scanner scanner) {
+    private static void forgetPassword(String username, String email) {
         Result forgetPasswordResult = LoginMenuController.forgetPassword(username, email);
         System.out.println(forgetPasswordResult.getMessage());
     }
