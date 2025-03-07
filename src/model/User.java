@@ -49,6 +49,14 @@ public class User {
         this.country = country;
     }
 
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
+    public static ArrayList<User> getAllUsers() {
+        return allUsers;
+    }
+
     public static User getUserByUsername(String username) {
         for(User user : allUsers) {
             if(user.getUsername().equals(username)) {
