@@ -11,6 +11,7 @@ public class MainMenuView implements Menu {
             String input = scanner.nextLine().trim();
             if(Command.EXIT.matches(input)) {
                 Menu.exit();
+                break;
             }
             else if(Command.SHOW_CURRENT_MENU.matches(input)) {
                 showCurrentMenu();

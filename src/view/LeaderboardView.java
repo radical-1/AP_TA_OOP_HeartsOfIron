@@ -10,9 +10,12 @@ public class LeaderboardView implements Menu {
         String input;
         while(true) {
             input = scanner.nextLine().trim();
-            if(Command.EXIT.matches(input)) {
+            if (Command.EXIT.matches(input)) {
                 Menu.exit();
                 break;
+            }
+            else if (Command.BACK.matches(input)) {
+                MainMenuView.run(scanner);
             }
             else if(Command.SHOW_CURRENT_MENU.matches(input)) {
                 showCurrentMenu();

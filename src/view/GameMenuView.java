@@ -14,6 +14,9 @@ public class GameMenuView implements Menu {
                 Menu.exit();
                 break;
             }
+            else if(Command.SHOW_CURRENT_MENU.matches(input)) {
+                showCurrentMenu();
+            }
             else if (Command.SHOW_COUNTRY_DETAIL.matches(input)) {
                 String countryName = Command.SHOW_COUNTRY_DETAIL.getGroup(input, "countryName");
                 getCountryDetails(countryName);
@@ -74,10 +77,18 @@ public class GameMenuView implements Menu {
                 String name = Command.BUILD_FACTORY.getGroup(input, "name");
                 buildFactory(indexString, typeString, name);
             }
+            else if (Command.PUPPET.matches(input)) {
+                String countryName = Command.PUPPET.getGroup(input, "countryName");
+                puppet(countryName);
+            }
             else {
                 Menu.invalidCommand();
             }
         }
+    }
+
+    private static void showCurrentMenu() {
+        System.out.println("game menu");
     }
 
     private static void getCountryDetails(String countryName) {
@@ -146,6 +157,11 @@ public class GameMenuView implements Menu {
 
     private static void buildFactory(String indexString, String typeString, String name) {
         Result result = GameMenuController.buildFactory(indexString, typeString, name);
+        System.out.println(result.getMessage());
+    }
+
+    private static void puppet(String countryName) {
+        Result result = GameMenuController.puppet(countryName);
         System.out.println(result.getMessage());
     }
 }

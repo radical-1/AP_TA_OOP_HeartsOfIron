@@ -232,4 +232,12 @@ public class GameMenuController {
         tile.addFactory(factory);
         return new Result(true, "factory built successfully");
     }
+
+    public static Result puppet(String countryName) {
+        Country puppet = Country.getCountryByName(countryName);
+        if (puppet == null) {
+            return new Result(false, "country doesn't exist");
+        }
+        return new Result(true, "now " + countryName + " is my puppet yo ho ha ha ha");
+    }
 }

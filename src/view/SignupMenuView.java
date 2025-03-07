@@ -12,6 +12,7 @@ public class SignupMenuView implements Menu {
             String input = scanner.nextLine().trim();
             if(Command.EXIT.matches(input)) {
                 Menu.exit();
+                break;
             }
             else if(Command.SHOW_CURRENT_MENU.matches(input)) {
                 showCurrentMenu();
@@ -30,10 +31,10 @@ public class SignupMenuView implements Menu {
             }
         }
     }
-    public static void showCurrentMenu() {
+    private static void showCurrentMenu() {
         System.out.println("signup menu");
     }
-    public static void registerUser(String username, String password, String email, Scanner scanner) {
+    private static void registerUser(String username, String password, String email, Scanner scanner) {
         Result registerResult = SignupMenuController.register(username, password, email);
         System.out.println(registerResult.getMessage());
         if(registerResult.isValid()) {
