@@ -35,13 +35,14 @@ public enum Command {
     JOIN_FACTION("join\\s+faction\\s+(?<name>\\S+)"),
     LEAVE_FACTION("leave\\s+faction\\s+(?<name>\\S+)"),
     BUILD_FACTORY("build\\s+factory\\s+(?<index>-?\\d+)\\s+(?<type>\\S+)\\s+(?<name>\\S+)"),
-    PUPPET("puppet\\s+(?<countryName>\\S+)");
+    PUPPET("puppet\\s+(?<countryName>\\S+)"),
+    PLAY("play(?:\\s+(\\S+)){1,4}");
 
     private final String regex;
     Command(String regex) {
         this.regex = regex;
     }
-    private Matcher getMatcher(String input) {
+    public Matcher getMatcher(String input) {
         Matcher matcher  = Pattern.compile(regex).matcher(input);
         if (matcher.matches()) return matcher;
         return null;

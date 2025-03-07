@@ -4,14 +4,13 @@ import model.game.Country;
 
 import java.util.ArrayList;
 
-public class User {
+public class User extends Player {
     public static User currentUser;
     public static ArrayList<User> allUsers = new ArrayList<>();
     private final String username;
     private final String password;
     private final String email;
-    private int score;
-    private Country country;
+
     public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
@@ -33,26 +32,6 @@ public class User {
         return email;
     }
 
-    public int getScore() {
-        return score;
-    }
-
-    public void updateScore(int addedScore) {
-        this.score = score + addedScore;
-    }
-
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
-    public static User getCurrentUser() {
-        return currentUser;
-    }
-
     public static ArrayList<User> getAllUsers() {
         return allUsers;
     }
@@ -68,6 +47,4 @@ public class User {
     public static void logout() {
         currentUser = null;
     }
-
-
 }
