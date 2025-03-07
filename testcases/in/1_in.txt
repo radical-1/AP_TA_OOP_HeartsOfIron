@@ -1,0 +1,28 @@
+khar
+show current menu
+logout
+register -username khar! -password 1234 -email ma
+register -username 1khar -password 1234 -email ma
+register -username _khar -password 1234 -email ma
+register -username kh_ar -password 1234 -email ma
+register -username khar24 -password 12 3 41234 -email ma
+register -username khar43 -password 1234dfsdg -email ma
+register -username khar42 -password asgsdg1234 -email ma
+register -username khar45 -password Aa123456! -email mss@sdg.
+register -username khar52 -password Aa123456! -email ma.sdf.sdg.sg@gmail.com
+register -username kh_ar235 -password Aa123456! -email mamad@gmail.com
+register -username kh_ar235 -password Aaad23456! -email mamad@gmail.com
+back
+register -username kh_ar235 -password Aaad23456! -email mamad@gmail.com
+show current menu
+login
+show current menu
+login -username khar -password 1234
+show current menu
+login -username kh_ar235 -password Aaad23456!
+show current menu
+login -username kh_ar235 -password Aa123456!
+show current menu
+logout
+show current menu
+exit

@@ -1,0 +1,44 @@
+back
+logout
+show current menu
+ba ck
+   log out
+register -username    _underline_dare_avalesh    -password 1234 -email ma
+register -username    TEST -password         1234 -email ma
+register       -username    TEST -password         2222 221234   -email ma
+register       -username    TEST -password2222F221234   -email ma
+register       -username    TEST -password   2222F221234   -email ma
+register       -username    TEST -password         G2222221234   -email ma
+register       -username    TEST -password         G2222%221234   -email man.Mikham.Beram.noon.begiram@meow.org
+register       -username    TEST -password         G2222%221234   -email man.Mikham@meow.org
+register       -username    TEST -password         G2222%221234   -email man.Mikham@meow.com
+show current menu
+back
+show current menu
+register-username    TEST -password  G2222%221234   -email man.Mikham@meow.com
+register -username    TEST -password  G2222%221234   -email man.Mikham@meow.com
+show current menu
+login
+show current menu
+login -username    KI  F -password  G222     2%221234
+login -username    KI  -password  G222%221234
+login -username    TEST -password  %221234
+login -username    TEST -password  G2222%221234
+login -username    TEST -password  G2222%221234
+show current menu
+back
+logout
+show current menu
+logout
+login -username    TEST -password  G2222%221234
+login
+    login      -username    TEST -password  G2222%221234
+show current menu
+ leader board
+leaderboard
+show current menu
+back
+show current menu
+leaderboard
+logout
+exit
