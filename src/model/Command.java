@@ -36,7 +36,9 @@ public enum Command {
     LEAVE_FACTION("leave\\s+faction\\s+(?<name>\\S+)"),
     BUILD_FACTORY("build\\s+factory\\s+(?<index>-?\\d+)\\s+(?<type>\\S+)\\s+(?<name>\\S+)"),
     PUPPET("puppet\\s+(?<countryName>\\S+)"),
-    PLAY("play(?:\\s+(\\S+)){1,4}");
+    PLAY("play(?:\\s+(\\S+)){1,4}"),
+    CHOOSE_COUNTRY("choose\\s+country(?:\\s+(\\S+)){5}"),
+    SWITCH_PLAYER("switch\\s+player\\s+(?<username>\\S+)");
 
     private final String regex;
     Command(String regex) {

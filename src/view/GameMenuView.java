@@ -3,8 +3,11 @@ package view;
 import controller.GameMenuController;
 import model.Command;
 import model.Result;
+import model.game.Country;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
 
 public class GameMenuView implements Menu {
     public static void run(Scanner scanner) {
@@ -16,6 +19,18 @@ public class GameMenuView implements Menu {
             }
             else if(Command.SHOW_CURRENT_MENU.matches(input)) {
                 showCurrentMenu();
+            }
+            else if (Command.SWITCH_PLAYER.matches(input)) {
+                String username = Command.SWITCH_PLAYER.getGroup(input, "username");
+                switchPlayer(username);
+            }
+            else if (Command.CHOOSE_COUNTRY.matches(input)) {
+                ArrayList<String> countryNames = new ArrayList<>();
+                Matcher matcher = Command.CHOOSE_COUNTRY.getMatcher(input);
+                if (matcher == null) continue;
+                for (int i = 1; i <= 5; i++)
+                    countryNames.add(matcher.group(i));
+                chooseCountry(countryNames);
             }
             else if (Command.SHOW_COUNTRY_DETAIL.matches(input)) {
                 String countryName = Command.SHOW_COUNTRY_DETAIL.getGroup(input, "countryName");
@@ -89,6 +104,16 @@ public class GameMenuView implements Menu {
 
     private static void showCurrentMenu() {
         System.out.println("game menu");
+    }
+
+    private static void chooseCountry(ArrayList<String> countryNames) {
+        Result result = GameMenuController.chooseCountry(countryNames);
+        if (!result.isValid()) System.out.println(result.getMessage());
+    }
+
+    private static void switchPlayer(String username) {
+        Result result = GameMenuController.switchPlayer(username);
+        System.out.println(result.getMessage());
     }
 
     private static void getCountryDetails(String countryName) {

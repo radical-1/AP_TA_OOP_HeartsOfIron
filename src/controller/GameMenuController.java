@@ -1,13 +1,42 @@
 package controller;
 
-import model.Result;
-import model.User;
+import model.*;
 import model.game.*;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 
 public class GameMenuController {
+    public static Result switchPlayer(String username) {
+        User user = User.getUserByUsername(username);
+        Guest guest = Guest.getGuestByUsername(username);
+        Player player;
+        if (user == null && guest == null)
+            return new Result(false, "player doesn't exist");
+        if (user == null) player = guest;
+        else player = user;
+        if (!Game.currentGame.getPlayers().contains(player))
+            return new Result(false, "player doesn't exist");
+        if (player == Game.currentPlayer)
+            return new Result(false, "you can't switch to yourself");
+        Game.currentPlayer = player;
+        return new Result(true, "switched to " + username);
+    }
+    public static Result chooseCountry(ArrayList<String> countryNames) {
+        ArrayList<Country> countries = new ArrayList<>();
+        Country country;
+        for (String name: countryNames) {
+            country = Country.getCountryByName(name);
+            if (country == null)
+                return new Result(false, "wrong country name");
+            if (countries.contains(country))
+                return new Result(false, "country already taken");
+            countries.add(country);
+        }
+        Game.currentGame.assignCountries(countries);
+        return new Result(true, "");
+    }
+
     public static Result getCountryDetails(String countryName) {
         Country country = Country.getCountryByName(countryName);
         if (country == null) return new Result(false, "country doesn't exist");

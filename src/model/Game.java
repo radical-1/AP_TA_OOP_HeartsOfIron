@@ -1,11 +1,14 @@
 package model;
 
+import model.game.Country;
+
 import java.util.ArrayList;
 
 public class Game {
     private static final ArrayList<Game> games;
 
     public static Game currentGame;
+    public static Player currentPlayer;
 
     private final ArrayList<Player> players;
 
@@ -23,6 +26,11 @@ public class Game {
 
     public static ArrayList<Game> getAllGames() {
         return games;
+    }
+
+    public void assignCountries(ArrayList<Country> countries) {
+        for (int i = 0; i < 5; i++)
+            players.get(i).setCountry(countries.get(i));
     }
 
     @Override
