@@ -30,17 +30,17 @@ public class LeaderboardView implements Menu {
         }
     }
 
-    public static void showCurrentMenu() {
+    private static void showCurrentMenu() {
         System.out.println("leaderboard menu");
     }
 
-    public static void showRanking() {
+    private static void showRanking() {
         System.out.println("Leaderboard:");
         System.out.println(LeaderBoardController.getRanking());
     }
 
-    public static  void showHistory() {
+    private static  void showHistory() {
         System.out.println("History:");
-        // TODO : implement this
+        System.out.println(LeaderBoardController.getHistory());
     }
 }

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 public class User extends Player {
     public static User currentUser;
     public static ArrayList<User> allUsers = new ArrayList<>();
-    private final String username;
     private final String password;
     private final String email;
 
@@ -18,10 +17,6 @@ public class User extends Player {
         score = 0;
         allUsers.add(this);
         country = null;
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     public String getPassword() {
@@ -38,7 +33,7 @@ public class User extends Player {
 
     public static User getUserByUsername(String username) {
         for(User user : allUsers) {
-            if(user.getUsername().equals(username)) {
+            if(user.username.equals(username)) {
                 return user;
             }
         }

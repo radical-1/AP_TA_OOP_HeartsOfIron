@@ -7,8 +7,7 @@ public class Guest extends Player {
         this.number = number;
     }
 
-    @Override
-    public String toString() {
+    public String getUsername() {
         return "guest" + number;
     }
 }
