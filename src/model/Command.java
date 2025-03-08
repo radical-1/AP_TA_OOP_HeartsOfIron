@@ -10,12 +10,13 @@ public enum Command {
     LOGOUT("logout"),
     WITHOUT_WHITESPACE("\\S+"),
     REGISTER_USER("register\\s+-username\\s+(?<username>\\S+)\\s+-password\\s+(?<password>.+)\\s+-email\\s+(?<email>\\S+)"),
-    VALID_USERNAME("[a-zA-Z_]+"),
+    VALID_USERNAME("[a-zA-Z0-9_]+"),
+    USERNAME_STARTS_WITH_LETTER("(?=^[a-zA-Z])\\S+"),
     PASSWORD_LENGTH(".{8,20}"),
-    PASSWORD_SPECIAL_CHARACTERS("(?=\\S*[@#$^&!])\\S*"),
+    PASSWORD_SPECIAL_CHARACTERS("(?=\\S*[@#$^&!%])\\S*"),
     PASSWORD_STARTS_WITH_LETTER("(?=^[a-zA-Z])\\S+"),
     EMAIL_VALID_ADDRESS("[a-zA-Z0-9]+(\\.[a-zA-Z0-9]*)?@[a-z]+\\.com"),
-    LOGIN_USER("login\\s+username\\s+(?<username>\\S+)\\s+password\\s+(?<password>\\S+)"),
+    LOGIN_USER("login\\s+-username\\s+(?<username>\\S+)\\s+-password\\s+(?<password>\\S+)"),
     GO_TO_LOGIN_MENU("login"),
     GO_TO_LEADERBOARD("leaderboard"),
     SHOW_RANKING("show ranking"),
@@ -42,8 +43,8 @@ public enum Command {
     }
     private Matcher getMatcher(String input) {
         Matcher matcher  = Pattern.compile(regex).matcher(input);
-        if (matcher.matches()) return matcher;
-        return null;
+        matcher.matches();
+        return matcher;
     }
     public boolean matches(String input) {
         return getMatcher(input).matches();

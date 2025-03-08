@@ -8,8 +8,9 @@ public interface Menu {
     static void run(Scanner scanner) {}
 
     static void exit() {
-        System.exit(0);
+        throw new RuntimeException("Terminating main method");
     }
+
     static void invalidCommand() {
         System.out.println("invalid command");
     }

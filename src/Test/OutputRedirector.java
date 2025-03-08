@@ -1,4 +1,4 @@
-package testRuner;
+package Test;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

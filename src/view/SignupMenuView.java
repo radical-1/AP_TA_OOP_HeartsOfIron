@@ -18,7 +18,7 @@ public class SignupMenuView implements Menu {
             }
             else if(Command.REGISTER_USER.matches(input)) {
                 String username = Command.REGISTER_USER.getGroup(input, "username");
-                String password = Command.REGISTER_USER.getGroup(input, "password");
+                String password = Command.REGISTER_USER.getGroup(input, "password").trim();
                 String email = Command.REGISTER_USER.getGroup(input, "email");
                 registerUser(username, password, email, scanner);
             }

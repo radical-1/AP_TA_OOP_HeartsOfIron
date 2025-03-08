@@ -13,6 +13,8 @@ public class LeaderboardView implements Menu {
             if(Command.EXIT.matches(input)) {
                 Menu.exit();
                 break;
+            } else if (Command.BACK.matches(input)) {
+                break;
             }
             else if(Command.SHOW_CURRENT_MENU.matches(input)) {
                 showCurrentMenu();

@@ -17,8 +17,10 @@ public class MainMenuView implements Menu {
             }
             else if(Command.LOGOUT.matches(input)) {
                 logout(scanner);
-            }
-            else {
+                break;
+            } else if (Command.GO_TO_LEADERBOARD.matches(input)) {
+                LeaderboardView.run(scanner);
+            } else {
                 Menu.invalidCommand();
             }
         }
@@ -29,6 +31,5 @@ public class MainMenuView implements Menu {
     }
     public static void logout(Scanner scanner) {
         User.logout();
-        SignupMenuView.run(scanner);
     }
 }
