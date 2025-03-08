@@ -38,7 +38,8 @@ public enum Command {
     PUPPET("puppet\\s+(?<countryName>\\S+)"),
     PLAY("play(?:\\s+(\\S+)){1,4}"),
     CHOOSE_COUNTRY("choose\\s+country(?:\\s+(\\S+)){5}"),
-    SWITCH_PLAYER("switch\\s+player\\s+(?<username>\\S+)");
+    SWITCH_PLAYER("switch\\s+player\\s+(?<username>\\S+)"),
+    ADD_BATTALION("add\\s+battalion\\s+(?<index>-?\\d+)\\s+(?<type>\\S+)\\s+(?<name>\\S+)");
 
     private final String regex;
     Command(String regex) {
@@ -46,8 +47,8 @@ public enum Command {
     }
     public Matcher getMatcher(String input) {
         Matcher matcher  = Pattern.compile(regex).matcher(input);
-        if (matcher.matches()) return matcher;
-        return null;
+        matcher.matches();
+        return matcher;
     }
     public boolean matches(String input) {
         return getMatcher(input).matches();

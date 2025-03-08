@@ -96,6 +96,12 @@ public class GameMenuView implements Menu {
                 String countryName = Command.PUPPET.getGroup(input, "countryName");
                 puppet(countryName);
             }
+            else if (Command.ADD_BATTALION.matches(input)) {
+                String indexString = Command.ADD_BATTALION.getGroup(input, "index");
+                String typeString = Command.ADD_BATTALION.getGroup(input, "type");
+                String name = Command.ADD_BATTALION.getGroup(input, "name");
+                addBattalion(indexString, typeString, name);
+            }
             else {
                 Menu.invalidCommand();
             }
@@ -187,6 +193,11 @@ public class GameMenuView implements Menu {
 
     private static void puppet(String countryName) {
         Result result = GameMenuController.puppet(countryName);
+        System.out.println(result.getMessage());
+    }
+
+    private static void addBattalion(String indexString, String typeString, String name) {
+        Result result = GameMenuController.addBattalion(indexString, typeString, name);
         System.out.println(result.getMessage());
     }
 }

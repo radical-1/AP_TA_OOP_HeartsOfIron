@@ -129,7 +129,7 @@ public class GameMenuController {
         if (tile != null) {
             Country owner = tile.getOwner();
             Country current = Game.currentPlayer.getCountry();
-            if (owner == current || current.isPuppet(owner) || !isSameFaction(owner, current))
+            if (owner != current && !current.isPuppet(owner) && !isSameFaction(owner, current))
                 return new Result(false, "can't show battalions");
 
             ArrayList<Battalion> battalions = tile.getBattalions();
@@ -174,7 +174,7 @@ public class GameMenuController {
         if (tile != null) {
             Country owner = tile.getOwner();
             Country current = Game.currentPlayer.getCountry();
-            if (owner == current || current.isPuppet(owner) || !isSameFaction(owner, current))
+            if (owner != current && !current.isPuppet(owner) && !isSameFaction(owner, current))
                 return new Result(false, "can't show factories");
 
             ArrayList<Factory> factories = tile.getFactories();
@@ -299,5 +299,53 @@ public class GameMenuController {
             return new Result(false, "country doesn't exist");
         }
         return new Result(true, "now " + countryName + " is my puppet yo ho ha ha ha");
+    }
+
+    public static Result addBattalion(String indexString, String typeString, String name) {
+        int index = Integer.parseInt(indexString);
+        Tile tile = Tile.getTileByIndex(index);
+        if (tile != null) {
+            Country owner = tile.getOwner();
+            Country current = Game.currentPlayer.getCountry();
+            if (owner != current && !current.isPuppet(owner) && !isSameFaction(owner, current))
+                return new Result(false, "tile is unavailable");
+            BattalionType type = BattalionType.getBattalionTypeByName(typeString);
+            if (type == null)
+                return new Result(false, "you can't use imaginary battalions");
+            if (isNameRepeatedInTile(tile, name))
+                return new Result(false, "battalion name already taken");
+            if (!enoughMoneyExists(tile, type))
+                return new Result(false, "daddy USA plz help us");
+            if (reachedMaximum(tile, type))
+                return new Result(false, "you can't add this type of battalion anymore");
+
+            Battalion battalion = new Battalion(name, type, owner);
+            tile.addBattalion(battalion);
+            return new Result(true, "battalion set successfully");
+        }
+        return new Result(false, "tile doesn't exist");
+    }
+
+    private static boolean isNameRepeatedInTile(Tile tile, String name) {
+        for (Battalion battalion: tile.getBattalions()) {
+            if (battalion.getName().equals(name)) return true;
+        }
+        return false;
+    }
+
+    private static boolean enoughMoneyExists(Tile tile, BattalionType type) {
+        Country owner = tile.getOwner();
+        return  owner.getFuel() >= type.getFuel() &&
+                owner.getSteel() >= type.getSteel() &&
+                owner.getSulfur() >= type.getSulfur() &&
+                owner.getManpower() >= type.getManpower();
+    }
+
+    private static boolean reachedMaximum(Tile tile, BattalionType battalionType) {
+        int count = 0;
+        for (Battalion battalion : tile.getBattalions()) {
+            if (battalion.getType() == battalionType) count++;
+        }
+        return count == 3;
     }
 }
