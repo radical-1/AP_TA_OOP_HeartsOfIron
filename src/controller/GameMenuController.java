@@ -312,7 +312,7 @@ public class GameMenuController {
             BattalionType type = BattalionType.getBattalionTypeByName(typeString);
             if (type == null)
                 return new Result(false, "you can't use imaginary battalions");
-            if (isNameRepeatedInTile(tile, name))
+            if (isBattalionNameRepeatedInTile(tile, name))
                 return new Result(false, "battalion name already taken");
             if (!enoughMoneyExists(tile, type))
                 return new Result(false, "daddy USA plz help us");
@@ -323,10 +323,10 @@ public class GameMenuController {
             tile.addBattalion(battalion);
             return new Result(true, "battalion set successfully");
         }
-        return new Result(false, "tile doesn't exist");
+        return new Result(false, "tile is unavailable");
     }
 
-    private static boolean isNameRepeatedInTile(Tile tile, String name) {
+    private static boolean isBattalionNameRepeatedInTile(Tile tile, String name) {
         for (Battalion battalion: tile.getBattalions()) {
             if (battalion.getName().equals(name)) return true;
         }
@@ -335,6 +335,12 @@ public class GameMenuController {
 
     private static boolean enoughMoneyExists(Tile tile, BattalionType type) {
         Country owner = tile.getOwner();
+        if (owner.getLeader().getIdeology() == Ideology.DEMOCRACY)
+            return owner.getFuel() >= 2 * type.getFuel() &&
+                    owner.getSteel() >= 2 * type.getSteel() &&
+                    owner.getSulfur() >= 2 * type.getSulfur() &&
+                    owner.getManpower() >= 2 * type.getManpower();
+
         return  owner.getFuel() >= type.getFuel() &&
                 owner.getSteel() >= type.getSteel() &&
                 owner.getSulfur() >= type.getSulfur() &&
@@ -347,5 +353,41 @@ public class GameMenuController {
             if (battalion.getType() == battalionType) count++;
         }
         return count == 3;
+    }
+
+    public static Result moveBattalion(String sourceIndexString, String name, String destIndexString) {
+        int sourceIndex = Integer.parseInt(sourceIndexString);
+        int destIndex = Integer.parseInt(destIndexString);
+        Tile source = Tile.getTileByIndex(sourceIndex);
+        Tile dest = Tile.getTileByIndex(destIndex);
+        if (source != null && dest != null) {
+            Country sourceOwner = source.getOwner();
+            Country destOwner = dest.getOwner();
+            Country current = Game.currentPlayer.getCountry();
+            if (sourceOwner != current && !current.isPuppet(sourceOwner) && !isSameFaction(sourceOwner, current))
+                return new Result(false, "tile is unavailable");
+            if (destOwner != current && !current.isPuppet(destOwner) && !isSameFaction(destOwner, current))
+                return new Result(false, "tile is unavailable");
+
+            Battalion battalion = getBattalionByName(source, name);
+            if (battalion == null)
+                return new Result(false, "no battalion with the given name");
+            if (reachedMaximum(dest, battalion.getType()))
+                return new Result(false, "maximum battalion of this type in destination exists");
+            if (isBattalionNameRepeatedInTile(dest, name))
+                return new Result(false, "battalion name is already taken in this tile");
+
+            source.removeBattalion(battalion);
+            dest.addBattalion(battalion);
+            return new Result(true, "battalion moved successfully");
+        }
+        return new Result(false, "tile is unavailable");
+    }
+
+    private static Battalion getBattalionByName(Tile tile, String name) {
+        for (Battalion battalion : tile.getBattalions()) {
+            if (battalion.getName().equals(name)) return battalion;
+        }
+        return null;
     }
 }

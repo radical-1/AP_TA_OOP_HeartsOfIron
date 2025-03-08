@@ -204,6 +204,10 @@ public enum Tile {
         battalions.add(battalion);
     }
 
+    public void removeBattalion(Battalion battalion) {
+        battalions.remove(battalion);
+    }
+
     public boolean isTerrainChanged() {
         return terrainChanged;
     }
