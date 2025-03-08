@@ -50,7 +50,7 @@ public class GameMenuController {
         message.append("steel : ").append(country.getSteel()).append("\n");
         message.append("faction : ");
         ArrayList<Faction> factions = new ArrayList<>();
-        for (Faction faction: Faction.getFactions()) {
+        for (Faction faction: Faction.getAllFactions()) {
             if (faction.countryExists(country)) factions.add(faction);
         }
         for (int i = 0; i < factions.size(); i++) {
@@ -127,6 +127,11 @@ public class GameMenuController {
         int index = Integer.parseInt(indexString);
         Tile tile = Tile.getTileByIndex(index);
         if (tile != null) {
+            Country owner = tile.getOwner();
+            Country current = Game.currentPlayer.getCountry();
+            if (owner == current || current.isPuppet(owner) || !isSameFaction(owner, current))
+                return new Result(false, "can't show battalions");
+
             ArrayList<Battalion> battalions = tile.getBattalions();
             battalions.sort(Comparator.comparing(Battalion::getName));
 
@@ -167,6 +172,11 @@ public class GameMenuController {
         int index = Integer.parseInt(indexString);
         Tile tile = Tile.getTileByIndex(index);
         if (tile != null) {
+            Country owner = tile.getOwner();
+            Country current = Game.currentPlayer.getCountry();
+            if (owner == current || current.isPuppet(owner) || !isSameFaction(owner, current))
+                return new Result(false, "can't show factories");
+
             ArrayList<Factory> factories = tile.getFactories();
             factories.sort(Comparator.comparing(Factory::getName));
 
@@ -194,6 +204,14 @@ public class GameMenuController {
             return new Result(true, message.toString());
         }
         return new Result(false, "tile doesn't exist");
+    }
+
+    private static boolean isSameFaction(Country c1, Country c2) {
+        for (Faction faction: Faction.getAllFactions()) {
+            if (faction.countryExists(c1) && faction.countryExists(c2))
+                return true;
+        }
+        return false;
     }
 
     public static Result setTileTerrain(String indexString, String name) {

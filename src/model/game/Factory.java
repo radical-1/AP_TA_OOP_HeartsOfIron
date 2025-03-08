@@ -5,9 +5,12 @@ public class Factory {
     private final String name;
     private int manpower;
 
+    private int extracted;
+
     public Factory(FactoryType type, String name) {
         this.type = type;
         this.name = name;
+        extracted = 0;
     }
 
     public FactoryType getType() {
@@ -24,6 +27,6 @@ public class Factory {
 
     @Override
     public String toString() {
-        return ""; //TODO
+        return name + " " + (type.getMaxPower() - extracted);
     }
 }

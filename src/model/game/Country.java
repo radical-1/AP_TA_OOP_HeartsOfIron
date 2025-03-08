@@ -83,6 +83,10 @@ public enum Country {
         this.puppets.add(puppet);
     }
 
+    public boolean isPuppet(Country country) {
+        return puppets.contains(country);
+    }
+
     public static Country getCountryByName(String name) {
         return switch (name) {
             case "Soviet Union" -> SOVIET_UNION;
