@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public enum Command {
-    SHOW_CURRENT_MENU("show current menu"),
+    SHOW_CURRENT_MENU("show\\s+current\\s+menu"),
     BACK("back"),
     EXIT("exit"),
     LOGOUT("logout"),
@@ -19,29 +19,34 @@ public enum Command {
     LOGIN_USER("login\\s+-username\\s+(?<username>\\S+)\\s+-password\\s+(?<password>\\S+)"),
     GO_TO_LOGIN_MENU("login"),
     GO_TO_LEADERBOARD("leaderboard"),
-    SHOW_RANKING("show ranking"),
-    SHOW_HISTORY("show history"),
+    SHOW_RANKING("show\\s+ranking"),
+    SHOW_HISTORY("show\\s+history"),
     FORGET_PASSWORD("forget-password\\s+-username\\s+(?<username>\\S+)\\s+-email\\s+(?<email>\\S+)"),
-    SHOW_COUNTRY_DETAIL("show detail (?<countryName>\\S+)"),
-    TILE_OWNER("tile owner (?<index>-?\\d+)"),
-    TILE_LAND_NEIGHBORS("tile neighbors (?<index>-?\\d+)"),
-    TILE_SEA_NEIGHBORS("tile sea neighbors (?<index>-?\\d+)"),
-    TILE_WEATHER("show weather (?<index>-?\\d+)"),
-    TILE_TERRAIN("show terrain (?<index>-?\\d+)"),
-    SHOW_BATTALIONS("show battalions (?<index>-?\\d+)"),
-    SHOW_FACTORIES("show factories (?<index>-?\\d+)"),
-    SET_TERRAIN("set terrain (?<index>-?\\d+) (?<name>\\S+)"),
-    SET_WEATHER("set weather (?<index>-?\\d+) (?<name>\\S+)"),
-    CREATE_FACTION("create faction (?<name>\\S+)"),
-    JOIN_FACTION("join faction (?<name>\\S+)"),
-    LEAVE_FACTION("leave faction (?<name>\\S+)"),
-    BUILD_FACTORY("build factory (?<index>-?\\d+) (?<type>\\S+) (?<name>\\S+)");
+    SHOW_COUNTRY_DETAIL("show\\s+detail\\s+(?<countryName>\\S+)"),
+    TILE_OWNER("tile\\s+owner\\s+(?<index>-?\\d+)"),
+    TILE_LAND_NEIGHBORS("tile\\s+neighbors\\s+(?<index>-?\\d+)"),
+    TILE_SEA_NEIGHBORS("tile\\s+sea\\s+neighbors\\s+(?<index>-?\\d+)"),
+    TILE_WEATHER("show\\s+weather\\s+(?<index>-?\\d+)"),
+    TILE_TERRAIN("show\\s+terrain\\s+(?<index>-?\\d+)"),
+    SHOW_BATTALIONS("show\\s+battalions\\s+(?<index>-?\\d+)"),
+    SHOW_FACTORIES("show\\s+factories\\s+(?<index>-?\\d+)"),
+    SET_TERRAIN("set\\s+terrain\\s+(?<index>-?\\d+)\\s+(?<name>\\S+)"),
+    SET_WEATHER("set\\s+weather\\s+(?<index>-?\\d+)\\s+(?<name>\\S+)"),
+    CREATE_FACTION("create\\s+faction\\s+(?<name>\\S+)"),
+    JOIN_FACTION("join\\s+faction\\s+(?<name>\\S+)"),
+    LEAVE_FACTION("leave\\s+faction\\s+(?<name>\\S+)"),
+    BUILD_FACTORY("build\\s+factory\\s+(?<index>-?\\d+)\\s+(?<type>\\S+)\\s+(?<name>\\S+)"),
+    PUPPET("puppet\\s+(?<countryName>\\S+)"),
+    PLAY("play(?:\\s+(\\S+)){1,4}"),
+    CHOOSE_COUNTRY("choose\\s+country(?:\\s+(\\S+)){5}"),
+    SWITCH_PLAYER("switch\\s+player\\s+(?<username>\\S+)"),
+    ADD_BATTALION("add\\s+battalion\\s+(?<index>-?\\d+)\\s+(?<type>\\S+)\\s+(?<name>\\S+)");
 
     private final String regex;
     Command(String regex) {
         this.regex = regex;
     }
-    private Matcher getMatcher(String input) {
+    public Matcher getMatcher(String input) {
         Matcher matcher  = Pattern.compile(regex).matcher(input);
         matcher.matches();
         return matcher;

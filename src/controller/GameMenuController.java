@@ -1,14 +1,42 @@
 package controller;
 
-import model.Result;
-import model.User;
+import model.*;
 import model.game.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
 public class GameMenuController {
+    public static Result switchPlayer(String username) {
+        User user = User.getUserByUsername(username);
+        Guest guest = Guest.getGuestByUsername(username);
+        Player player;
+        if (user == null && guest == null)
+            return new Result(false, "player doesn't exist");
+        if (user == null) player = guest;
+        else player = user;
+        if (!Game.currentGame.getPlayers().contains(player))
+            return new Result(false, "player doesn't exist");
+        if (player == Game.currentPlayer)
+            return new Result(false, "you can't switch to yourself");
+        Game.currentPlayer = player;
+        return new Result(true, "switched to " + username);
+    }
+    public static Result chooseCountry(ArrayList<String> countryNames) {
+        ArrayList<Country> countries = new ArrayList<>();
+        Country country;
+        for (String name: countryNames) {
+            country = Country.getCountryByName(name);
+            if (country == null)
+                return new Result(false, "wrong country name");
+            if (countries.contains(country))
+                return new Result(false, "country already taken");
+            countries.add(country);
+        }
+        Game.currentGame.assignCountries(countries);
+        return new Result(true, "");
+    }
+
     public static Result getCountryDetails(String countryName) {
         Country country = Country.getCountryByName(countryName);
         if (country == null) return new Result(false, "country doesn't exist");
@@ -22,7 +50,7 @@ public class GameMenuController {
         message.append("steel : ").append(country.getSteel()).append("\n");
         message.append("faction : ");
         ArrayList<Faction> factions = new ArrayList<>();
-        for (Faction faction: Faction.getFactions()) {
+        for (Faction faction: Faction.getAllFactions()) {
             if (faction.countryExists(country)) factions.add(faction);
         }
         for (int i = 0; i < factions.size(); i++) {
@@ -99,6 +127,11 @@ public class GameMenuController {
         int index = Integer.parseInt(indexString);
         Tile tile = Tile.getTileByIndex(index);
         if (tile != null) {
+            Country owner = tile.getOwner();
+            Country current = Game.currentPlayer.getCountry();
+            if (owner != current && !current.isPuppet(owner) && !isSameFaction(owner, current))
+                return new Result(false, "can't show battalions");
+
             ArrayList<Battalion> battalions = tile.getBattalions();
             battalions.sort(Comparator.comparing(Battalion::getName));
 
@@ -139,6 +172,11 @@ public class GameMenuController {
         int index = Integer.parseInt(indexString);
         Tile tile = Tile.getTileByIndex(index);
         if (tile != null) {
+            Country owner = tile.getOwner();
+            Country current = Game.currentPlayer.getCountry();
+            if (owner != current && !current.isPuppet(owner) && !isSameFaction(owner, current))
+                return new Result(false, "can't show factories");
+
             ArrayList<Factory> factories = tile.getFactories();
             factories.sort(Comparator.comparing(Factory::getName));
 
@@ -168,14 +206,30 @@ public class GameMenuController {
         return new Result(false, "tile doesn't exist");
     }
 
+    private static boolean isSameFaction(Country c1, Country c2) {
+        for (Faction faction: Faction.getAllFactions()) {
+            if (faction.countryExists(c1) && faction.countryExists(c2))
+                return true;
+        }
+        return false;
+    }
+
     public static Result setTileTerrain(String indexString, String name) {
         int index = Integer.parseInt(indexString);
         Tile tile = Tile.getTileByIndex(index);
         if (tile != null) {
             Terrain terrain = Terrain.getTerrainByName(name);
+            Country owner = tile.getOwner();
+            Country current = Game.currentPlayer.getCountry();
+            if (owner != current)
+                return new Result(false, "you don't own this tile");
             if (terrain == null)
                 return new Result(false, "terrain doesn't exist");
+            if (tile.isTerrainChanged())
+                return new Result(false, "you can't change terrain twice");
+
             tile.setTerrain(terrain);
+            tile.setTerrainChanged();
             return new Result(true, "terrain set successfully");
         }
         return new Result(false, "tile doesn't exist");
@@ -186,8 +240,13 @@ public class GameMenuController {
         Tile tile = Tile.getTileByIndex(index);
         if (tile != null) {
             Weather weather = Weather.getWeatherByName(name);
+            Country owner = tile.getOwner();
+            Country current = Game.currentPlayer.getCountry();
+            if (owner != current)
+                return new Result(false, "you don't own this tile");
             if (weather == null)
                 return new Result(false, "weather doesn't exist");
+
             tile.setWeather(weather);
             return new Result(true, "weather set successfully");
         }
@@ -232,5 +291,61 @@ public class GameMenuController {
         Factory factory = new Factory(type, name);
         tile.addFactory(factory);
         return new Result(true, "factory built successfully");
+    }
+
+    public static Result puppet(String countryName) {
+        Country puppet = Country.getCountryByName(countryName);
+        if (puppet == null) {
+            return new Result(false, "country doesn't exist");
+        }
+        return new Result(true, "now " + countryName + " is my puppet yo ho ha ha ha");
+    }
+
+    public static Result addBattalion(String indexString, String typeString, String name) {
+        int index = Integer.parseInt(indexString);
+        Tile tile = Tile.getTileByIndex(index);
+        if (tile != null) {
+            Country owner = tile.getOwner();
+            Country current = Game.currentPlayer.getCountry();
+            if (owner != current && !current.isPuppet(owner) && !isSameFaction(owner, current))
+                return new Result(false, "tile is unavailable");
+            BattalionType type = BattalionType.getBattalionTypeByName(typeString);
+            if (type == null)
+                return new Result(false, "you can't use imaginary battalions");
+            if (isNameRepeatedInTile(tile, name))
+                return new Result(false, "battalion name already taken");
+            if (!enoughMoneyExists(tile, type))
+                return new Result(false, "daddy USA plz help us");
+            if (reachedMaximum(tile, type))
+                return new Result(false, "you can't add this type of battalion anymore");
+
+            Battalion battalion = new Battalion(name, type, owner);
+            tile.addBattalion(battalion);
+            return new Result(true, "battalion set successfully");
+        }
+        return new Result(false, "tile doesn't exist");
+    }
+
+    private static boolean isNameRepeatedInTile(Tile tile, String name) {
+        for (Battalion battalion: tile.getBattalions()) {
+            if (battalion.getName().equals(name)) return true;
+        }
+        return false;
+    }
+
+    private static boolean enoughMoneyExists(Tile tile, BattalionType type) {
+        Country owner = tile.getOwner();
+        return  owner.getFuel() >= type.getFuel() &&
+                owner.getSteel() >= type.getSteel() &&
+                owner.getSulfur() >= type.getSulfur() &&
+                owner.getManpower() >= type.getManpower();
+    }
+
+    private static boolean reachedMaximum(Tile tile, BattalionType battalionType) {
+        int count = 0;
+        for (Battalion battalion : tile.getBattalions()) {
+            if (battalion.getType() == battalionType) count++;
+        }
+        return count == 3;
     }
 }

@@ -17,7 +17,7 @@ public class Faction {
         factions.add(this);
     }
 
-    public static ArrayList<Faction> getFactions() {
+    public static ArrayList<Faction> getAllFactions() {
         return factions;
     }
 

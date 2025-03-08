@@ -68,6 +68,7 @@ public enum Tile {
     private final ArrayList<Tile> seaNeighbors;
     private Terrain terrain;
     private Weather weather;
+    private boolean terrainChanged;
 
     private final ArrayList<Battalion> battalions;
 
@@ -80,6 +81,7 @@ public enum Tile {
         this.seaNeighbors = new ArrayList<>();
         this.factories = new ArrayList<>();
         this.battalions = new ArrayList<>();
+        terrainChanged = false;
     }
 
     static {
@@ -200,6 +202,14 @@ public enum Tile {
 
     public void addBattalion(Battalion battalion) {
         battalions.add(battalion);
+    }
+
+    public boolean isTerrainChanged() {
+        return terrainChanged;
+    }
+
+    public void setTerrainChanged() {
+        this.terrainChanged = true;
     }
 
     public static Tile getTileByIndex(int index) {

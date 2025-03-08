@@ -1,4 +1,28 @@
 package controller;
 
+import model.*;
+
+import java.util.ArrayList;
+
 public class MainMenuController {
+    public static Result play(ArrayList<String> usernames) {
+        ArrayList<Player> players = new ArrayList<>();
+        User user;
+        for (String username: usernames) {
+            user = User.getUserByUsername(username);
+            if (user == null)
+                return new Result(false, "select between available users");
+            if (players.contains(user))
+                return new Result(false, "users must be distinct");
+            if (user == User.currentUser)
+                return new Result(false, "you can't choose urself");
+            players.add(user);
+        }
+
+        for (int i = 1; i <= 5 - players.size(); i++) players.add(new Guest(i));
+
+        Game.currentGame = new Game(players);
+
+        return new Result(true, "aghaaz faAliat");
+    }
 }

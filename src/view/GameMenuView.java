@@ -3,8 +3,11 @@ package view;
 import controller.GameMenuController;
 import model.Command;
 import model.Result;
+import model.game.Country;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
 
 public class GameMenuView implements Menu {
     public static void run(Scanner scanner) {
@@ -13,6 +16,21 @@ public class GameMenuView implements Menu {
             if (Command.EXIT.matches(input)) {
                 Menu.exit();
                 break;
+            }
+            else if(Command.SHOW_CURRENT_MENU.matches(input)) {
+                showCurrentMenu();
+            }
+            else if (Command.SWITCH_PLAYER.matches(input)) {
+                String username = Command.SWITCH_PLAYER.getGroup(input, "username");
+                switchPlayer(username);
+            }
+            else if (Command.CHOOSE_COUNTRY.matches(input)) {
+                ArrayList<String> countryNames = new ArrayList<>();
+                Matcher matcher = Command.CHOOSE_COUNTRY.getMatcher(input);
+                if (matcher == null) continue;
+                for (int i = 1; i <= 5; i++)
+                    countryNames.add(matcher.group(i));
+                chooseCountry(countryNames);
             }
             else if (Command.SHOW_COUNTRY_DETAIL.matches(input)) {
                 String countryName = Command.SHOW_COUNTRY_DETAIL.getGroup(input, "countryName");
@@ -74,10 +92,34 @@ public class GameMenuView implements Menu {
                 String name = Command.BUILD_FACTORY.getGroup(input, "name");
                 buildFactory(indexString, typeString, name);
             }
+            else if (Command.PUPPET.matches(input)) {
+                String countryName = Command.PUPPET.getGroup(input, "countryName");
+                puppet(countryName);
+            }
+            else if (Command.ADD_BATTALION.matches(input)) {
+                String indexString = Command.ADD_BATTALION.getGroup(input, "index");
+                String typeString = Command.ADD_BATTALION.getGroup(input, "type");
+                String name = Command.ADD_BATTALION.getGroup(input, "name");
+                addBattalion(indexString, typeString, name);
+            }
             else {
                 Menu.invalidCommand();
             }
         }
+    }
+
+    private static void showCurrentMenu() {
+        System.out.println("game menu");
+    }
+
+    private static void chooseCountry(ArrayList<String> countryNames) {
+        Result result = GameMenuController.chooseCountry(countryNames);
+        if (!result.isValid()) System.out.println(result.getMessage());
+    }
+
+    private static void switchPlayer(String username) {
+        Result result = GameMenuController.switchPlayer(username);
+        System.out.println(result.getMessage());
     }
 
     private static void getCountryDetails(String countryName) {
@@ -146,6 +188,16 @@ public class GameMenuView implements Menu {
 
     private static void buildFactory(String indexString, String typeString, String name) {
         Result result = GameMenuController.buildFactory(indexString, typeString, name);
+        System.out.println(result.getMessage());
+    }
+
+    private static void puppet(String countryName) {
+        Result result = GameMenuController.puppet(countryName);
+        System.out.println(result.getMessage());
+    }
+
+    private static void addBattalion(String indexString, String typeString, String name) {
+        Result result = GameMenuController.addBattalion(indexString, typeString, name);
         System.out.println(result.getMessage());
     }
 }

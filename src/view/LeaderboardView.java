@@ -10,11 +10,14 @@ public class LeaderboardView implements Menu {
         String input;
         while(true) {
             input = scanner.nextLine().trim();
-            if(Command.EXIT.matches(input)) {
+            if (Command.EXIT.matches(input)) {
                 Menu.exit();
                 break;
             } else if (Command.BACK.matches(input)) {
                 break;
+            }
+            else if (Command.BACK.matches(input)) {
+                MainMenuView.run(scanner);
             }
             else if(Command.SHOW_CURRENT_MENU.matches(input)) {
                 showCurrentMenu();
@@ -29,17 +32,17 @@ public class LeaderboardView implements Menu {
         }
     }
 
-    public static void showCurrentMenu() {
+    private static void showCurrentMenu() {
         System.out.println("leaderboard menu");
     }
 
-    public static void showRanking() {
+    private static void showRanking() {
         System.out.println("Leaderboard:");
         System.out.println(LeaderBoardController.getRanking());
     }
 
-    public static  void showHistory() {
+    private static  void showHistory() {
         System.out.println("History:");
-        // TODO : implement thisc
+        System.out.println(LeaderBoardController.getHistory());
     }
 }
