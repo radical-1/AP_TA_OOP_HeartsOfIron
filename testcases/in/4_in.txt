@@ -1,0 +1,12 @@
+register -username Kiarash -password veryGoodPass99# -email moz@meow.com
+register -username Amirhossein -password veryGoodPass99# -email moz@meow.com
+register -username Sana -password veryGoodPass99# -email moz@meow.com
+login -username Kiarash -password veryGoodPass99#
+show current menu
+play AmirhosseinSana
+play Kiarash Amirhossein Sana Sana
+play Amirhossein Sana Kiarash Kiarash
+play Amirhossein Sana    Kiarash
+play Amirhossein Sana khkh
+play Amirhossein Sana
+show current menu

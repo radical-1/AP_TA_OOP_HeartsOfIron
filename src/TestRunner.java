@@ -1,5 +1,5 @@
 import Test.InputRedirector;
-import Test.OutputRedirector;
+import test.OutputRedirector;
 
 import java.io.File;
 

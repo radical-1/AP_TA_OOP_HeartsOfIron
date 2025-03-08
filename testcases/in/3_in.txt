@@ -1,4 +1,18 @@
 khob aghaz faaliat mikonim
 to in test mikhaim forget password ro check konim
 besmellah
-exit
+show current menu
+register -username ManPassYadamRaft -password Pass1234# -email salam@gmail.com
+show current menu
+login -username ManPassYadamRaft -password Pass1234#
+show current menu
+back
+logout
+show current menu
+forget-password -username ManPassYadamRaf -email salam@gmail.com
+forget-password -username ManPassYadamRaf t -email salam@gmail.com
+forget-password -username ManPassYadamRaft -email sala@gmail.com
+forget-password -username ManPassYadamRaft-email salam@gmail.com
+forget-password -username ManPassYadamRaft -emailsalam@gmail.com
+forget-password -username ManPassYadamRaft -email           salam@gmail.com
+forget-password -username ManPassYadamRaft -email salam@gmail.com

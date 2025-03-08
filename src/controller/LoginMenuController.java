@@ -18,7 +18,7 @@ public class LoginMenuController {
     public static Result forgetPassword(String username, String email) {
         User user = User.getUserByUsername(username);
         if(user == null) {
-            return new Result(false, "username doesn't exist");
+            return new Result(false, "username doesn't exist!");
         }
         if(!user.getEmail().equals(email)) {
             return new Result(false, "email doesn't match!");
