@@ -219,9 +219,17 @@ public class GameMenuController {
         Tile tile = Tile.getTileByIndex(index);
         if (tile != null) {
             Terrain terrain = Terrain.getTerrainByName(name);
+            Country owner = tile.getOwner();
+            Country current = Game.currentPlayer.getCountry();
+            if (owner != current)
+                return new Result(false, "you don't own this tile");
             if (terrain == null)
                 return new Result(false, "terrain doesn't exist");
+            if (tile.isTerrainChanged())
+                return new Result(false, "you can't change terrain twice");
+
             tile.setTerrain(terrain);
+            tile.setTerrainChanged();
             return new Result(true, "terrain set successfully");
         }
         return new Result(false, "tile doesn't exist");
@@ -232,8 +240,13 @@ public class GameMenuController {
         Tile tile = Tile.getTileByIndex(index);
         if (tile != null) {
             Weather weather = Weather.getWeatherByName(name);
+            Country owner = tile.getOwner();
+            Country current = Game.currentPlayer.getCountry();
+            if (owner != current)
+                return new Result(false, "you don't own this tile");
             if (weather == null)
                 return new Result(false, "weather doesn't exist");
+
             tile.setWeather(weather);
             return new Result(true, "weather set successfully");
         }
