@@ -257,7 +257,9 @@ public class GameMenuController {
         Faction faction = Faction.getFactionByName(name);
         if (faction != null)
             return new Result(false, "faction name already taken");
-        new Faction(name);
+        Country current = Game.currentPlayer.getCountry();
+        Faction createdFaction = new Faction(name);
+        createdFaction.addCountry(current);
         return new Result(true, "faction created successfully");
     }
 
@@ -265,7 +267,7 @@ public class GameMenuController {
         Faction faction = Faction.getFactionByName(name);
         if (faction == null)
             return new Result(false, "faction doesn't exist");
-        Country country = User.currentUser.getCountry();
+        Country country = Game.currentPlayer.getCountry();
         faction.addCountry(country);
         return new Result(true, country + " joined " + faction);
     }
@@ -274,7 +276,7 @@ public class GameMenuController {
         Faction faction = Faction.getFactionByName(name);
         if (faction == null)
             return new Result(false, "faction doesn't exist");
-        Country country = User.currentUser.getCountry();
+        Country country = Game.currentPlayer.getCountry();
         if (!faction.countryExists(country))
             return new Result(false, "your country isn't in this faction");
         faction.removeCountry(country);
