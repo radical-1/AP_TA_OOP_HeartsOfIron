@@ -287,12 +287,60 @@ public class GameMenuController {
         Tile tile = Tile.getTileByIndex(Integer.parseInt(indexString));
         if (tile == null)
             return new Result(false, "invalid tile");
+        Country owner = tile.getOwner();
+        Country current = Game.currentPlayer.getCountry();
+        if (owner != current && !current.isPuppet(owner) && !isSameFaction(owner, current))
+            return new Result(false, "invalid tile");
         FactoryType type = FactoryType.getFactoryTypeByName(typeString);
         if (type == null)
             return new Result(false, "invalid factory type");
+        if (!enoughMoneyExists(tile, type))
+            return new Result(false, "not enough money to build factory");
+        if (reachedMaximum(tile, type))
+            return new Result(false, "factory limit exceeded");
+
         Factory factory = new Factory(type, name);
         tile.addFactory(factory);
         return new Result(true, "factory built successfully");
+    }
+
+    private static boolean reachedMaximum(Tile tile, FactoryType factoryType) {
+        int count = 0;
+        for (Factory factory: tile.getFactories()) {
+            if (factory.getType() == factoryType) count++;
+        }
+        return count == 3;
+    }
+
+    private static boolean enoughMoneyExists(Tile tile, FactoryType type) {
+        Country owner = tile.getOwner();
+
+        double manpowerCost = type.getManpowerCost();
+        double steelCost = type.getSteelCost();
+
+        if (owner.getLeader().getIdeology() == Ideology.COMMUNISM) {
+            manpowerCost *= 0.5;
+            steelCost *= 0.5;
+        }
+
+        switch (tile.getTerrain()) {
+            case MOUNTAIN:
+                manpowerCost *= 10;
+                steelCost *= 10;
+                break;
+            case FOREST:
+                manpowerCost *= 5;
+                steelCost *= 5;
+                break;
+            case URBAN:
+                manpowerCost *= 0.1;
+                steelCost *= 0.1;
+                break;
+        }
+
+
+        return  owner.getSteel() >= steelCost &&
+                owner.getManpower() >= manpowerCost;
     }
 
     public static Result puppet(String countryName) {

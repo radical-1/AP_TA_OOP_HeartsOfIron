@@ -141,14 +141,12 @@ public class Battalion {
         this.power += power;
     }
 
-    public void multiplyPower(double coefficient) {
-        this.power *= coefficient;
-    }
-
     public int getCaptureRatio() {
         return captureRatio;
     }
 
+
+    // TODO: change power here in toString: it is wrong
     @Override
     public String toString() {
         return name + " " + level + " " + power + " " + captureRatio;
