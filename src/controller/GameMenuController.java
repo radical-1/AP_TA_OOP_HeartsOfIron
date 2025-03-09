@@ -321,11 +321,54 @@ public class GameMenuController {
             if (reachedMaximum(tile, type))
                 return new Result(false, "you can't add this type of battalion anymore");
 
+            payBattalionCreation(tile, type);
             Battalion battalion = new Battalion(name, type, owner);
             tile.addBattalion(battalion);
             return new Result(true, "battalion set successfully");
         }
         return new Result(false, "tile is unavailable");
+    }
+
+    private static void payBattalionCreation(Tile tile, BattalionType type) {
+        Country owner = tile.getOwner();
+
+        double fuel = type.getFuel();
+        double steel = type.getSteel();
+        double sulfur = type.getSulfur();
+        double manpower = type.getManpower();
+
+        if (owner.getLeader().getIdeology() == Ideology.DEMOCRACY) {
+            fuel *= 2;
+            steel *= 2;
+            sulfur *= 2;
+            manpower *= 2;
+        }
+
+        switch (tile.getTerrain()) {
+            case MOUNTAIN:
+                fuel *= 10;
+                steel *= 10;
+                sulfur *= 10;
+                manpower *= 10;
+                break;
+            case FOREST:
+                fuel *= 5;
+                steel *= 5;
+                sulfur *= 5;
+                manpower *= 5;
+                break;
+            case URBAN:
+                fuel *= 0.1;
+                steel *= 0.1;
+                sulfur *= 0.1;
+                manpower *= 0.1;
+                break;
+        }
+
+        owner.decreaseFuel(fuel);
+        owner.decreaseSteel(steel);
+        owner.decreaseSulfur(sulfur);
+        owner.decreaseManpower(manpower);
     }
 
     private static boolean isBattalionNameRepeatedInTile(Tile tile, String name) {
@@ -338,16 +381,44 @@ public class GameMenuController {
     private static boolean enoughMoneyExists(Tile tile, BattalionType type) {
         Country owner = tile.getOwner();
 
-        if (owner.getLeader().getIdeology() == Ideology.DEMOCRACY)
-            return owner.getFuel() >= 2 * type.getFuel() &&
-                    owner.getSteel() >= 2 * type.getSteel() &&
-                    owner.getSulfur() >= 2 * type.getSulfur() &&
-                    owner.getManpower() >= 2 * type.getManpower();
+        double fuel = type.getFuel();
+        double steel = type.getSteel();
+        double sulfur = type.getSulfur();
+        double manpower = type.getManpower();
 
-        return  owner.getFuel() >= type.getFuel() &&
-                owner.getSteel() >= type.getSteel() &&
-                owner.getSulfur() >= type.getSulfur() &&
-                owner.getManpower() >= type.getManpower();
+        if (owner.getLeader().getIdeology() == Ideology.DEMOCRACY) {
+            fuel *= 2;
+            steel *= 2;
+            sulfur *= 2;
+            manpower *= 2;
+        }
+
+        switch (tile.getTerrain()) {
+            case MOUNTAIN:
+                fuel *= 10;
+                steel *= 10;
+                sulfur *= 10;
+                manpower *= 10;
+                break;
+            case FOREST:
+                fuel *= 5;
+                steel *= 5;
+                sulfur *= 5;
+                manpower *= 5;
+                break;
+            case URBAN:
+                fuel *= 0.1;
+                steel *= 0.1;
+                sulfur *= 0.1;
+                manpower *= 0.1;
+                break;
+        }
+
+
+        return  owner.getFuel() >= fuel &&
+                owner.getSteel() >= steel &&
+                owner.getSulfur() >= sulfur &&
+                owner.getManpower() >= manpower;
     }
 
     private static boolean reachedMaximum(Tile tile, BattalionType battalionType) {
@@ -424,16 +495,36 @@ public class GameMenuController {
         BattalionType type = battalion.getType();
         int level = battalion.getLevel();
 
-        int fuel = type.getFuel();
-        int steel = type.getSteel();
-        int sulfur = type.getSulfur();
-        int manpower = type.getManpower();
+        double fuel = type.getFuel();
+        double steel = type.getSteel();
+        double sulfur = type.getSulfur();
+        double manpower = type.getManpower();
 
         if (owner.getLeader().getIdeology() == Ideology.DEMOCRACY) {
             fuel *= 2;
             steel *= 2;
             sulfur *= 2;
             manpower *= 2;
+        }
+        switch (tile.getTerrain()) {
+            case MOUNTAIN:
+                fuel *= 10;
+                steel *= 10;
+                sulfur *= 10;
+                manpower *= 10;
+                break;
+            case FOREST:
+                fuel *= 5;
+                steel *= 5;
+                sulfur *= 5;
+                manpower *= 5;
+                break;
+            case URBAN:
+                fuel *= 0.1;
+                steel *= 0.1;
+                sulfur *= 0.1;
+                manpower *= 0.1;
+                break;
         }
 
         return switch (level) {
@@ -458,16 +549,37 @@ public class GameMenuController {
         BattalionType type = battalion.getType();
         int level = battalion.getLevel();
 
-        int fuel = type.getFuel();
-        int steel = type.getSteel();
-        int sulfur = type.getSulfur();
-        int manpower = type.getManpower();
+        double fuel = type.getFuel();
+        double steel = type.getSteel();
+        double sulfur = type.getSulfur();
+        double manpower = type.getManpower();
 
         if (owner.getLeader().getIdeology() == Ideology.DEMOCRACY) {
             fuel *= 2;
             steel *= 2;
             sulfur *= 2;
             manpower *= 2;
+        }
+
+        switch (tile.getTerrain()) {
+            case MOUNTAIN:
+                fuel *= 10;
+                steel *= 10;
+                sulfur *= 10;
+                manpower *= 10;
+                break;
+            case FOREST:
+                fuel *= 5;
+                steel *= 5;
+                sulfur *= 5;
+                manpower *= 5;
+                break;
+            case URBAN:
+                fuel *= 0.1;
+                steel *= 0.1;
+                sulfur *= 0.1;
+                manpower *= 0.1;
+                break;
         }
 
         battalion.upgradeLevel();

@@ -12,13 +12,13 @@ public enum Country {
     private Leader leader;
     private int stability;
 
-    private int manpower;
-    private int fuel;
-    private int steel;
-    private int sulfur;
+    private double manpower;
+    private double fuel;
+    private double steel;
+    private double sulfur;
     private final ArrayList<Country> puppets;
 
-    Country(Leader leader, int manpower, int fuel, int steel, int sulfur) {
+    Country(Leader leader, double manpower, double fuel, double steel, int sulfur) {
         this.leader = leader;
         this.manpower = manpower;
         this.fuel = fuel;
@@ -43,36 +43,36 @@ public enum Country {
         this.stability = stability;
     }
 
-    public int getManpower() {
+    public double getManpower() {
         return manpower;
     }
 
     public void decreaseManpower(double manpower) {
-        this.manpower -= (int) manpower;
+        this.manpower -= manpower;
     }
 
-    public int getFuel() {
+    public double getFuel() {
         return fuel;
     }
 
     public void decreaseFuel(double fuel) {
-        this.fuel -= (int) fuel;
+        this.fuel -= fuel;
     }
 
-    public int getSteel() {
+    public double getSteel() {
         return steel;
     }
 
     public void decreaseSteel(double steel) {
-        this.steel -= (int) steel;
+        this.steel -= steel;
     }
 
-    public int getSulfur() {
+    public double getSulfur() {
         return sulfur;
     }
 
     public void decreaseSulfur(double sulfur) {
-        this.sulfur -= (int) sulfur;
+        this.sulfur -= sulfur;
     }
 
     public ArrayList<Country> getPuppets() {

@@ -7,13 +7,34 @@ public enum Terrain {
     URBAN,
     PLAIN;
 
-    public void modify(Battalion battalion) {
-        switch (this) {
-            case MOUNTAIN: break;
-            case FOREST: break;
-            case DESERT: break;
-            case URBAN: break;
-            case PLAIN: break;
+    public static void modify(Tile tile) {
+        for (Battalion battalion : tile.getBattalions()) {
+            BattalionType type = battalion.getType();
+
+            switch (tile.getTerrain()) {
+                case MOUNTAIN:
+                    if (type == BattalionType.INFANTRY || type == BattalionType.PANZER)
+                        battalion.multiplyPower(0.5);
+                    break;
+                case PLAIN:
+                    if (type == BattalionType.INFANTRY || type == BattalionType.PANZER)
+                        battalion.multiplyPower(1.2);
+                    else if (type == BattalionType.AIRFORCE)
+                        battalion.multiplyPower(1.25);
+                    break;
+                case FOREST:
+                    if (type == BattalionType.INFANTRY || type == BattalionType.PANZER)
+                        battalion.multiplyPower(0.9);
+                    break;
+                case URBAN:
+                    if (type == BattalionType.INFANTRY || type == BattalionType.PANZER)
+                        battalion.multiplyPower(1.1);
+                    break;
+                case DESERT:
+                    if (type == BattalionType.AIRFORCE)
+                        battalion.multiplyPower(1.4);
+                    break;
+            }
         }
     }
 

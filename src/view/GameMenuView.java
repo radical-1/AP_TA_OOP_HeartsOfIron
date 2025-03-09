@@ -108,6 +108,11 @@ public class GameMenuView implements Menu {
                 String destIndexString = Command.MOVE_BATTALION.getGroup(input, "dest_index");
                 moveBattalion(sourceIndexString, name, destIndexString);
             }
+            else if (Command.UPGRADE_BATTALION.matches(input)) {
+                String indexString = Command.UPGRADE_BATTALION.getGroup(input, "index");
+                String name = Command.UPGRADE_BATTALION.getGroup(input, "name");
+                upgradeBattalion(indexString, name);
+            }
             else {
                 Menu.invalidCommand();
             }
@@ -209,6 +214,11 @@ public class GameMenuView implements Menu {
 
     private static void moveBattalion(String sourceIndexString, String name, String destIndexString) {
         Result result = GameMenuController.moveBattalion(sourceIndexString, name, destIndexString);
+        System.out.println(result.getMessage());
+    }
+
+    private static void upgradeBattalion(String indexString, String name) {
+        Result result = GameMenuController.upgradeBattalion(indexString, name);
         System.out.println(result.getMessage());
     }
 }
