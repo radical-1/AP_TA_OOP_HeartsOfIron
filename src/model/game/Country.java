@@ -47,32 +47,32 @@ public enum Country {
         return manpower;
     }
 
-    public void setManpower(int manpower) {
-        this.manpower = manpower;
+    public void decreaseManpower(double manpower) {
+        this.manpower -= (int) manpower;
     }
 
     public int getFuel() {
         return fuel;
     }
 
-    public void setFuel(int fuel) {
-        this.fuel = fuel;
+    public void decreaseFuel(double fuel) {
+        this.fuel -= (int) fuel;
     }
 
     public int getSteel() {
         return steel;
     }
 
-    public void setSteel(int steel) {
-        this.steel = steel;
+    public void decreaseSteel(double steel) {
+        this.steel -= (int) steel;
     }
 
     public int getSulfur() {
         return sulfur;
     }
 
-    public void setSulfur(int sulfur) {
-        this.sulfur = sulfur;
+    public void decreaseSulfur(double sulfur) {
+        this.sulfur -= (int) sulfur;
     }
 
     public ArrayList<Country> getPuppets() {

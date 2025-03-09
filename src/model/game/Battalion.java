@@ -12,6 +12,7 @@ public class Battalion {
         this.name = name;
         this.type = type;
         this.country = country;
+        level = 0;
         setInitialValues();
     }
 
@@ -128,9 +129,16 @@ public class Battalion {
     public int getLevel() {
         return level;
     }
+    public void upgradeLevel() {
+        level++;
+    }
 
     public int getPower() {
         return power;
+    }
+
+    public void increasePower(int power) {
+        this.power += power;
     }
 
     public int getCaptureRatio() {

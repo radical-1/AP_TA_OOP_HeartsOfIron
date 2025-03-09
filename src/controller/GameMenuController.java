@@ -335,6 +335,7 @@ public class GameMenuController {
 
     private static boolean enoughMoneyExists(Tile tile, BattalionType type) {
         Country owner = tile.getOwner();
+
         if (owner.getLeader().getIdeology() == Ideology.DEMOCRACY)
             return owner.getFuel() >= 2 * type.getFuel() &&
                     owner.getSteel() >= 2 * type.getSteel() &&
@@ -389,5 +390,105 @@ public class GameMenuController {
             if (battalion.getName().equals(name)) return battalion;
         }
         return null;
+    }
+
+    public static Result upgradeBattalion(String indexString, String name) {
+        int index = Integer.parseInt(indexString);
+        Tile tile = Tile.getTileByIndex(index);
+        if (tile != null) {
+            Country owner = tile.getOwner();
+            Country current = Game.currentPlayer.getCountry();
+            if (owner != current && !current.isPuppet(owner) && !isSameFaction(owner, current))
+                return new Result(false, "can't upgrade battalions on this tile");
+
+            Battalion battalion = getBattalionByName(tile, name);
+            if (battalion == null)
+                return new Result(false, "no battalion with the given name");
+            if (battalion.getLevel() == 3)
+                return new Result(false, "battalion is on highest level");
+            if (!enoughMoneyExists(tile, battalion))
+                return new Result(false, "aww you can't upgrade your battalion");
+
+            upgradeBattalion(tile, battalion);
+            return new Result(true, name + " upgraded to level " + battalion.getLevel());
+        }
+        return new Result(false, "tile doesn't exist");
+    }
+
+
+
+    private static boolean enoughMoneyExists(Tile tile, Battalion battalion) {
+        Country owner = tile.getOwner();
+        BattalionType type = battalion.getType();
+        int level = battalion.getLevel();
+
+        int fuel = type.getFuel();
+        int steel = type.getSteel();
+        int sulfur = type.getSulfur();
+        int manpower = type.getManpower();
+
+        if (owner.getLeader().getIdeology() == Ideology.DEMOCRACY) {
+            fuel *= 2;
+            steel *= 2;
+            sulfur *= 2;
+            manpower *= 2;
+        }
+
+        return switch (level) {
+            case 0 -> owner.getFuel() >= 0.5 * fuel &&
+                      owner.getSteel() >= 0.5 * steel &&
+                      owner.getSulfur() >= 0.5 * sulfur &&
+                      owner.getManpower() >= 0.5 * manpower;
+            case 1 -> owner.getFuel() >= fuel &&
+                      owner.getSteel() >= steel &&
+                      owner.getSulfur() >= sulfur &&
+                      owner.getManpower() >= manpower;
+            case 2 -> owner.getFuel() >= 2 * fuel &&
+                      owner.getSteel() >= 2 * steel &&
+                      owner.getSulfur() >= 2 * sulfur &&
+                      owner.getManpower() >= 2 * manpower;
+            default -> false;
+        };
+    }
+
+    private static void upgradeBattalion(Tile tile, Battalion battalion) {
+        Country owner = tile.getOwner();
+        BattalionType type = battalion.getType();
+        int level = battalion.getLevel();
+
+        int fuel = type.getFuel();
+        int steel = type.getSteel();
+        int sulfur = type.getSulfur();
+        int manpower = type.getManpower();
+
+        if (owner.getLeader().getIdeology() == Ideology.DEMOCRACY) {
+            fuel *= 2;
+            steel *= 2;
+            sulfur *= 2;
+            manpower *= 2;
+        }
+
+        battalion.upgradeLevel();
+
+        switch (level) {
+            case 0: owner.decreaseFuel(0.5 * fuel);
+                    owner.decreaseSteel(0.5 * steel);
+                    owner.decreaseSulfur(0.5 * sulfur);
+                    owner.decreaseManpower(0.5 * manpower);
+                    battalion.increasePower(5);
+                    break;
+            case 1: owner.decreaseFuel(fuel);
+                    owner.decreaseSteel(steel);
+                    owner.decreaseSulfur(sulfur);
+                    owner.decreaseManpower(manpower);
+                    battalion.increasePower(7);
+                    break;
+            case 2: owner.decreaseFuel(2 * fuel);
+                    owner.decreaseSteel(2 * steel);
+                    owner.decreaseSulfur(2 * sulfur);
+                    owner.decreaseManpower(2 * manpower);
+                    battalion.increasePower(10);
+                    break;
+        }
     }
 }
