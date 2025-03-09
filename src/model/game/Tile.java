@@ -171,6 +171,9 @@ public enum Tile {
     public void addFactory(Factory factory) {
         factories.add(factory);
     }
+    public void removeFactory(Factory factory) {
+        factories.remove(factory);
+    }
 
     public ArrayList<Tile> getLandNeighbors() {
         return landNeighbors;

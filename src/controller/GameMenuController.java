@@ -304,6 +304,65 @@ public class GameMenuController {
         return new Result(true, "factory built successfully");
     }
 
+    public static Result runFactory(String indexString, String name, String manpowerCountString) {
+        int index = Integer.parseInt(indexString);
+        int manpowerCount = Integer.parseInt(manpowerCountString);
+        Tile tile = Tile.getTileByIndex(index);
+        if (tile == null)
+            return new Result(false, "invalid tile");
+        Country owner = tile.getOwner();
+        Country current = Game.currentPlayer.getCountry();
+        if (owner != current && !current.isPuppet(owner) && !isSameFaction(owner, current))
+            return new Result(false, "invalid tile");
+        Factory factory = getFactoryByName(tile, name);
+        if (factory == null)
+            return new Result(false, "this tile doesn't contain this factory");
+        if (current.isPuppet(owner) || isSameFaction(owner, current)) {
+            if (current.getManpower() < manpowerCount)
+                return new Result(false, "you are poor!");
+        } else {
+            if (owner.getManpower() < manpowerCount)
+                return new Result(false, "you are poor!");
+        }
+
+        double extractAmount = getExtractAmount(factory, tile, manpowerCount);
+        if (factory.getRemainingResource() <= extractAmount) tile.removeFactory(factory);
+        else factory.useResource(extractAmount);
+        if (current.isPuppet(owner) || isSameFaction(owner, current)) {
+            current.decreaseManpower(manpowerCount);
+            // TODO: implement communism
+        }
+        else {
+            owner.decreaseManpower(manpowerCount);
+        }
+        return new Result(true, "factory extracted " + extractAmount + " of " + factory.getType());
+    }
+
+    private static double getExtractAmount(Factory factory, Tile tile, int manpowerCount) {
+        double productionPerManpower = factory.getType().getProductionPerManpower();
+        if (factory.getType() == FactoryType.FUEL) {
+            switch (tile.getTerrain()) {
+                case URBAN:
+                    productionPerManpower *= 0.2;
+                    break;
+                case MOUNTAIN:
+                case FOREST:
+                    productionPerManpower = 0;
+                    break;
+            }
+        }
+
+        return manpowerCount * productionPerManpower;
+    }
+
+    private static Factory getFactoryByName(Tile tile, String name) {
+        for (Factory factory: tile.getFactories()) {
+            if (factory.getName().equals(name))
+                return factory;
+        }
+        return null;
+    }
+
     private static boolean reachedMaximum(Tile tile, FactoryType factoryType) {
         int count = 0;
         for (Factory factory: tile.getFactories()) {

@@ -35,6 +35,7 @@ public enum Command {
     JOIN_FACTION("join\\s+faction\\s+(?<name>\\S+)"),
     LEAVE_FACTION("leave\\s+faction\\s+(?<name>\\S+)"),
     BUILD_FACTORY("build\\s+factory\\s+(?<index>-?\\d+)\\s+(?<type>\\S+)\\s+(?<name>\\S+)"),
+    RUN_FACTORY("run\\s+factory\\s+(?<index>-?\\d+)\\s+(?<name>\\S+)\\s+(?<manpower_count>-?\\d+)"),
     PUPPET("puppet\\s+(?<countryName>\\S+)"),
     PLAY("play(?:\\s+(\\S+)){1,4}"),
     CHOOSE_COUNTRY("choose\\s+country(?:\\s+(\\S+)){5}"),

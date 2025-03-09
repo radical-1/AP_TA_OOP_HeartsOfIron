@@ -113,6 +113,12 @@ public class GameMenuView implements Menu {
                 String name = Command.UPGRADE_BATTALION.getGroup(input, "name");
                 upgradeBattalion(indexString, name);
             }
+            else if (Command.RUN_FACTORY.matches(input)) {
+                String indexString = Command.UPGRADE_BATTALION.getGroup(input, "index");
+                String name = Command.RUN_FACTORY.getGroup(input, "name");
+                String manpowerCountString = Command.RUN_FACTORY.getGroup(input, "manpower_count");
+                runFactory(indexString, name, manpowerCountString);
+            }
             else {
                 Menu.invalidCommand();
             }
@@ -219,6 +225,11 @@ public class GameMenuView implements Menu {
 
     private static void upgradeBattalion(String indexString, String name) {
         Result result = GameMenuController.upgradeBattalion(indexString, name);
+        System.out.println(result.getMessage());
+    }
+
+    private static void runFactory(String indexString, String name, String manpowerCountString) {
+        Result result = GameMenuController.runFactory(indexString, name, manpowerCountString);
         System.out.println(result.getMessage());
     }
 }
