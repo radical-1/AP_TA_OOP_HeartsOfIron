@@ -88,3 +88,24 @@ no battalion with the given name
 can't upgrade battalions on this tile
 MASSIVEPanzers upgraded to level 1
 MASSIVEPanzers upgraded to level 2
+aww you can't upgrade your battalion
+daddy USA plz help us
+infantry:
+
+panzer:
+girlsUndPanzers 0 15 60
+T34 0 15 60
+
+airforce:
+
+navy:
+can't show battalions
+infantry:
+
+panzer:
+MASSIVEPanzers 2 27 60
+
+airforce:
+
+navy:
+country doesn't exist

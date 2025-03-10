@@ -65,5 +65,11 @@ upgrade battalion 39 MASSIVEPanzer
 upgrade battalion 18 MASSIVEPanzers
 upgrade battalion 39 MASSIVEPanzers
 upgrade battalion 39 MASSIVEPanzers
+upgrade battalion 39 MASSIVEPanzers
+add battalion 16 panzer randomName
+show battalions 16
+show battalions 17
+show battalions 39
+show detail Soviet       Union
 
 
