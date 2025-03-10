@@ -87,6 +87,20 @@ public enum Country {
         return puppets.contains(country);
     }
 
+    public void addResource(FactoryType type, double amount) {
+        switch (type) {
+            case STEEL:
+                steel += amount;
+                break;
+            case SULFUR:
+                sulfur += amount;
+                break;
+            case FUEL:
+                fuel += amount;
+                break;
+        }
+    }
+
     public static Country getCountryByName(String name) {
         return switch (name) {
             case "Soviet Union" -> SOVIET_UNION;

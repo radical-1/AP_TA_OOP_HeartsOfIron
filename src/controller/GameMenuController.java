@@ -330,12 +330,28 @@ public class GameMenuController {
         else factory.useResource(extractAmount);
         if (current.isPuppet(owner) || isSameFaction(owner, current)) {
             current.decreaseManpower(manpowerCount);
-            // TODO: implement communism
+            if (current.getLeader().getIdeology() == Ideology.COMMUNISM)
+                communistDivision(current, factory.getType(), extractAmount);
+            else current.addResource(factory.getType(), extractAmount);
         }
         else {
             owner.decreaseManpower(manpowerCount);
+            if (owner.getLeader().getIdeology() == Ideology.COMMUNISM)
+                communistDivision(owner, factory.getType(), extractAmount);
+            else owner.addResource(factory.getType(), extractAmount);
         }
         return new Result(true, "factory extracted " + extractAmount + " of " + factory.getType());
+    }
+
+    private static void communistDivision(Country communist, FactoryType type, double extractAmount)  {
+        int count = 0;
+        for (Country country: Country.values()) {
+            if (isSameFaction(country, communist)) count++;
+        }
+        double portion = extractAmount / count;
+        for (Country country: Country.values()) {
+            if (isSameFaction(country, communist)) country.addResource(type, portion);
+        }
     }
 
     private static double getExtractAmount(Factory factory, Tile tile, int manpowerCount) {
