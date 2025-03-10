@@ -10,3 +10,60 @@ play Amirhossein Sana    Kiarash
 play Amirhossein Sana khkh
 play Amirhossein Sana
 show current menu
+Iran
+German Reich
+German Reich
+United States
+Soviet Union
+   United    Kingdom
+United Kingdom
+Japan
+tile owner 50
+tile owner 1000
+tile neighbors 38
+tile neighbors 53
+tile neighbors 27
+show detail Japans
+show detail Japan
+tile sea neighbors 22
+tile sea neighbors 52
+show battalions 52
+show battalions 35
+show terrain 30
+set terrain 1 forest
+set terrain 40 forest
+set terrain 40 urban
+set weather 40 barfi
+set weather 1 barfi
+set weather 40 blizzard
+attack 39 1 panzer
+attack 39 39 infantry
+create faction axis
+create faction axis
+switch player fazli
+switch player Kiarash
+switch player Sana
+join faction allies
+join faction axis
+leave faction allies
+leave faction axis
+join faction axis
+set terrain 16 urban
+set weather 16 sandstorm
+add battalion 17 panzer girlsUndPanzers
+add battalion 16 piadehNezaam girlsUndPanzers
+add battalion 16 panzer girlsUndPanzers
+add battalion 16 airforce girlsUndPanzers
+add battalion 16 panzer T34
+add battalion 16 panzer MASSIVEPanzers
+show detail Soviet Union
+add battalion 16 panzer randomName
+move battalion 16 randomName 18
+move battalion 16 randomName 39
+move battalion 16 MASSIVEPanzers 39
+upgrade battalion 39 MASSIVEPanzer
+upgrade battalion 18 MASSIVEPanzers
+upgrade battalion 39 MASSIVEPanzers
+upgrade battalion 39 MASSIVEPanzers
+
+
