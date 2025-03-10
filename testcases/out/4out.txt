@@ -109,3 +109,99 @@ airforce:
 
 navy:
 country doesn't exist
+invalid tile
+invalid factory type
+factory built successfully
+factory built successfully
+factory built successfully
+factory limit exceeded
+factory built successfully
+not enough money to build factory
+Soviet Union
+leader : stalin
+stability : 100
+man power : 159877500
+fuel : 12000
+sulfur : 5000
+steel : 0
+faction : axis
+puppet :
+terrain set successfully
+invalid tile
+this tile doesn't contain this factory
+you are poor!
+factory extracted 50000 of fuel
+fuel refinery:
+fazliRefinery 100000
+masjedSoleymaan 50000
+meow 100000
+
+steel factory:
+
+sulfur factory:
+can't show factories
+your country isn't in this faction
+Soviet Union left axis
+attacker tile unavailable
+switched to Kiarash
+terrain set successfully
+weather set successfully
+switched to Sana
+war is over 
+winner : Soviet Union
+loser : German Reich
+Soviet Union
+leader : stalin
+stability : 100
+man power : 159877500
+fuel : 62000
+sulfur : 5000
+steel : 0
+faction : axis
+puppet :
+infantry:
+
+panzer:
+girlsUndPanzers 0 23 60
+T34 0 23 60
+
+airforce:
+
+navy:
+infantry:
+
+panzer:
+
+airforce:
+
+navy:
+switched to Amirhossein
+no civil war for you
+switched to Kiarash
+invalid tiles for civil war
+can't start civil war between these tiles
+invalid battalion type
+battalion set successfully
+civil war ended. 41 won.
+game is locked
+Available leaders:
+adenauer
+pieck
+hitler
+leader doesn't exist
+leader doesn't exist
+Soviet Union
+main menu
+leaderboard menu
+History:
+Kiarash German Reich -245
+Amirhossein United States 0
+Sana Soviet Union 490
+guest1 United Kingdom 0
+guest2 Japan 0
+Leaderboard:
+Sana 490
+Amirhossein 0
+Kiarash -245
+
+

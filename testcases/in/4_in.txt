@@ -71,5 +71,65 @@ show battalions 16
 show battalions 17
 show battalions 39
 show detail Soviet       Union
+build factory 34 fuel refinery masjedSoleymaan
+build factory 15 fuel refiner masjedSoleymaan
+build factory 15 fuel refinery masjedSoleymaan
+build factory 15 fuel refinery fazliRefinery
+build factory 15 fuel refinery meow
+build factory 15 fuel refinery ThisShouldGiveError
+build factory 14 fuel refinery ThisShouldNotGiveError
+build factory 14 fuel refinery ThisShouldGiveMoneyError
+show detail Soviet Union
+set terrain 15 urban
+run factory 99 randomName 10000
+run factory 15 randomName 10000
+run factory 15 masjedSoleymaan 999999999
+run factory 15 masjedSoleymaan 1000
+show factories 15
+show factories 50
+leave faction NotInThisFaction
+leave faction axis
+attack 50 39 panzer
+switch player Kiarash
+set terrain 39 mountain
+set weather 39 fog
+switch player Sana
+attack 16 39 panzer
+show detail Soviet Union
+show battalions 16
+show battalions 39
+switch player Amirhossein
+start civil war 100 200 meow
+switch player Kiarash
+start civil war 41 40 meow
+add battalion 41 airforce nirooHavaaei
+start civil war 40 41 airforce
+show battalions 41
+start election
+moz
+show current menu
+pieck
+tile owner 39
+sadagha allah ol aliol azim
+show current menu
+leaderboard
+show current menu
+show history
+show ranking
+exit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
