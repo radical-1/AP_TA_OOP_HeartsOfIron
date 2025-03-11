@@ -5,13 +5,14 @@ public class Battalion {
     private final String name;
     private final Country country;
     private int level;
-    private int power;
+    private double power;
     private int captureRatio;
 
     public Battalion(String name, BattalionType type, Country country) {
         this.name = name;
         this.type = type;
         this.country = country;
+        level = 0;
         setInitialValues();
     }
 
@@ -128,15 +129,24 @@ public class Battalion {
     public int getLevel() {
         return level;
     }
+    public void upgradeLevel() {
+        level++;
+    }
 
-    public int getPower() {
+    public double getPower() {
         return power;
+    }
+
+    public void increasePower(double power) {
+        this.power += power;
     }
 
     public int getCaptureRatio() {
         return captureRatio;
     }
 
+
+    // TODO: change power here in toString: it is wrong
     @Override
     public String toString() {
         return name + " " + level + " " + power + " " + captureRatio;

@@ -102,6 +102,29 @@ public class GameMenuView implements Menu {
                 String name = Command.ADD_BATTALION.getGroup(input, "name");
                 addBattalion(indexString, typeString, name);
             }
+            else if (Command.MOVE_BATTALION.matches(input)) {
+                String sourceIndexString = Command.MOVE_BATTALION.getGroup(input, "source_index");
+                String name = Command.MOVE_BATTALION.getGroup(input, "name");
+                String destIndexString = Command.MOVE_BATTALION.getGroup(input, "dest_index");
+                moveBattalion(sourceIndexString, name, destIndexString);
+            }
+            else if (Command.UPGRADE_BATTALION.matches(input)) {
+                String indexString = Command.UPGRADE_BATTALION.getGroup(input, "index");
+                String name = Command.UPGRADE_BATTALION.getGroup(input, "name");
+                upgradeBattalion(indexString, name);
+            }
+            else if (Command.RUN_FACTORY.matches(input)) {
+                String indexString = Command.UPGRADE_BATTALION.getGroup(input, "index");
+                String name = Command.RUN_FACTORY.getGroup(input, "name");
+                String manpowerCountString = Command.RUN_FACTORY.getGroup(input, "manpower_count");
+                runFactory(indexString, name, manpowerCountString);
+            }
+            else if (Command.ATTACK.matches(input)) {
+                String sourceIndexString = Command.ATTACK.getGroup(input, "source_index");
+                String destIndexString = Command.ATTACK.getGroup(input, "dest_index");
+                String typeString = Command.ATTACK.getGroup(input, "battalion_type");
+                attack(sourceIndexString, destIndexString, typeString);
+            }
             else {
                 Menu.invalidCommand();
             }
@@ -198,6 +221,26 @@ public class GameMenuView implements Menu {
 
     private static void addBattalion(String indexString, String typeString, String name) {
         Result result = GameMenuController.addBattalion(indexString, typeString, name);
+        System.out.println(result.getMessage());
+    }
+
+    private static void moveBattalion(String sourceIndexString, String name, String destIndexString) {
+        Result result = GameMenuController.moveBattalion(sourceIndexString, name, destIndexString);
+        System.out.println(result.getMessage());
+    }
+
+    private static void upgradeBattalion(String indexString, String name) {
+        Result result = GameMenuController.upgradeBattalion(indexString, name);
+        System.out.println(result.getMessage());
+    }
+
+    private static void runFactory(String indexString, String name, String manpowerCountString) {
+        Result result = GameMenuController.runFactory(indexString, name, manpowerCountString);
+        System.out.println(result.getMessage());
+    }
+
+    private static void attack(String sourceIndexString, String destIndexString, String typeString) {
+        Result result = GameMenuController.attack(sourceIndexString, destIndexString, typeString);
         System.out.println(result.getMessage());
     }
 }

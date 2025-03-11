@@ -171,13 +171,24 @@ public enum Tile {
     public void addFactory(Factory factory) {
         factories.add(factory);
     }
+    public void removeFactory(Factory factory) {
+        factories.remove(factory);
+    }
 
     public ArrayList<Tile> getLandNeighbors() {
         return landNeighbors;
     }
 
+    public boolean isLandNeighbor(Tile tile) {
+        return landNeighbors.contains(tile);
+    }
+
     public ArrayList<Tile> getSeaNeighbors() {
         return seaNeighbors;
+    }
+
+    public boolean isSeaNeighbor(Tile tile) {
+        return seaNeighbors.contains(tile);
     }
 
     public Terrain getTerrain() {
@@ -202,6 +213,10 @@ public enum Tile {
 
     public void addBattalion(Battalion battalion) {
         battalions.add(battalion);
+    }
+
+    public void removeBattalion(Battalion battalion) {
+        battalions.remove(battalion);
     }
 
     public boolean isTerrainChanged() {

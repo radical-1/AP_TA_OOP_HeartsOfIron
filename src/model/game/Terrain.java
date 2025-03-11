@@ -7,14 +7,32 @@ public enum Terrain {
     URBAN,
     PLAIN;
 
-    public void modify(Battalion battalion) {
+    public double getModifier(BattalionType type) {
         switch (this) {
-            case MOUNTAIN: break;
-            case FOREST: break;
-            case DESERT: break;
-            case URBAN: break;
-            case PLAIN: break;
+            case MOUNTAIN:
+                if (type == BattalionType.INFANTRY || type == BattalionType.PANZER)
+                    return 0.5;
+                break;
+            case PLAIN:
+                if (type == BattalionType.INFANTRY || type == BattalionType.PANZER)
+                    return 1.2;
+                else if (type == BattalionType.AIRFORCE)
+                    return 1.25;
+                break;
+            case FOREST:
+                if (type == BattalionType.INFANTRY || type == BattalionType.PANZER)
+                    return 0.9;
+                break;
+            case URBAN:
+                if (type == BattalionType.INFANTRY || type == BattalionType.PANZER)
+                    return 1.1;
+                break;
+            case DESERT:
+                if (type == BattalionType.AIRFORCE)
+                    return 1.4;
+                break;
         }
+        return 1;
     }
 
     public static Terrain getTerrainByName(String name) {
