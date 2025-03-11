@@ -10,7 +10,7 @@ public enum Country {
     JAPAN(Leader.HIROHITO, 70000000, 50000, 50000, 50000);
 
     private Leader leader;
-    private int stability;
+    private double stability;
 
     private double manpower;
     private double fuel;
@@ -35,12 +35,16 @@ public enum Country {
         this.leader = leader;
     }
 
-    public int getStability() {
+    public double getStability() {
         return stability;
     }
 
-    public void setStability(int stability) {
-        this.stability = stability;
+    public void increaseStability() {
+        stability *= 1.5;
+    }
+
+    public void decreaseStability() {
+        stability *= 0.5;
     }
 
     public double getManpower() {
@@ -59,6 +63,10 @@ public enum Country {
         this.fuel -= fuel;
     }
 
+    public void increaseFuel(double fuel) {
+        this.fuel += fuel;
+    }
+
     public double getSteel() {
         return steel;
     }
@@ -67,12 +75,20 @@ public enum Country {
         this.steel -= steel;
     }
 
+    public void increaseSteel(double steel) {
+        this.steel += steel;
+    }
+
     public double getSulfur() {
         return sulfur;
     }
 
     public void decreaseSulfur(double sulfur) {
         this.sulfur -= sulfur;
+    }
+
+    public void increaseSulfur(double sulfur) {
+        this.sulfur += sulfur;
     }
 
     public ArrayList<Country> getPuppets() {

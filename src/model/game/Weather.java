@@ -7,38 +7,35 @@ public enum Weather {
     SANDSTORM,
     FOG;
 
-//    public static void modify(Tile tile) {
-//        for (Battalion battalion: tile.getBattalions()) {
-//            BattalionType type = battalion.getType();
-//
-//            switch (tile.getWeather()) {
-//                case RAINY:
-//                    if (type == BattalionType.INFANTRY || type == BattalionType.PANZER)
-//                        battalion.multiplyPower(0.8);
-//                    else if (type == BattalionType.AIRFORCE)
-//                        battalion.multiplyPower(0.1);
-//                    break;
-//                case BLIZZARD:
-//                    if (type == BattalionType.INFANTRY || type == BattalionType.PANZER)
-//                        battalion.multiplyPower(0.6);
-//                    else if (type == BattalionType.AIRFORCE)
-//                        battalion.multiplyPower(0.3);
-//                    break;
-//                case SANDSTORM:
-//                    if (type == BattalionType.INFANTRY || type == BattalionType.PANZER)
-//                        battalion.multiplyPower(0.3);
-//                    else if (type == BattalionType.AIRFORCE)
-//                        battalion.multiplyPower(0.6);
-//                    break;
-//                case FOG:
-//                    if (type == BattalionType.INFANTRY || type == BattalionType.PANZER)
-//                        battalion.multiplyPower(0.2);
-//                    else if (type == BattalionType.AIRFORCE)
-//                        battalion.multiplyPower(0.7);
-//                    break;
-//            }
-//        }
-//    }
+    public double getModifier(BattalionType type) {
+            switch (this) {
+                case RAINY:
+                    if (type == BattalionType.INFANTRY || type == BattalionType.PANZER)
+                        return 0.8;
+                    else if (type == BattalionType.AIRFORCE)
+                        return 0.1;
+                    break;
+                case BLIZZARD:
+                    if (type == BattalionType.INFANTRY || type == BattalionType.PANZER)
+                        return 0.6;
+                    else if (type == BattalionType.AIRFORCE)
+                        return 0.3;
+                    break;
+                case SANDSTORM:
+                    if (type == BattalionType.INFANTRY || type == BattalionType.PANZER)
+                        return 0.3;
+                    else if (type == BattalionType.AIRFORCE)
+                        return 0.6;
+                    break;
+                case FOG:
+                    if (type == BattalionType.INFANTRY || type == BattalionType.PANZER)
+                        return 0.2;
+                    else if (type == BattalionType.AIRFORCE)
+                        return 0.7;
+                    break;
+            }
+            return 1;
+    }
 
     public static Weather getWeatherByName(String name) {
         return switch (name) {

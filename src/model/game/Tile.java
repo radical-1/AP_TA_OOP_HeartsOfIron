@@ -179,8 +179,16 @@ public enum Tile {
         return landNeighbors;
     }
 
+    public boolean isLandNeighbor(Tile tile) {
+        return landNeighbors.contains(tile);
+    }
+
     public ArrayList<Tile> getSeaNeighbors() {
         return seaNeighbors;
+    }
+
+    public boolean isSeaNeighbor(Tile tile) {
+        return seaNeighbors.contains(tile);
     }
 
     public Terrain getTerrain() {

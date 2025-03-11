@@ -413,7 +413,6 @@ public class GameMenuController {
                 break;
         }
 
-
         return  owner.getSteel() >= steelCost &&
                 owner.getManpower() >= manpowerCost;
     }
@@ -727,5 +726,145 @@ public class GameMenuController {
                     battalion.increasePower(10);
                     break;
         }
+    }
+
+    public static Result attack(String sourceIndexString, String destIndexString, String typeString) {
+        int sourceIndex = Integer.parseInt(sourceIndexString);
+        int destIndex = Integer.parseInt(destIndexString);
+        BattalionType type = BattalionType.getBattalionTypeByName(typeString);
+
+        Tile source = Tile.getTileByIndex(sourceIndex);
+        Tile dest = Tile.getTileByIndex(destIndex);
+        if (source != null) {
+            Country owner = source.getOwner();
+            Country current = Game.currentPlayer.getCountry();
+            if (current != owner && !current.isPuppet(owner))
+                return new Result(false, "attacker tile unavailable");
+
+            if (!hasBattalionType(source, type))
+                return new Result(false, "selected tile doesn't have this type of battalion");
+
+            if (dest == null || !canAttack(source, dest, type))
+                return new Result(false, "enemy tile unavailable for attacking");
+
+            if (isFascist(source) && isFascist(dest))
+                return new Result(false, "we are rivals , not enemies");
+
+            return attack(source, dest, type);
+
+        }
+        return new Result(false, "attacker tile unavailable");
+    }
+
+    private static Result attack(Tile source, Tile dest, BattalionType type) {
+        double sourcePower = 0;
+        int sourceCount = 0;
+        for (Battalion battalion: source.getBattalions()) {
+            if (battalion.getType() == type) {
+                sourcePower += battalion.getPower();
+                sourceCount++;
+            }
+        }
+        sourcePower = sourcePower * source.getTerrain().getModifier(type) * source.getWeather().getModifier(type);
+
+        double destPower = 0;
+        int destCount = 0;
+        for (Battalion battalion: dest.getBattalions()) {
+            if (battalion.getType() == type) {
+                destPower += battalion.getPower();
+                destCount++;
+            }
+        }
+        destPower = destPower * dest.getTerrain().getModifier(type) * dest.getWeather().getModifier(type);
+
+        ArrayList<Battalion> deletions = new ArrayList<>();
+        double capturedPower = 0;
+
+        if (sourcePower > destPower) {
+
+            for (Battalion battalion: dest.getBattalions()) {
+                if (battalion.getType() == type) {
+                    capturedPower += battalion.getPower() * dest.getTerrain().getModifier(type) * dest.getWeather().getModifier(type) * battalion.getCaptureRatio() * 0.01;
+                    deletions.add(battalion);
+                }
+            }
+            for (Battalion battalion: source.getBattalions()) {
+                if (battalion.getType() == type) {
+                    battalion.increasePower(capturedPower / sourceCount);
+                }
+            }
+
+            source.getOwner().increaseStability();
+            dest.getOwner().decreaseStability();
+
+            dest.setOwner(source.getOwner());
+
+            for (Battalion battalion: deletions) dest.removeBattalion(battalion);
+            return new Result(true, "war is over\n" +
+                    "winner : " + source.getOwner().toString() + "\n" +
+                    "loser : " + dest.getOwner().toString());
+        }
+        else if (destPower > sourcePower) {
+            for (Battalion battalion: source.getBattalions()) {
+                if (battalion.getType() == type) {
+                    capturedPower += battalion.getPower() * source.getTerrain().getModifier(type) * source.getWeather().getModifier(type) * battalion.getCaptureRatio() * 0.01;
+                    deletions.add(battalion);
+                }
+            }
+            for (Battalion battalion: dest.getBattalions()) {
+                if (battalion.getType() == type) {
+                    battalion.increasePower(capturedPower / destCount);
+                }
+            }
+            for (Battalion battalion: deletions) source.removeBattalion(battalion);
+
+            dest.getOwner().increaseStability();
+            source.getOwner().decreaseStability();
+
+            dest.getOwner().increaseSteel((destPower - sourcePower) * 100);
+            dest.getOwner().increaseSulfur((destPower - sourcePower) * 100);
+            dest.getOwner().increaseFuel((destPower - sourcePower) * 100);
+
+            return new Result(true, "war is over\n" +
+                    "winner : " + dest.getOwner().toString() + "\n" +
+                    "loser : " + source.getOwner().toString());
+        }
+        else {
+            for (Battalion battalion: dest.getBattalions()) {
+                if (battalion.getType() == type) deletions.add(battalion);
+            }
+            for (Battalion battalion: deletions) dest.removeBattalion(battalion);
+
+            deletions.clear();
+
+            for (Battalion battalion: source.getBattalions()) {
+                if (battalion.getType() == type) deletions.add(battalion);
+            }
+            for (Battalion battalion: deletions) source.removeBattalion(battalion);
+
+            return new Result(true, "draw");
+        }
+    }
+
+    private static boolean hasBattalionType(Tile tile, BattalionType type) {
+        boolean flag = false;
+        for (Battalion battalion: tile.getBattalions()) {
+            flag = (battalion.getType() == type);
+        }
+        return flag;
+    }
+
+    private static boolean canAttack(Tile source, Tile dest, BattalionType type) {
+        if (isSameFaction(source.getOwner(), dest.getOwner())) return false;
+        if (dest.getOwner().isPuppet(source.getOwner())) return false;
+        if (type == BattalionType.INFANTRY || type == BattalionType.PANZER)
+            return source.isLandNeighbor(dest);
+        if (type == BattalionType.NAVY)
+            return source.isSeaNeighbor(dest);
+        return true;
+    }
+
+    private static boolean isFascist(Tile tile) {
+        return tile.getOwner().getLeader().getIdeology() == Ideology.FASCISM;
     }
 }

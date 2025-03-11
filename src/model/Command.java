@@ -21,7 +21,7 @@ public enum Command {
     SHOW_RANKING("show\\s+ranking"),
     SHOW_HISTORY("show\\s+history"),
     FORGET_PASSWORD("forget-password\\s+-username\\s+(?<username>\\S+)\\s+-email\\s+(?<email>\\S+)"),
-    SHOW_COUNTRY_DETAIL("show\\s+detail\\s+(?<countryName>.+?)"),
+    SHOW_COUNTRY_DETAIL("show\\s+detail\\s+(?<countryName>.+)"),
     TILE_OWNER("tile\\s+owner\\s+(?<index>-?\\d+)"),
     TILE_LAND_NEIGHBORS("tile\\s+neighbors\\s+(?<index>-?\\d+)"),
     TILE_SEA_NEIGHBORS("tile\\s+sea\\s+neighbors\\s+(?<index>-?\\d+)"),
@@ -42,7 +42,8 @@ public enum Command {
     SWITCH_PLAYER("switch\\s+player\\s+(?<username>\\S+)"),
     ADD_BATTALION("add\\s+battalion\\s+(?<index>-?\\d+)\\s+(?<type>\\S+)\\s+(?<name>\\S+)"),
     MOVE_BATTALION("move\\s+battalion\\s+(?<source_index>\\S+)\\s+(?<name>\\S+)\\s+(?<dest_index>\\S+)"),
-    UPGRADE_BATTALION("upgrade\\s+battalion\\s+(?<index>-?\\d+)\\s+(?<name>\\S+)");
+    UPGRADE_BATTALION("upgrade\\s+battalion\\s+(?<index>-?\\d+)\\s+(?<name>\\S+)"),
+    ATTACK("attack\\s+<source_index>\\s+<dest_index>\\s+<battalion_type>");
 
     private final String regex;
     Command(String regex) {
