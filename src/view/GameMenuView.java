@@ -137,6 +137,9 @@ public class GameMenuView implements Menu {
                 startElection();
                 getLeaderForElection();
             }
+            else if (Command.END.matches(input)) {
+                end(scanner);
+            }
             else {
                 Menu.invalidCommand();
             }
@@ -271,5 +274,10 @@ public class GameMenuView implements Menu {
         Result result = GameMenuController.getLeaderForElection(input);
         if (!result.isValid())
             System.out.println(result.getMessage());
+    }
+
+    private static void end(Scanner scanner) {
+        GameMenuController.end();
+        MainMenuView.run(scanner);
     }
 }

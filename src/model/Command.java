@@ -45,7 +45,8 @@ public enum Command {
     UPGRADE_BATTALION("upgrade\\s+battalion\\s+(?<index>-?\\d+)\\s+(?<name>\\S+)"),
     ATTACK("attack\\s+(?<source_index>-?\\d+)\\s+(?<dest_index>-?\\d+)\\s+(?<battalion_type>\\S+)"),
     CIVIL_WAR("start\\s+civil\\s+war\\s+(?<first_index>-?\\d+)\\s+(?<second_index>-?\\d+)\\s+(?<battalion type>\\S+)"),
-    START_ELECTION("start\\s+election");
+    START_ELECTION("start\\s+election"),
+    END("sadagha\\s+allah\\s+ol\\s+aliol\\s+azim");
 
     private final String regex;
     Command(String regex) {

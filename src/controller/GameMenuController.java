@@ -885,6 +885,9 @@ public class GameMenuController {
             dest.setOwner(source.getOwner());
 
             for (Battalion battalion: deletions) dest.removeBattalion(battalion);
+
+            calculateScores(true, sourcePower - destPower, type);
+
             return new Result(true, "war is over\n" +
                     "winner : " + source.getOwner().toString() + "\n" +
                     "loser : " + dest.getOwner().toString());
@@ -911,6 +914,8 @@ public class GameMenuController {
             dest.getOwner().increaseSulfur((destPower - sourcePower) * 100);
             dest.getOwner().increaseFuel((destPower - sourcePower) * 100);
 
+            calculateScores(false, destPower - sourcePower, type);
+
             return new Result(true, "war is over\n" +
                     "winner : " + dest.getOwner().toString() + "\n" +
                     "loser : " + source.getOwner().toString());
@@ -931,6 +936,20 @@ public class GameMenuController {
 
             return new Result(true, "draw");
         }
+    }
+
+    private static void calculateScores(boolean win, double powerDifference, BattalionType type) {
+        Player player = Game.currentPlayer;
+        int battalionModifier = switch (type) {
+            case INFANTRY -> 5;
+            case PANZER -> 7;
+            case NAVY -> 10;
+            case AIRFORCE -> 15;
+        };
+        if (win)
+            player.increaseScore(powerDifference * 10 * battalionModifier);
+        else
+            player.decreaseScore(powerDifference * 5 * battalionModifier);
     }
 
     private static boolean hasBattalionType(Tile tile, BattalionType type) {
@@ -1089,5 +1108,12 @@ public class GameMenuController {
         current.setLeader(leader);
         current.rechargeStability();
         return new Result(true, "");
+    }
+
+    public static void end() {
+        for (Player player: Game.currentGame.getPlayers()) {
+            if (player.getCountry().getLeader().getIdeology() == Ideology.FASCISM)
+                player.increaseScore(player.getScore() * 2);
+        }
     }
 }

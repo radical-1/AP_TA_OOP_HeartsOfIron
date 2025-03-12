@@ -15,29 +15,15 @@ public enum Leader {
     HIROHITO(Country.JAPAN, Ideology.FASCISM);
 
     private final Country country;
-    private int popularity;
-    private Ideology ideology;
+    private final Ideology ideology;
 
     Leader(Country country, Ideology ideology) {
         this.country = country;
-        this.popularity = 100;
         this.ideology = ideology;
-    }
-
-    public int getPopularity() {
-        return popularity;
-    }
-
-    public void setPopularity(int popularity) {
-        this.popularity = popularity;
     }
 
     public Ideology getIdeology() {
         return ideology;
-    }
-
-    public void setIdeology(Ideology ideology) {
-        this.ideology = ideology;
     }
 
     public Country getCountry() {
