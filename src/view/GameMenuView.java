@@ -10,7 +10,9 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class GameMenuView implements Menu {
+    private static Scanner scanner;
     public static void run(Scanner scanner) {
+        GameMenuView.scanner = scanner;
         while (true) {
             String input = scanner.nextLine().trim();
             if (Command.EXIT.matches(input)) {
@@ -114,7 +116,7 @@ public class GameMenuView implements Menu {
                 upgradeBattalion(indexString, name);
             }
             else if (Command.RUN_FACTORY.matches(input)) {
-                String indexString = Command.UPGRADE_BATTALION.getGroup(input, "index");
+                String indexString = Command.RUN_FACTORY.getGroup(input, "index");
                 String name = Command.RUN_FACTORY.getGroup(input, "name");
                 String manpowerCountString = Command.RUN_FACTORY.getGroup(input, "manpower_count");
                 runFactory(indexString, name, manpowerCountString);
@@ -124,6 +126,16 @@ public class GameMenuView implements Menu {
                 String destIndexString = Command.ATTACK.getGroup(input, "dest_index");
                 String typeString = Command.ATTACK.getGroup(input, "battalion_type");
                 attack(sourceIndexString, destIndexString, typeString);
+            }
+            else if (Command.CIVIL_WAR.matches(input)) {
+                String firstIndexString = Command.CIVIL_WAR.getGroup(input, "first_index");
+                String secondIndexString = Command.CIVIL_WAR.getGroup(input, "second_index");
+                String typeString = Command.CIVIL_WAR.getGroup(input, "battalion_type");
+                civilWar(firstIndexString, secondIndexString, typeString);
+            }
+            else if (Command.START_ELECTION.matches(input)) {
+                startElection();
+                getLeaderForElection();
             }
             else {
                 Menu.invalidCommand();
@@ -242,5 +254,22 @@ public class GameMenuView implements Menu {
     private static void attack(String sourceIndexString, String destIndexString, String typeString) {
         Result result = GameMenuController.attack(sourceIndexString, destIndexString, typeString);
         System.out.println(result.getMessage());
+    }
+
+    private static void civilWar(String firstIndexString, String secondIndexString, String typeString) {
+        Result result = GameMenuController.civilWar(firstIndexString, secondIndexString, typeString);
+        System.out.println(result.getMessage());
+    }
+
+    private static void startElection() {
+        Result result = GameMenuController.startElection();
+        System.out.println(result.getMessage());
+    }
+
+    private static void getLeaderForElection() {
+        String input = scanner.nextLine().trim();
+        Result result = GameMenuController.getLeaderForElection(input);
+        if (!result.isValid())
+            System.out.println(result.getMessage());
     }
 }

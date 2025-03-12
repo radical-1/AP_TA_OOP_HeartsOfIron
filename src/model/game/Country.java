@@ -42,9 +42,16 @@ public enum Country {
     public void increaseStability() {
         stability *= 1.5;
     }
+    public void rechargeStability() {
+        stability = 100;
+    }
 
     public void decreaseStability() {
         stability *= 0.5;
+    }
+
+    public void decreaseStability(double coefficient) {
+        stability *= coefficient;
     }
 
     public double getManpower() {

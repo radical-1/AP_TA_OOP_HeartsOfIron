@@ -43,7 +43,9 @@ public enum Command {
     ADD_BATTALION("add\\s+battalion\\s+(?<index>-?\\d+)\\s+(?<type>\\S+)\\s+(?<name>\\S+)"),
     MOVE_BATTALION("move\\s+battalion\\s+(?<source_index>\\S+)\\s+(?<name>\\S+)\\s+(?<dest_index>\\S+)"),
     UPGRADE_BATTALION("upgrade\\s+battalion\\s+(?<index>-?\\d+)\\s+(?<name>\\S+)"),
-    ATTACK("attack\\s+<source_index>\\s+<dest_index>\\s+<battalion_type>");
+    ATTACK("attack\\s+(?<source_index>-?\\d+)\\s+(?<dest_index>-?\\d+)\\s+(?<battalion_type>\\S+)"),
+    CIVIL_WAR("start\\s+civil\\s+war\\s+(?<first_index>-?\\d+)\\s+(?<second_index>-?\\d+)\\s+(?<battalion type>\\S+)"),
+    START_ELECTION("start\\s+election");
 
     private final String regex;
     Command(String regex) {
