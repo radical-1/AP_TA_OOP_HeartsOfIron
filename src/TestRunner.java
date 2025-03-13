@@ -1,4 +1,4 @@
-import test.InputRedirector;
+import Test.InputRedirector;
 import test.OutputRedirector;
 
 import java.io.File;
@@ -30,7 +30,7 @@ public class TestRunner {
 
             try {
                 // Run the main application
-                Main.main(new String[]{});
+                Main.main(null);
             } catch (RuntimeException e) {
                 System.err.println("Main method terminated: " + e.getMessage());
             }

@@ -1,0 +1,23 @@
+user registered successfully
+user registered successfully
+user registered successfully
+user registered successfully
+email doesn't match!
+password: veryGoodPass99#
+select between available users
+leaderboard menu
+Leaderboard:
+Amirhossein 0
+Kiarash 0
+Sana 0
+MohammadHossein 0
+aghaaz faAliat
+choosing country for Kiarash:
+choosing country for Amirhossein:
+wrong country name
+wrong country name
+choosing country for Sana:
+choosing country for MohammadHossein:
+choosing country for guest1:
+country already taken
+

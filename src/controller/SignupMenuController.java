@@ -28,6 +28,9 @@ public class SignupMenuController {
         if(!Command.VALID_USERNAME.matches(username)) {
             return new Result(false, "invalid username");
         }
+        if(!Command.USERNAME_STARTS_WITH_LETTER.matches(username)) {
+            return new Result(false, "invalid username");
+        }
         if(User.getUserByUsername(username) != null) {
             return new Result(false, "username is already taken");
         }
