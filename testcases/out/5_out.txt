@@ -1,23 +1,30 @@
-user registered successfully
-user registered successfully
-user registered successfully
+username is already taken
+username is already taken
+username is already taken
 user registered successfully
 email doesn't match!
-password: veryGoodPass99#
-select between available users
+user logged in successfully
+invalid command
 leaderboard menu
 Leaderboard:
-Amirhossein 0
-Kiarash 0
-Sana 0
-MohammadHossein 0
-aghaaz faAliat
-choosing country for Kiarash:
-choosing country for Amirhossein:
-wrong country name
-wrong country name
-choosing country for Sana:
-choosing country for MohammadHossein:
-choosing country for guest1:
-country already taken
 
+Amirhossein 0.0
+Kiarash 0.0
+ManPassYadamRaft 0.0
+MohammadHossein 0.0
+Sana 0.0
+TEST 0.0
+kh_ar235 0.0
+invalid command
+invalid command
+invalid command
+invalid command
+invalid command
+invalid command
+invalid command
+invalid command
+invalid command
+invalid command
+invalid command
+invalid command
+invalid command

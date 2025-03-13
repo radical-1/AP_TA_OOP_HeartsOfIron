@@ -17,7 +17,14 @@ Japan
 United Kingdom
 United Kingdom
 United States
-
-
+show current menu
+show detail Soviet Union
+create faction axis
+switch player Kiarash
+join faction axis
+add battalion 8 navy navy1
+add battalion 8 navy navy2
+add battalion 8 navy navy2
+add battalion 8 navy navy3
 
 

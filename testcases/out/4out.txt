@@ -1,6 +1,6 @@
 user registered successfully
-invalid command
-invalid command
+user registered successfully
+user registered successfully
 user logged in successfully
 main menu
 select between available users

@@ -1,0 +1,39 @@
+user registered successfully
+user registered successfully
+user registered successfully
+user registered successfully
+email doesn't match!
+password: veryGoodPass99#
+select between available users
+leaderboard menu
+Leaderboard:
+Amirhossein 0
+Kiarash 0
+Sana 0
+MohammadHossein 0
+aghaaz faAliat
+choosing country for Kiarash:
+choosing country for Amirhossein:
+wrong country name
+wrong country name
+choosing country for Sana:
+choosing country for MohammadHossein:
+choosing country for guest1:
+country already taken
+game menu
+Soviet Union
+leader : stalin
+stability : 100
+man power : 160000000
+fuel : 300000
+sulfur : 50000
+steel : 100000
+faction :
+puppet :
+faction created successfully
+switched to Kiarash
+German Reich joined axis
+battalion set successfully
+battalion set successfully
+battalion name already taken
+daddy USA plz help us

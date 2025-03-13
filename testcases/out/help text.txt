@@ -1,0 +1,33 @@
+Kiarash = German Reich
+Amirhossein = Soviet Union
+Sana = Japan
+MohammadHossein = United Kingdom
+guest1 = United States
+
+
+---------------------------------------------
+axis members : Soviet Union , German Reich
+
+current user = Kiarash
+
+
+---------------------------------------------
+Soviet Battalions:
+
+8 :
+    navy1 navy
+    navy2 navy
+
+
+---------------------------------------------
+Soviet Details:
+
+Soviet Union
+leader : stalin
+stability : 100
+man power : 159990000
+fuel : 240000
+sulfur : 30000
+steel : 0
+faction : axis
+puppet :
