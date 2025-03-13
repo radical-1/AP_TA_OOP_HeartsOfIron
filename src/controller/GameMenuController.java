@@ -7,6 +7,20 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class GameMenuController {
+
+    private static boolean isGameLocked() {
+        Country current = Game.currentPlayer.getCountry();
+        switch (current.getLeader().getIdeology()) {
+            case DEMOCRACY:
+                if (current.getStability() < 50) return true;
+            case COMMUNISM:
+                if (current.getStability() < 60) return true;
+            case FASCISM:
+                if (current.getStability() < 30) return true;
+        }
+        return false;
+    }
+
     public static Result switchPlayer(String username) {
         User user = User.getUserByUsername(username);
         Guest guest = Guest.getGuestByUsername(username);
@@ -38,6 +52,9 @@ public class GameMenuController {
     }
 
     public static Result getCountryDetails(String countryName) {
+        if (isGameLocked())
+            return new Result(false, "game is locked");
+
         Country country = Country.getCountryByName(countryName);
         if (country == null) return new Result(false, "country doesn't exist");
 
@@ -70,6 +87,9 @@ public class GameMenuController {
     }
 
     public static Result getTileOwner(String indexString) {
+        if (isGameLocked())
+            return new Result(false, "game is locked");
+
         int index = Integer.parseInt(indexString);
         Tile tile = Tile.getTileByIndex(index);
         if (tile != null) return new Result(true, tile.getOwner().toString());
@@ -77,6 +97,9 @@ public class GameMenuController {
     }
 
     public static Result getTileLandNeighbors(String indexString) {
+        if (isGameLocked())
+            return new Result(false, "game is locked");
+
         int index = Integer.parseInt(indexString);
         Tile tile = Tile.getTileByIndex(index);
         if (tile != null) {
@@ -93,6 +116,9 @@ public class GameMenuController {
     }
 
     public static Result getTileSeaNeighbors(String indexString) {
+        if (isGameLocked())
+            return new Result(false, "game is locked");
+
         int index = Integer.parseInt(indexString);
         Tile tile = Tile.getTileByIndex(index);
         if (tile != null) {
@@ -110,6 +136,9 @@ public class GameMenuController {
     }
 
     public static Result getTileWeather(String indexString) {
+        if (isGameLocked())
+            return new Result(false, "game is locked");
+
         int index = Integer.parseInt(indexString);
         Tile tile = Tile.getTileByIndex(index);
         if (tile != null) return new Result(true, tile.getWeather().toString());
@@ -117,6 +146,9 @@ public class GameMenuController {
     }
 
     public static Result getTileTerrain(String indexString) {
+        if (isGameLocked())
+            return new Result(false, "game is locked");
+
         int index = Integer.parseInt(indexString);
         Tile tile = Tile.getTileByIndex(index);
         if (tile != null) return new Result(true, tile.getTerrain().toString());
@@ -124,6 +156,9 @@ public class GameMenuController {
     }
 
     public static Result getTileBattalions(String indexString) {
+        if (isGameLocked())
+            return new Result(false, "game is locked");
+
         int index = Integer.parseInt(indexString);
         Tile tile = Tile.getTileByIndex(index);
         if (tile != null) {
@@ -169,6 +204,9 @@ public class GameMenuController {
     }
 
     public static Result getTileFactories(String indexString) {
+        if (isGameLocked())
+            return new Result(false, "game is locked");
+
         int index = Integer.parseInt(indexString);
         Tile tile = Tile.getTileByIndex(index);
         if (tile != null) {
@@ -215,6 +253,9 @@ public class GameMenuController {
     }
 
     public static Result setTileTerrain(String indexString, String name) {
+        if (isGameLocked())
+            return new Result(false, "game is locked");
+
         int index = Integer.parseInt(indexString);
         Tile tile = Tile.getTileByIndex(index);
         if (tile != null) {
@@ -236,6 +277,9 @@ public class GameMenuController {
     }
 
     public static Result setTileWeather(String indexString, String name) {
+        if (isGameLocked())
+            return new Result(false, "game is locked");
+
         int index = Integer.parseInt(indexString);
         Tile tile = Tile.getTileByIndex(index);
         if (tile != null) {
@@ -254,6 +298,9 @@ public class GameMenuController {
     }
 
     public static Result createFaction(String name) {
+        if (isGameLocked())
+            return new Result(false, "game is locked");
+
         Faction faction = Faction.getFactionByName(name);
         if (faction != null)
             return new Result(false, "faction name already taken");
@@ -264,6 +311,9 @@ public class GameMenuController {
     }
 
     public static Result joinFaction(String name) {
+        if (isGameLocked())
+            return new Result(false, "game is locked");
+
         Faction faction = Faction.getFactionByName(name);
         if (faction == null)
             return new Result(false, "faction doesn't exist");
@@ -273,6 +323,9 @@ public class GameMenuController {
     }
 
     public static Result leaveFaction(String name) {
+        if (isGameLocked())
+            return new Result(false, "game is locked");
+
         Faction faction = Faction.getFactionByName(name);
         if (faction == null)
             return new Result(false, "faction doesn't exist");
@@ -284,6 +337,9 @@ public class GameMenuController {
     }
 
     public static Result buildFactory(String indexString, String typeString, String name) {
+        if (isGameLocked())
+            return new Result(false, "game is locked");
+
         Tile tile = Tile.getTileByIndex(Integer.parseInt(indexString));
         if (tile == null)
             return new Result(false, "invalid tile");
@@ -305,6 +361,9 @@ public class GameMenuController {
     }
 
     public static Result runFactory(String indexString, String name, String manpowerCountString) {
+        if (isGameLocked())
+            return new Result(false, "game is locked");
+
         int index = Integer.parseInt(indexString);
         int manpowerCount = Integer.parseInt(manpowerCountString);
         Tile tile = Tile.getTileByIndex(index);
@@ -418,14 +477,31 @@ public class GameMenuController {
     }
 
     public static Result puppet(String countryName) {
+        if (isGameLocked())
+            return new Result(false, "game is locked");
+
         Country puppet = Country.getCountryByName(countryName);
-        if (puppet == null) {
+        if (puppet == null)
             return new Result(false, "country doesn't exist");
-        }
+        if (!canPuppet(puppet))
+            return new Result(false, "you are not allowed to puppet this country");
+        Country current = Game.currentPlayer.getCountry();
+        current.addPuppet(puppet);
         return new Result(true, "now " + countryName + " is my puppet yo ho ha ha ha");
     }
 
+    private static boolean canPuppet(Country country) {
+        Country current = Game.currentPlayer.getCountry();
+        if (current.getLeader().getIdeology() == Ideology.DEMOCRACY) return false;
+        if (current.getManpower() <= country.getManpower()) return false;
+        if (isSameFaction(current, country)) return false;
+        return true;
+    }
+
     public static Result addBattalion(String indexString, String typeString, String name) {
+        if (isGameLocked())
+            return new Result(false, "game is locked");
+
         int index = Integer.parseInt(indexString);
         Tile tile = Tile.getTileByIndex(index);
         if (tile != null) {
@@ -552,6 +628,9 @@ public class GameMenuController {
     }
 
     public static Result moveBattalion(String sourceIndexString, String name, String destIndexString) {
+        if (isGameLocked())
+            return new Result(false, "game is locked");
+
         int sourceIndex = Integer.parseInt(sourceIndexString);
         int destIndex = Integer.parseInt(destIndexString);
         Tile source = Tile.getTileByIndex(sourceIndex);
@@ -588,6 +667,9 @@ public class GameMenuController {
     }
 
     public static Result upgradeBattalion(String indexString, String name) {
+        if (isGameLocked())
+            return new Result(false, "game is locked");
+
         int index = Integer.parseInt(indexString);
         Tile tile = Tile.getTileByIndex(index);
         if (tile != null) {
@@ -729,6 +811,9 @@ public class GameMenuController {
     }
 
     public static Result attack(String sourceIndexString, String destIndexString, String typeString) {
+        if (isGameLocked())
+            return new Result(false, "game is locked");
+
         int sourceIndex = Integer.parseInt(sourceIndexString);
         int destIndex = Integer.parseInt(destIndexString);
         BattalionType type = BattalionType.getBattalionTypeByName(typeString);
@@ -800,10 +885,14 @@ public class GameMenuController {
             dest.setOwner(source.getOwner());
 
             for (Battalion battalion: deletions) dest.removeBattalion(battalion);
+
+            calculateScores(true, sourcePower - destPower, type);
+
             return new Result(true, "war is over\n" +
                     "winner : " + source.getOwner().toString() + "\n" +
                     "loser : " + dest.getOwner().toString());
         }
+
         else if (destPower > sourcePower) {
             for (Battalion battalion: source.getBattalions()) {
                 if (battalion.getType() == type) {
@@ -825,10 +914,13 @@ public class GameMenuController {
             dest.getOwner().increaseSulfur((destPower - sourcePower) * 100);
             dest.getOwner().increaseFuel((destPower - sourcePower) * 100);
 
+            calculateScores(false, destPower - sourcePower, type);
+
             return new Result(true, "war is over\n" +
                     "winner : " + dest.getOwner().toString() + "\n" +
                     "loser : " + source.getOwner().toString());
         }
+
         else {
             for (Battalion battalion: dest.getBattalions()) {
                 if (battalion.getType() == type) deletions.add(battalion);
@@ -844,6 +936,20 @@ public class GameMenuController {
 
             return new Result(true, "draw");
         }
+    }
+
+    private static void calculateScores(boolean win, double powerDifference, BattalionType type) {
+        Player player = Game.currentPlayer;
+        int battalionModifier = switch (type) {
+            case INFANTRY -> 5;
+            case PANZER -> 7;
+            case NAVY -> 10;
+            case AIRFORCE -> 15;
+        };
+        if (win)
+            player.increaseScore(powerDifference * 10 * battalionModifier);
+        else
+            player.decreaseScore(powerDifference * 5 * battalionModifier);
     }
 
     private static boolean hasBattalionType(Tile tile, BattalionType type) {
@@ -866,5 +972,148 @@ public class GameMenuController {
 
     private static boolean isFascist(Tile tile) {
         return tile.getOwner().getLeader().getIdeology() == Ideology.FASCISM;
+    }
+
+    public static Result civilWar(String firstIndexString, String secondIndexString, String typeString) {
+        if (isGameLocked())
+            return new Result(false, "game is locked");
+
+        Tile first = Tile.getTileByIndex(Integer.parseInt(firstIndexString));
+        Tile second = Tile.getTileByIndex(Integer.parseInt(secondIndexString));
+        BattalionType type = BattalionType.getBattalionTypeByName(typeString);
+
+        Country current = Game.currentPlayer.getCountry();
+        if (current.getLeader().getIdeology() == Ideology.DEMOCRACY)
+            return new Result(false, "no civil war for you");
+        if (first != null && second != null) {
+            if (first.getOwner() != current || second.getOwner() != current)
+                return new Result(false, "invalid tiles for civil war");
+            if ((type == BattalionType.INFANTRY || type == BattalionType.PANZER)) {
+                if (!first.isLandNeighbor(second))
+                    return new Result(false, "can't start civil war between these tiles");
+            }
+            if (type == BattalionType.NAVY) {
+                if (!first.isSeaNeighbor(second))
+                    return new Result(false, "can't start civil war between these tiles");
+            }
+            if (type == null)
+                return new Result(false, "invalid battalion type");
+
+
+            current.decreaseStability(0.1);
+            return civilAttack(first, second, type);
+        }
+
+        return new Result(false, "null values");
+    }
+
+    private static Result civilAttack(Tile first, Tile second, BattalionType type) {
+        double firstPower = 0;
+        int firstCount = 0;
+        for (Battalion battalion: first.getBattalions()) {
+            if (battalion.getType() == type) {
+                firstPower += battalion.getPower();
+                firstCount++;
+            }
+        }
+        firstPower = firstPower * first.getTerrain().getModifier(type) * first.getWeather().getModifier(type);
+
+        double secondPower = 0;
+        int secondCount = 0;
+        for (Battalion battalion: second.getBattalions()) {
+            if (battalion.getType() == type) {
+                secondPower += battalion.getPower();
+                secondCount++;
+            }
+        }
+        secondPower = secondPower * second.getTerrain().getModifier(type) * second.getWeather().getModifier(type);
+
+        ArrayList<Battalion> deletions = new ArrayList<>();
+        double capturedPower = 0;
+
+        if (firstPower > secondPower) {
+
+            for (Battalion battalion: second.getBattalions()) {
+                if (battalion.getType() == type) {
+                    capturedPower += battalion.getPower() * second.getTerrain().getModifier(type) * second.getWeather().getModifier(type) * battalion.getCaptureRatio() * 0.01;
+                    deletions.add(battalion);
+                }
+            }
+            for (Battalion battalion: first.getBattalions()) {
+                if (battalion.getType() == type) {
+                    battalion.increasePower(capturedPower / firstCount);
+                }
+            }
+
+            for (Battalion battalion: deletions) second.removeBattalion(battalion);
+            return new Result(true, "civil war ended. " + first.getIndex() + " won.");
+        }
+        else if (secondPower > firstPower) {
+            for (Battalion battalion: first.getBattalions()) {
+                if (battalion.getType() == type) {
+                    capturedPower += battalion.getPower() * first.getTerrain().getModifier(type) * first.getWeather().getModifier(type) * battalion.getCaptureRatio() * 0.01;
+                    deletions.add(battalion);
+                }
+            }
+            for (Battalion battalion: second.getBattalions()) {
+                if (battalion.getType() == type) {
+                    battalion.increasePower(capturedPower / secondCount);
+                }
+            }
+            for (Battalion battalion: deletions) first.removeBattalion(battalion);
+
+            return new Result(true, "civil war ended. " + second.getIndex() + " won.");
+        }
+        else {
+            for (Battalion battalion: second.getBattalions()) {
+                if (battalion.getType() == type) deletions.add(battalion);
+            }
+            for (Battalion battalion: deletions) second.removeBattalion(battalion);
+
+            deletions.clear();
+
+            for (Battalion battalion: first.getBattalions()) {
+                if (battalion.getType() == type) deletions.add(battalion);
+            }
+            for (Battalion battalion: deletions) first.removeBattalion(battalion);
+
+            return new Result(true, "man dige harfi nadaram.");
+        }
+    }
+
+    public static Result startElection() {
+        StringBuilder message = new StringBuilder();
+        message.append("Available leaders:\n");
+        Country current = Game.currentPlayer.getCountry();
+        for (Leader leader: Leader.values()) {
+            if (leader.getIdeology() == Ideology.DEMOCRACY && leader.getCountry() == current)
+                message.append(leader).append("\n");
+        }
+        for (Leader leader: Leader.values()) {
+            if (leader.getIdeology() == Ideology.COMMUNISM && leader.getCountry() == current)
+                message.append(leader).append("\n");
+        }
+        for (Leader leader: Leader.values()) {
+            if (leader.getIdeology() == Ideology.FASCISM && leader.getCountry() == current)
+                message.append(leader).append("\n");
+        }
+        return new Result(true, message.toString());
+    }
+
+    public static Result getLeaderForElection(String leaderName) {
+        Leader leader = Leader.getLeaderByName(leaderName);
+        if (leader == null)
+            return new Result(false, "leader doesn't exist");
+        Country current = Game.currentPlayer.getCountry();
+        current.setLeader(leader);
+        current.rechargeStability();
+        return new Result(true, "");
+    }
+
+    public static void end() {
+        for (Player player: Game.currentGame.getPlayers()) {
+            if (player.getCountry().getLeader().getIdeology() == Ideology.FASCISM)
+                player.increaseScore(player.getScore() * 2);
+        }
     }
 }

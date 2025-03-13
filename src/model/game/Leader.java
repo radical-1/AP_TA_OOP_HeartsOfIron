@@ -1,41 +1,51 @@
 package model.game;
 
 public enum Leader {
-    ADENAUER(Ideology.DEMOCRACY),
-    PIECK(Ideology.COMMUNISM),
-    HITLER(Ideology.FASCISM),
-    ZOMBIE_LENIN(Ideology.DEMOCRACY),
-    STALIN(Ideology.COMMUNISM),
-    TROTSKY(Ideology.FASCISM),
-    ROOSEVELT(Ideology.DEMOCRACY),
-    BROWDER(Ideology.COMMUNISM),
-    PELLEY(Ideology.FASCISM),
-    CHURCHILL(Ideology.DEMOCRACY),
-    MOSLEY(Ideology.FASCISM),
-    HIROHITO(Ideology.FASCISM);
+    ADENAUER(Country.GERMAN_REICH, Ideology.DEMOCRACY),
+    PIECK(Country.GERMAN_REICH, Ideology.COMMUNISM),
+    HITLER(Country.GERMAN_REICH, Ideology.FASCISM),
+    ZOMBIE_LENIN(Country.SOVIET_UNION, Ideology.DEMOCRACY),
+    STALIN(Country.SOVIET_UNION, Ideology.COMMUNISM),
+    TROTSKY(Country.SOVIET_UNION, Ideology.FASCISM),
+    ROOSEVELT(Country.UNITED_STATES, Ideology.DEMOCRACY),
+    BROWDER(Country.UNITED_STATES, Ideology.COMMUNISM),
+    PELLEY(Country.UNITED_STATES, Ideology.FASCISM),
+    CHURCHILL(Country.UNITED_KINGDOM, Ideology.DEMOCRACY),
+    MOSLEY(Country.UNITED_KINGDOM, Ideology.FASCISM),
+    HIROHITO(Country.JAPAN, Ideology.FASCISM);
 
-    private int popularity;
-    private Ideology ideology;
+    private final Country country;
+    private final Ideology ideology;
 
-    Leader(Ideology ideology) {
-        this.popularity = 100;
+    Leader(Country country, Ideology ideology) {
+        this.country = country;
         this.ideology = ideology;
-    }
-
-    public int getPopularity() {
-        return popularity;
-    }
-
-    public void setPopularity(int popularity) {
-        this.popularity = popularity;
     }
 
     public Ideology getIdeology() {
         return ideology;
     }
 
-    public void setIdeology(Ideology ideology) {
-        this.ideology = ideology;
+    public Country getCountry() {
+        return country;
+    }
+
+    public static Leader getLeaderByName(String name) {
+        return switch (name) {
+            case "adenauer" -> ADENAUER;
+            case "pieck" -> PIECK;
+            case "hitler" -> HITLER;
+            case "zombie lenin" -> ZOMBIE_LENIN;
+            case "stalin" -> STALIN;
+            case "trotsky" -> TROTSKY;
+            case "roosevelt" -> ROOSEVELT;
+            case "browder" -> BROWDER;
+            case "pelley" -> PELLEY;
+            case "churchill" -> CHURCHILL;
+            case "mosley" -> MOSLEY;
+            case "hirohito" -> HIROHITO;
+            default -> null;
+        };
     }
 
     @Override
