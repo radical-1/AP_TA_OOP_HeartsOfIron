@@ -1,0 +1,23 @@
+register -username Kiarash -password veryGoodPass99# -email moz@meow.com
+register -username Amirhossein -password veryGoodPass99# -email moz@meow.com
+register -username Sana -password veryGoodPass99# -email moz@meow.com
+register -username MohammadHossein -password veryGoodPass99# -email moz@meow.com
+forget-password -username Kiarash -email salam@gmail.com
+login -username Kiarash -password veryGoodPass99#
+play Amirhossein Sana Mohammad Hossein
+leaderboard
+show current menu
+show ranking
+play Amirhossein Sana MohammadHossein
+German Reich
+SovietUnion
+German  Reich
+Soviet Union
+Japan
+United Kingdom
+United Kingdom
+United States
+
+
+
+
