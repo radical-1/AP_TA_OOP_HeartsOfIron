@@ -26,14 +26,6 @@ public class GameMenuView implements Menu {
                 String username = Command.SWITCH_PLAYER.getGroup(input, "username");
                 switchPlayer(username);
             }
-            else if (Command.CHOOSE_COUNTRY.matches(input)) {
-                ArrayList<String> countryNames = new ArrayList<>();
-                Matcher matcher = Command.CHOOSE_COUNTRY.getMatcher(input);
-                if (matcher == null) continue;
-                for (int i = 1; i <= 5; i++)
-                    countryNames.add(matcher.group(i));
-                chooseCountry(countryNames);
-            }
             else if (Command.SHOW_COUNTRY_DETAIL.matches(input)) {
                 String countryName = Command.SHOW_COUNTRY_DETAIL.getGroup(input, "countryName");
                 getCountryDetails(countryName);
