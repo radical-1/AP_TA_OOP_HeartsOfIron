@@ -3,6 +3,8 @@ package controller;
 import model.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class MainMenuController {
     public static Result play(ArrayList<String> usernames) {
@@ -12,11 +14,14 @@ public class MainMenuController {
             user = User.getUserByUsername(username);
             if (user == null)
                 return new Result(false, "select between available users");
-            if (players.contains(user))
+            if (Collections.frequency(usernames, username) > 1)
                 return new Result(false, "users must be distinct");
-            if (user == User.currentUser)
-                return new Result(false, "you can't choose urself");
             players.add(user);
+        }
+
+        for (Player player: players) {
+            if (player == User.currentUser)
+                return new Result(false, "you can't choose urself");
         }
 
         for (int i = 1; i <= 5 - players.size(); i++) players.add(new Guest(i));

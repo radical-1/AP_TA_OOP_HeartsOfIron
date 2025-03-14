@@ -2,6 +2,7 @@ import test.InputRedirector;
 import test.OutputRedirector;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 
 public class TestRunner {
@@ -33,6 +34,8 @@ public class TestRunner {
                 Main.main(new String[]{});
             } catch (RuntimeException e) {
                 System.err.println("Main method terminated: " + e.getMessage());
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
             }
 
         }

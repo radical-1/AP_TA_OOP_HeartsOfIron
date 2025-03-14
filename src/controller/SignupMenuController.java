@@ -3,6 +3,7 @@ package controller;
 import model.Command;
 import model.Result;
 import model.User;
+import view.LoginMenuView;
 
 public class SignupMenuController {
     public static Result register(String username, String password, String email) {

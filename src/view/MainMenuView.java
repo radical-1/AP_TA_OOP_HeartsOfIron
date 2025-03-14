@@ -29,9 +29,10 @@ public class MainMenuView implements Menu {
             else if (Command.PLAY.matches(input)) {
                 ArrayList<String> usernames = new ArrayList<>();
                 Matcher matcher = Command.PLAY.getMatcher(input);
-                if (matcher == null) continue;
-                for (int i = 1; i <= matcher.groupCount(); i++)
-                    usernames.add(matcher.group(i));
+                for (int i = 1; i <= matcher.groupCount(); i++) {
+                    if (matcher.group(i) != null)
+                        usernames.add(matcher.group(i));
+                }
                 play(usernames, scanner);
             }
             else {

@@ -1,0 +1,121 @@
+register -username Kiarash -password veryGoodPass99# -email moz@meow.com
+back
+register -username Amirhossein -password veryGoodPass99# -email moz@meow.com
+back
+register -username Sana -password veryGoodPass99# -email moz@meow.com
+login -username Kiarash -password veryGoodPass99#
+show current menu
+play AmirhosseinSana
+play Kiarash Amirhossein Sana Sana
+play Amirhossein Sana Kiarash Kiarash
+play Amirhossein Sana    Kiarash
+play Amirhossein Sana khkh
+play Amirhossein Sana
+show current menu
+Iran
+German Reich
+German Reich
+United States
+Soviet Union
+   United    Kingdom
+United Kingdom
+Japan
+tile owner 50
+tile owner 1000
+tile neighbors 38
+tile neighbors 53
+tile neighbors 27
+show detail Japans
+show detail Japan
+tile sea neighbors 22
+tile sea neighbors 52
+show battalions 52
+show battalions 35
+show terrain 30
+set terrain 1 forest
+set terrain 40 forest
+set terrain 40 urban
+set weather 40 barfi
+set weather 1 barfi
+set weather 40 blizzard
+attack 39 1 panzer
+attack 39 39 infantry
+create faction axis
+create faction axis
+switch player fazli
+switch player Kiarash
+switch player Sana
+join faction allies
+join faction axis
+leave faction allies
+leave faction axis
+join faction axis
+set terrain 16 urban
+set weather 16 sandstorm
+add battalion 17 panzer girlsUndPanzers
+add battalion 16 piadehNezaam girlsUndPanzers
+add battalion 16 panzer girlsUndPanzers
+add battalion 16 airforce girlsUndPanzers
+add battalion 16 panzer T34
+add battalion 16 panzer MASSIVEPanzers
+show detail Soviet Union
+add battalion 16 panzer randomName
+move battalion 16 randomName 18
+move battalion 16 randomName 39
+move battalion 16 MASSIVEPanzers 39
+upgrade battalion 39 MASSIVEPanzer
+upgrade battalion 18 MASSIVEPanzers
+upgrade battalion 39 MASSIVEPanzers
+upgrade battalion 39 MASSIVEPanzers
+upgrade battalion 39 MASSIVEPanzers
+add battalion 16 panzer randomName
+show battalions 16
+show battalions 17
+show battalions 39
+show detail Soviet       Union
+build factory 34 fuel refinery masjedSoleymaan
+build factory 15 fuel refiner masjedSoleymaan
+build factory 15 fuel refinery masjedSoleymaan
+build factory 15 fuel refinery fazliRefinery
+build factory 15 fuel refinery meow
+build factory 15 fuel refinery ThisShouldGiveError
+build factory 14 fuel refinery ThisShouldNotGiveError
+build factory 14 fuel refinery ThisShouldGiveMoneyError
+show detail Soviet Union
+set terrain 15 urban
+run factory 99 randomName 10000
+run factory 15 randomName 10000
+run factory 15 masjedSoleymaan 999999999
+run factory 15 masjedSoleymaan 1000
+show factories 15
+show factories 50
+leave faction NotInThisFaction
+leave faction axis
+attack 50 39 panzer
+switch player Kiarash
+set terrain 39 mountain
+set weather 39 fog
+switch player Sana
+attack 16 39 panzer
+show detail Soviet Union
+show battalions 16
+show battalions 39
+switch player Amirhossein
+start civil war 100 200 meow
+switch player Kiarash
+start civil war 41 40 meow
+add battalion 41 airforce nirooHavaaei
+start civil war 40 41 airforce
+show battalions 41
+start election
+moz
+show current menu
+pieck
+tile owner 39
+sadagha allah ol aliol azim
+show current menu
+leaderboard
+show current menu
+show history
+show ranking
+exit
