@@ -39,7 +39,6 @@ public enum Command {
     RUN_FACTORY("run\\s+factory\\s+(?<index>-?\\d+)\\s+(?<name>\\S+)\\s+(?<manpower_count>-?\\d+)"),
     PUPPET("puppet\\s+(?<countryName>.+?)"),
     PLAY("play(?:\\s+(\\S+))?(?:\\s+(\\S+))?(?:\\s+(\\S+))?(?:\\s+(\\S+))?"),
-    CHOOSE_COUNTRY("choose\\s+country(?:\\s+(\\.+)){5}"),
     SWITCH_PLAYER("switch\\s+player\\s+(?<username>\\S+)"),
     ADD_BATTALION("add\\s+battalion\\s+(?<index>-?\\d+)\\s+(?<type>\\S+)\\s+(?<name>\\S+)"),
     MOVE_BATTALION("move\\s+battalion\\s+(?<source_index>\\S+)\\s+(?<name>\\S+)\\s+(?<dest_index>\\S+)"),
