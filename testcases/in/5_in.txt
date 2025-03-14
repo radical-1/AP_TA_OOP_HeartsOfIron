@@ -1,8 +1,12 @@
 register -username Kiarash -password veryGoodPass99# -email moz@meow.com
+back
 register -username Amirhossein -password veryGoodPass99# -email moz@meow.com
+back
 register -username Sana -password veryGoodPass99# -email moz@meow.com
+back
 register -username MohammadHossein -password veryGoodPass99# -email moz@meow.com
 forget-password -username Kiarash -email salam@gmail.com
+forget-password -username Kiarash -email moz@meow.com
 login -username Kiarash -password veryGoodPass99#
 play Amirhossein Sana Mohammad Hossein
 leaderboard
@@ -20,11 +24,59 @@ United States
 show current menu
 show detail Soviet Union
 create faction axis
-switch player Kiarash
+switch player Amirhossein
 join faction axis
+switch player Kiarash
+switch player Kiarash
 add battalion 8 navy navy1
 add battalion 8 navy navy2
 add battalion 8 navy navy2
 add battalion 8 navy navy3
-
+build factory 50 fuel refinery ref1
+add battalion 8 navy navy3
+add battalion 8 navy1 navy3
+show detail German Reich
+add battalion 8 navy navy4
+add battalion -8 navy navy4
+add battalion - 8 navy navy4
+switch player Amirhossein
+puppet German Reichs
+puppet German Reich
+puppet United Kingdom
+show detail Soviet Union
+show factories 50
+show battalions -60
+show battalions 8 8
+show battalions 8
+upgrade battalion 8 navy2
+show detail Soviet Union
+add battalion 54 navy   navy4
+set terrain 600 terrain-bad
+set terrain 6 terrain-bad
+set terrain 6 mountain
+set terrain 54 mountain
+switch player MohammadHossein
+set terrain 54 mountain
+switch player Amirhossein
+add battalion 35 navy navy1
+build factory 35 steel  factory steel1
+build factory 35 steel factory steel1
+build factory 35 steel factory steel2
+build factory 35 steel factory steel3
+build factory 35 steel factory steel3
+run factory 36 steel1 50000
+run factory 35 steel1 999999999
+run factory 35 steel1 100000
+run factory 35 steel2 100000
+run factory 35 steel3 1000
+switch player
+show factories -0
+show factories                             1
+show factories            35
+show factories            51
+build factory 35 fuelrefinery fuel1
+build factory - 1 fuel refinery fuel1
+set terrain 1 mountain
+set terrain 1 mountain
+build factory 1 fuel refinery fuel1
 

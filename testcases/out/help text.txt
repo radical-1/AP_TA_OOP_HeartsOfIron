@@ -8,15 +8,48 @@ guest1 = United States
 ---------------------------------------------
 axis members : Soviet Union , German Reich
 
-current user = Kiarash
+current user = Amirhossein
 
 
 ---------------------------------------------
 Soviet Battalions:
 
 8 :
-    navy1 navy
-    navy2 navy
+    navy1 navy 10 30%
+    navy2 navy 15 30%
+    navy3 navy 10 30%
+
+United Kingdom Battalions:
+
+54 :
+    navy4 navy 10 30%
+
+German Reich Battalions:
+
+
+35 :
+    navy1 navy 10 30
+
+---------------------------------------------
+German Reich Factories
+
+50 :
+    fuel ref1 100000 50
+
+35 :
+    steel steel3 20000 10
+
+1 :
+    fuel fuel1 100000 0
+
+---------------------------------------------
+Terrains:
+54 : mountain
+6 : mountain
+1 : mountain
+
+---------------------------------------------
+Weathers:
 
 
 ---------------------------------------------
@@ -25,9 +58,19 @@ Soviet Details:
 Soviet Union
 leader : stalin
 stability : 100
-man power : 159990000
-fuel : 240000
-sulfur : 30000
-steel : 0
+man power : 159720500
+fuel : 255000
+sulfur : 35000
+steel : 70000
+faction : axis
+puppet : United Kingdom
+
+German Reich
+leader : hitler
+stability : 100
+man power : 59935000
+fuel : 10000
+sulfur : 170000
+steel : 145000
 faction : axis
 puppet :

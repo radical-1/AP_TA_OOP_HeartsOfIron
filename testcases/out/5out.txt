@@ -4,13 +4,14 @@ user registered successfully
 user registered successfully
 email doesn't match!
 password: veryGoodPass99#
+user logged in successfully
 select between available users
 leaderboard menu
 Leaderboard:
 Amirhossein 0
 Kiarash 0
-Sana 0
 MohammadHossein 0
+Sana 0
 aghaaz faAliat
 choosing country for Kiarash:
 choosing country for Amirhossein:
@@ -31,9 +32,105 @@ steel : 100000
 faction :
 puppet :
 faction created successfully
+switched to Amirhossein
+Soviet Union joined axis
 switched to Kiarash
-German Reich joined axis
+you can't switch to yourself
 battalion set successfully
 battalion set successfully
 battalion name already taken
+battalion set successfully
+factory built successfully
+battalion name already taken
+you can't use imaginary battalions
+German Reich
+leader : hitler
+stability : 100
+man power : 59935000
+fuel : 10000
+sulfur : 170000
+steel : 145000
+faction : axis
+puppet :
+you can't add this type of battalion anymore
+tile is unavailable
+invalid command
+switched to Amirhossein
+country doesn't exist
+you are not allowed to puppet this country
+now United Kingdom is my puppet yo ho ha ha ha
+Soviet Union
+leader : stalin
+stability : 100
+man power : 160000000
+fuel : 300000
+sulfur : 50000
+steel : 100000
+faction : axis
+puppet : United Kingdom
+fuel refinery:
+ref1 100000
+
+steel factory:
+
+sulfur factory:
+can't show battalions
+invalid command
+infantry:
+
+panzer:
+
+airforce:
+
+navy:
+navy1 0 10 30
+navy2 0 10 30
+navy3 0 10 30
+navy2 upgraded to level 1
+Soviet Union
+leader : stalin
+stability : 100
+man power : 159997500
+fuel : 285000
+sulfur : 45000
+steel : 75000
+faction : axis
+puppet : United Kingdom
+battalion set successfully
+you don't own this tile
+terrain doesn't exist
+terrain set successfully
+you don't own this tile
+switched to MohammadHossein
+terrain set successfully
+switched to Amirhossein
 daddy USA plz help us
+invalid factory type
+factory built successfully
+factory built successfully
+factory built successfully
+factory limit exceeded
+this tile doesn't contain this factory
+you are poor!
+factory extracted 30000 of steel
+factory extracted 30000 of steel
+factory extracted 10000 of steel
+invalid command
+tile doesn't exist
+fuel refinery:
+
+steel factory:
+
+sulfur factory:
+fuel refinery:
+
+steel factory:
+steel3 20000
+
+sulfur factory:
+can't show factories
+invalid factory type
+invalid command
+terrain set successfully
+you can't change terrain twice
+factory built successfully
