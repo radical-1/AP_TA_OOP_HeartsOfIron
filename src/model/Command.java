@@ -46,6 +46,7 @@ public enum Command {
     ATTACK("attack\\s+(?<sourceindex>-?\\d+)\\s+(?<destindex>-?\\d+)\\s+(?<battaliontype>\\S+)"),
     CIVIL_WAR("start\\s+civil\\s+war\\s+(?<firstindex>-?\\d+)\\s+(?<secondindex>-?\\d+)\\s+(?<battaliontype>\\S+)"),
     START_ELECTION("start\\s+election"),
+    JEW_SULFUR("pass\\s+the\\s+juice?\\s+Nein!\\s+Gas\\s+the\\s+jews:)\\s+jew\\s+count\\s+:\\s+(?<jewcount>-?\\d+)"),
     END("sadagha\\s+allah\\s+ol\\s+aliol\\s+azim");
 
     private final String regex;

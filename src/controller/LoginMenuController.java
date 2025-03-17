@@ -7,7 +7,7 @@ public class LoginMenuController {
     public static Result login(String username, String password) {
         User user = User.getUserByUsername(username);
         if(user == null) {
-            return new Result(false, "username doesn't exist");
+            return new Result(false, "username doesn't exist!");
         }
         if(!user.getPassword().equals(password)) {
             return new Result(false, "password is incorrect!");
