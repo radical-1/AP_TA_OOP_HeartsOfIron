@@ -48,7 +48,7 @@ public class GameMenuController {
         message.append("leader : ").append(country.getLeader().toString()).append("\n");
         message.append("stability : ").append(country.getStability()).append("\n");
         message.append("man power : ").append(country.getManpower()).append("\n");
-        message.append("fuel amount : ").append(country.getFuel()).append("\n");
+        message.append("fuel : ").append(country.getFuel()).append("\n");
         message.append("sulfur : ").append(country.getSulfur()).append("\n");
         message.append("steel : ").append(country.getSteel()).append("\n");
         message.append("faction : ");
