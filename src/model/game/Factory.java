@@ -3,7 +3,7 @@ package model.game;
 public class Factory {
     private final FactoryType type;
     private final String name;
-    private double extracted;
+    private int extracted;
 
     public Factory(FactoryType type, String name) {
         this.type = type;
@@ -19,12 +19,12 @@ public class Factory {
         return name;
     }
 
-    public double getRemainingResource() {
+    public int getRemainingResource() {
         return type.getMaxPower() - extracted;
     }
 
     public void useResource(double amount) {
-        extracted += amount;
+        extracted = (int) (extracted + amount);
     }
 
     @Override

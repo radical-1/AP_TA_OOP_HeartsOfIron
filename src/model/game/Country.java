@@ -10,15 +10,15 @@ public enum Country {
     JAPAN(Leader.HIROHITO, 70000000, 50000, 50000, 50000);
 
     private Leader leader;
-    private double stability;
+    private int stability;
 
-    private double manpower;
-    private double fuel;
-    private double steel;
-    private double sulfur;
+    private int manpower;
+    private int fuel;
+    private int steel;
+    private int sulfur;
     private final ArrayList<Country> puppets;
 
-    Country(Leader leader, double manpower, double fuel, double steel, int sulfur) {
+    Country(Leader leader, int manpower, int fuel, int steel, int sulfur) {
         this.leader = leader;
         this.manpower = manpower;
         this.fuel = fuel;
@@ -36,67 +36,67 @@ public enum Country {
         this.leader = leader;
     }
 
-    public double getStability() {
+    public int getStability() {
         return stability;
     }
 
     public void increaseStability() {
-        stability *= 1.5;
+        stability = (int) (stability * 1.5);
     }
     public void rechargeStability() {
         stability = 100;
     }
 
     public void decreaseStability() {
-        stability *= 0.5;
+        stability = (int) (stability * 0.5);
     }
 
     public void decreaseStability(double coefficient) {
-        stability *= coefficient;
+        stability = (int) (stability * coefficient);
     }
 
-    public double getManpower() {
+    public int getManpower() {
         return manpower;
     }
 
     public void decreaseManpower(double manpower) {
-        this.manpower -= manpower;
+        this.manpower = (int) (this.manpower - manpower);
     }
 
-    public double getFuel() {
+    public int getFuel() {
         return fuel;
     }
 
     public void decreaseFuel(double fuel) {
-        this.fuel -= fuel;
+        this.fuel = (int) (this.fuel - fuel);
     }
 
     public void increaseFuel(double fuel) {
-        this.fuel += fuel;
+        this.fuel = (int) (this.fuel + fuel);
     }
 
-    public double getSteel() {
+    public int getSteel() {
         return steel;
     }
 
     public void decreaseSteel(double steel) {
-        this.steel -= steel;
+        this.steel = (int) (this.steel - steel);
     }
 
     public void increaseSteel(double steel) {
-        this.steel += steel;
+        this.steel = (int) (this.steel - steel);
     }
 
-    public double getSulfur() {
+    public int getSulfur() {
         return sulfur;
     }
 
     public void decreaseSulfur(double sulfur) {
-        this.sulfur -= sulfur;
+        this.sulfur = (int) (this.sulfur - sulfur);
     }
 
     public void increaseSulfur(double sulfur) {
-        this.sulfur += sulfur;
+        this.sulfur = (int) (this.sulfur - sulfur);
     }
 
     public ArrayList<Country> getPuppets() {
@@ -114,13 +114,13 @@ public enum Country {
     public void addResource(FactoryType type, double amount) {
         switch (type) {
             case STEEL:
-                steel += amount;
+                steel = (int) (steel + amount);
                 break;
             case SULFUR:
-                sulfur += amount;
+                sulfur = (int) (sulfur + amount);
                 break;
             case FUEL:
-                fuel += amount;
+                fuel = (int) (fuel + amount);
                 break;
         }
     }

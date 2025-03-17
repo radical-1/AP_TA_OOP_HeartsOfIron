@@ -3,7 +3,7 @@ package model;
 import model.game.Country;
 
 public class Player {
-    protected double score;
+    protected int score;
     protected Country country;
     protected String username;
 
@@ -15,16 +15,16 @@ public class Player {
         this.country = country;
     }
 
-    public double getScore() {
+    public int getScore() {
         return score;
     }
 
     public void increaseScore(double amount) {
-        this.score += amount;
+        this.score = (int) (this.score + amount);
     }
 
     public void decreaseScore(double amount) {
-        this.score -= amount;
+        this.score = (int) (this.score - amount);
     }
 
     public String getUsername() {

@@ -1,7 +1,5 @@
 package model;
 
-import model.game.Country;
-
 import java.util.ArrayList;
 
 public class Game {

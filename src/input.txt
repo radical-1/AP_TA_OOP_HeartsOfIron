@@ -11,6 +11,7 @@ play Amirhossein Sana Kiarash Kiarash
 play Amirhossein Sana    Kiarash
 play Amirhossein Sana khkh
 play Amirhossein Sana
+show current menu
 Iran
 German Reich
 German Reich
@@ -72,14 +73,14 @@ show battalions 16
 show battalions 17
 show battalions 39
 show detail Soviet       Union
-build factory 34 fuel masjedSoleymaan
-build factory 15 fuelr masjedSoleymaan
-build factory 15 fuel masjedSoleymaan
-build factory 15 fuel fazliRefinery
-build factory 15 fuel meow
-build factory 15 fuel ThisShouldGiveError
-build factory 14 fuel ThisShouldNotGiveError
-build factory 14 fuel ThisShouldGiveMoneyError
+build factory 34 fuel refinery masjedSoleymaan
+build factory 15 fuel refiner masjedSoleymaan
+build factory 15 fuel refinery masjedSoleymaan
+build factory 15 fuel refinery fazliRefinery
+build factory 15 fuel refinery meow
+build factory 15 fuel refinery ThisShouldGiveError
+build factory 14 fuel refinery ThisShouldNotGiveError
+build factory 14 fuel refinery ThisShouldGiveMoneyError
 show detail Soviet Union
 set terrain 15 urban
 run factory 99 randomName 10000
@@ -87,7 +88,7 @@ run factory 15 randomName 10000
 run factory 15 masjedSoleymaan 999999999
 run factory 15 masjedSoleymaan 1000
 show factories 15
-show factories 50
+show factories 51
 leave faction NotInThisFaction
 leave faction axis
 attack 50 39 panzer

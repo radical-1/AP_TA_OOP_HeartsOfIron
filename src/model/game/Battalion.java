@@ -5,7 +5,7 @@ public class Battalion {
     private final String name;
     private final Country country;
     private int level;
-    private double power;
+    private int power;
     private int captureRatio;
 
     public Battalion(String name, BattalionType type, Country country) {
@@ -133,12 +133,12 @@ public class Battalion {
         level++;
     }
 
-    public double getPower() {
+    public int getPower() {
         return power;
     }
 
     public void increasePower(double power) {
-        this.power += power;
+        this.power = (int) (this.power + power);
     }
 
     public int getCaptureRatio() {
