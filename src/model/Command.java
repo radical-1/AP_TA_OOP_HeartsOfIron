@@ -36,15 +36,15 @@ public enum Command {
     JOIN_FACTION("join\\s+faction\\s+(?<name>\\S+)"),
     LEAVE_FACTION("leave\\s+faction\\s+(?<name>\\S+)"),
     BUILD_FACTORY("build\\s+factory\\s+(?<index>-?\\d+)\\s+(?<type>\\S+)\\s+(?<name>\\S+)"),
-    RUN_FACTORY("run\\s+factory\\s+(?<index>-?\\d+)\\s+(?<name>\\S+)\\s+(?<manpower_count>-?\\d+)"),
+    RUN_FACTORY("run\\s+factory\\s+(?<index>-?\\d+)\\s+(?<name>\\S+)\\s+(?<manpowercount>-?\\d+)"),
     PUPPET("puppet\\s+(?<countryName>.+?)"),
     PLAY("play(?:\\s+(\\S+))?(?:\\s+(\\S+))?(?:\\s+(\\S+))?(?:\\s+(\\S+))?"),
     SWITCH_PLAYER("switch\\s+player\\s+(?<username>\\S+)"),
     ADD_BATTALION("add\\s+battalion\\s+(?<index>-?\\d+)\\s+(?<type>\\S+)\\s+(?<name>\\S+)"),
-    MOVE_BATTALION("move\\s+battalion\\s+(?<source_index>\\S+)\\s+(?<name>\\S+)\\s+(?<dest_index>\\S+)"),
+    MOVE_BATTALION("move\\s+battalion\\s+(?<sourceindex>-?\\d+)\\s+(?<name>\\S+)\\s+(?<destindex>-?\\d+)"),
     UPGRADE_BATTALION("upgrade\\s+battalion\\s+(?<index>-?\\d+)\\s+(?<name>\\S+)"),
-    ATTACK("attack\\s+(?<source_index>-?\\d+)\\s+(?<dest_index>-?\\d+)\\s+(?<battalion_type>\\S+)"),
-    CIVIL_WAR("start\\s+civil\\s+war\\s+(?<first_index>-?\\d+)\\s+(?<second_index>-?\\d+)\\s+(?<battalion type>\\S+)"),
+    ATTACK("attack\\s+(?<sourceindex>-?\\d+)\\s+(?<destindex>-?\\d+)\\s+(?<battaliontype>\\S+)"),
+    CIVIL_WAR("start\\s+civil\\s+war\\s+(?<firstindex>-?\\d+)\\s+(?<secondindex>-?\\d+)\\s+(?<battaliontype>\\S+)"),
     START_ELECTION("start\\s+election"),
     END("sadagha\\s+allah\\s+ol\\s+aliol\\s+azim");
 
@@ -53,7 +53,7 @@ public enum Command {
         this.regex = regex;
     }
     public Matcher getMatcher(String input) {
-        Matcher matcher  = Pattern.compile(regex).matcher(input);
+        Matcher matcher = Pattern.compile(regex).matcher(input);
         matcher.matches();
         return matcher;
     }

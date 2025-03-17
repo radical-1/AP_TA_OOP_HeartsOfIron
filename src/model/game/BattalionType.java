@@ -1,7 +1,7 @@
 package model.game;
 
 public enum BattalionType {
-    INFANTRY(0, 10000, 10000, 10000),
+    INFANTRY(0, 10000, 10000, 15000),
     PANZER(10000, 20000, 10000, 5000),
     AIRFORCE(50000, 35000, 10000, 1000),
     NAVY(30000, 50000, 10000, 5000);

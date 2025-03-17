@@ -28,11 +28,6 @@ public class Game {
         return games;
     }
 
-    public void assignCountries(ArrayList<Country> countries) {
-        for (int i = 0; i < 5; i++)
-            players.get(i).setCountry(countries.get(i));
-    }
-
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();

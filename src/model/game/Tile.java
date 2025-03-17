@@ -231,4 +231,9 @@ public enum Tile {
         for (Tile tile : values()) if (tile.index == index) return tile;
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "" + index;
+    }
 }

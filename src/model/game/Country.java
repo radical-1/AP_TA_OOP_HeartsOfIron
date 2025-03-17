@@ -25,6 +25,7 @@ public enum Country {
         this.steel = steel;
         this.sulfur = sulfur;
         this.puppets = new ArrayList<>();
+        this.stability = 100;
     }
 
     public Leader getLeader() {

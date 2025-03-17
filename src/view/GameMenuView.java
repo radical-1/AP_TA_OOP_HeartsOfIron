@@ -1,18 +1,16 @@
 package view;
 
 import controller.GameMenuController;
-import model.Command;
-import model.Result;
-import model.game.Country;
+import model.*;
 
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.regex.Matcher;
 
 public class GameMenuView implements Menu {
     private static Scanner scanner;
     public static void run(Scanner scanner) {
         GameMenuView.scanner = scanner;
+        for (Player player: Game.currentGame.getPlayers()) getCountry(player);
+
         while (true) {
             String input = scanner.nextLine().trim();
             if (Command.EXIT.matches(input)) {
@@ -97,9 +95,9 @@ public class GameMenuView implements Menu {
                 addBattalion(indexString, typeString, name);
             }
             else if (Command.MOVE_BATTALION.matches(input)) {
-                String sourceIndexString = Command.MOVE_BATTALION.getGroup(input, "source_index");
+                String sourceIndexString = Command.MOVE_BATTALION.getGroup(input, "sourceindex");
                 String name = Command.MOVE_BATTALION.getGroup(input, "name");
-                String destIndexString = Command.MOVE_BATTALION.getGroup(input, "dest_index");
+                String destIndexString = Command.MOVE_BATTALION.getGroup(input, "destindex");
                 moveBattalion(sourceIndexString, name, destIndexString);
             }
             else if (Command.UPGRADE_BATTALION.matches(input)) {
@@ -110,19 +108,19 @@ public class GameMenuView implements Menu {
             else if (Command.RUN_FACTORY.matches(input)) {
                 String indexString = Command.RUN_FACTORY.getGroup(input, "index");
                 String name = Command.RUN_FACTORY.getGroup(input, "name");
-                String manpowerCountString = Command.RUN_FACTORY.getGroup(input, "manpower_count");
+                String manpowerCountString = Command.RUN_FACTORY.getGroup(input, "manpowercount");
                 runFactory(indexString, name, manpowerCountString);
             }
             else if (Command.ATTACK.matches(input)) {
-                String sourceIndexString = Command.ATTACK.getGroup(input, "source_index");
-                String destIndexString = Command.ATTACK.getGroup(input, "dest_index");
-                String typeString = Command.ATTACK.getGroup(input, "battalion_type");
+                String sourceIndexString = Command.ATTACK.getGroup(input, "sourceindex");
+                String destIndexString = Command.ATTACK.getGroup(input, "destindex");
+                String typeString = Command.ATTACK.getGroup(input, "battaliontype");
                 attack(sourceIndexString, destIndexString, typeString);
             }
             else if (Command.CIVIL_WAR.matches(input)) {
-                String firstIndexString = Command.CIVIL_WAR.getGroup(input, "first_index");
-                String secondIndexString = Command.CIVIL_WAR.getGroup(input, "second_index");
-                String typeString = Command.CIVIL_WAR.getGroup(input, "battalion_type");
+                String firstIndexString = Command.CIVIL_WAR.getGroup(input, "firstindex");
+                String secondIndexString = Command.CIVIL_WAR.getGroup(input, "secondindex");
+                String typeString = Command.CIVIL_WAR.getGroup(input, "battaliontype");
                 civilWar(firstIndexString, secondIndexString, typeString);
             }
             else if (Command.START_ELECTION.matches(input)) {
@@ -140,11 +138,6 @@ public class GameMenuView implements Menu {
 
     private static void showCurrentMenu() {
         System.out.println("game menu");
-    }
-
-    private static void chooseCountry(ArrayList<String> countryNames) {
-        Result result = GameMenuController.chooseCountry(countryNames);
-        if (!result.isValid()) System.out.println(result.getMessage());
     }
 
     private static void switchPlayer(String username) {
@@ -266,6 +259,16 @@ public class GameMenuView implements Menu {
         Result result = GameMenuController.getLeaderForElection(input);
         if (!result.isValid())
             System.out.println(result.getMessage());
+    }
+
+    private static void getCountry(Player player) {
+        System.out.println("choosing country for " + player.getUsername() + ":");
+        String input = scanner.nextLine().trim();
+        Result result = GameMenuController.getCountry(player, input);
+        if (!result.isValid()) {
+            System.out.println(result.getMessage());
+            getCountry(player);
+        }
     }
 
     private static void end(Scanner scanner) {

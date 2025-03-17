@@ -36,20 +36,6 @@ public class GameMenuController {
         Game.currentPlayer = player;
         return new Result(true, "switched to " + username);
     }
-    public static Result chooseCountry(ArrayList<String> countryNames) {
-        ArrayList<Country> countries = new ArrayList<>();
-        Country country;
-        for (String name: countryNames) {
-            country = Country.getCountryByName(name);
-            if (country == null)
-                return new Result(false, "wrong country name");
-            if (countries.contains(country))
-                return new Result(false, "country already taken");
-            countries.add(country);
-        }
-        Game.currentGame.assignCountries(countries);
-        return new Result(true, "");
-    }
 
     public static Result getCountryDetails(String countryName) {
         if (isGameLocked())
@@ -75,15 +61,15 @@ public class GameMenuController {
             if (i < factions.size() - 1) message.append(",");
             else message.append("\n");
         }
+        if (factions.isEmpty()) message.append("\n");
         message.append("puppet : ");
         int puppetSize = country.getPuppets().size();
         for (int i = 0; i < puppetSize; i++) {
             message.append(country.getPuppets().get(i).toString());
             if (i < puppetSize - 1) message.append(",");
-            else message.append("\n");
         }
 
-        return new Result(true, message.toString());
+        return new Result(true, message.toString().trim());
     }
 
     public static Result getTileOwner(String indexString) {
@@ -108,7 +94,6 @@ public class GameMenuController {
             for (int i = 0; i < neighbors.size(); i++) {
                 message.append(neighbors.get(i));
                 if (i < neighbors.size() - 1) message.append(" , ");
-                else message.append("\n");
             }
             return new Result(true, message.toString());
         }
@@ -127,7 +112,6 @@ public class GameMenuController {
             for (int i = 0; i < neighbors.size(); i++) {
                 message.append(neighbors.get(i));
                 if (i < neighbors.size() - 1) message.append(" , ");
-                else message.append("\n");
             }
             if (neighbors.isEmpty()) message.append("no sea neighbors");
             return new Result(true, message.toString());
@@ -193,12 +177,12 @@ public class GameMenuController {
             message.append("\n");
 
             message.append("navy:\n");
-            for (Battalion battalion: battalions) {
+            for (Battalion battalion : battalions) {
                 if (battalion.getType() == BattalionType.NAVY)
                     message.append(battalion).append("\n");
             }
 
-            return new Result(true, message.toString());
+            return new Result(true, message.toString().trim());
         }
         return new Result(false, "tile doesn't exist");
     }
@@ -234,12 +218,12 @@ public class GameMenuController {
             message.append("\n");
 
             message.append("sulfur factory:\n");
-            for (Factory factory: factories) {
+            for (Factory factory : factories) {
                 if (factory.getType() == FactoryType.SULFUR)
                     message.append(factory).append("\n");
             }
 
-            return new Result(true, message.toString());
+            return new Result(true, message.toString().trim());
         }
         return new Result(false, "tile doesn't exist");
     }
@@ -1097,7 +1081,7 @@ public class GameMenuController {
             if (leader.getIdeology() == Ideology.FASCISM && leader.getCountry() == current)
                 message.append(leader).append("\n");
         }
-        return new Result(true, message.toString());
+        return new Result(true, message.toString().trim());
     }
 
     public static Result getLeaderForElection(String leaderName) {
@@ -1108,6 +1092,24 @@ public class GameMenuController {
         current.setLeader(leader);
         current.rechargeStability();
         return new Result(true, "");
+    }
+
+    public static Result getCountry(Player player, String name) {
+        Country country = Country.getCountryByName(name);
+        if (country == null)
+            return new Result(false, "wrong country name");
+        if (isCountryTaken(country))
+            return new Result(false, "country already taken");
+        player.setCountry(country);
+        return new Result(true, "");
+    }
+
+    private static boolean isCountryTaken(Country country) {
+        ArrayList<Player> players = Game.currentGame.getPlayers();
+        for (Player player: players) {
+            if (player.getCountry() == country) return true;
+        }
+        return false;
     }
 
     public static void end() {

@@ -9,6 +9,7 @@ import java.util.Collections;
 public class MainMenuController {
     public static Result play(ArrayList<String> usernames) {
         ArrayList<Player> players = new ArrayList<>();
+        players.add(User.currentUser);
         User user;
         for (String username: usernames) {
             user = User.getUserByUsername(username);
@@ -19,14 +20,13 @@ public class MainMenuController {
             players.add(user);
         }
 
-        for (Player player: players) {
-            if (player == User.currentUser)
+        if (Collections.frequency(players, User.currentUser) > 1)
                 return new Result(false, "you can't choose urself");
-        }
 
-        for (int i = 1; i <= 5 - players.size(); i++) players.add(new Guest(i));
-
+        int size = players.size();
+        for (int i = 1; i <= 5 - size; i++) players.add(new Guest(i));
         Game.currentGame = new Game(players);
+        Game.currentPlayer = User.currentUser;
 
         return new Result(true, "aghaaz faAliat");
     }

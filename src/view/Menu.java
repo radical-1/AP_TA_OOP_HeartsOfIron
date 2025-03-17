@@ -8,7 +8,7 @@ public interface Menu {
     static void run(Scanner scanner) {}
 
     static void exit() {
-
+        System.exit(0);
     }
 
     static void invalidCommand() {

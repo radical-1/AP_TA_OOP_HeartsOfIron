@@ -19,7 +19,7 @@ public class LeaderBoardController {
             ranking.append("\n");
             ranking.append(user.getUsername()).append(" ").append(user.getScore());
         }
-        return ranking.toString();
+        return ranking.toString().trim();
     }
 
     public static String getHistory() {
@@ -33,6 +33,6 @@ public class LeaderBoardController {
             history.append(games.get(i).toString());
             if (i < finish) history.append("\n----");
         }
-        return history.toString();
+        return history.toString().trim();
     }
 }
