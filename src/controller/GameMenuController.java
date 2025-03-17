@@ -29,7 +29,7 @@ public class GameMenuController {
             return new Result(false, "player doesn't exist");
         if (user == null) player = guest;
         else player = user;
-        if (!Game.currentGame.getPlayers().contains(player))
+        if (!Game.currentGame.players().contains(player))
             return new Result(false, "player doesn't exist");
         if (player == Game.currentPlayer)
             return new Result(false, "you can't switch to yourself");
@@ -311,10 +311,8 @@ public class GameMenuController {
             return new Result(false, "game is locked");
 
         Faction faction = Faction.getFactionByName(name);
-        if (faction == null)
-            return new Result(false, "faction doesn't exist");
         Country country = Game.currentPlayer.getCountry();
-        if (!faction.countryExists(country))
+        if (faction == null || !faction.countryExists(country))
             return new Result(false, "your country isn't in this faction");
         faction.removeCountry(country);
         return new Result(true, country + " left " + faction);
@@ -526,27 +524,6 @@ public class GameMenuController {
             manpower *= 2;
         }
 
-        switch (tile.getTerrain()) {
-            case MOUNTAIN:
-                fuel *= 10;
-                steel *= 10;
-                sulfur *= 10;
-                manpower *= 10;
-                break;
-            case FOREST:
-                fuel *= 5;
-                steel *= 5;
-                sulfur *= 5;
-                manpower *= 5;
-                break;
-            case URBAN:
-                fuel *= 0.1;
-                steel *= 0.1;
-                sulfur *= 0.1;
-                manpower *= 0.1;
-                break;
-        }
-
         owner.decreaseFuel(fuel);
         owner.decreaseSteel(steel);
         owner.decreaseSulfur(sulfur);
@@ -574,28 +551,6 @@ public class GameMenuController {
             sulfur *= 2;
             manpower *= 2;
         }
-
-        switch (tile.getTerrain()) {
-            case MOUNTAIN:
-                fuel *= 10;
-                steel *= 10;
-                sulfur *= 10;
-                manpower *= 10;
-                break;
-            case FOREST:
-                fuel *= 5;
-                steel *= 5;
-                sulfur *= 5;
-                manpower *= 5;
-                break;
-            case URBAN:
-                fuel *= 0.1;
-                steel *= 0.1;
-                sulfur *= 0.1;
-                manpower *= 0.1;
-                break;
-        }
-
 
         return  owner.getFuel() >= fuel &&
                 owner.getSteel() >= steel &&
@@ -694,26 +649,6 @@ public class GameMenuController {
             sulfur *= 2;
             manpower *= 2;
         }
-        switch (tile.getTerrain()) {
-            case MOUNTAIN:
-                fuel *= 10;
-                steel *= 10;
-                sulfur *= 10;
-                manpower *= 10;
-                break;
-            case FOREST:
-                fuel *= 5;
-                steel *= 5;
-                sulfur *= 5;
-                manpower *= 5;
-                break;
-            case URBAN:
-                fuel *= 0.1;
-                steel *= 0.1;
-                sulfur *= 0.1;
-                manpower *= 0.1;
-                break;
-        }
 
         return switch (level) {
             case 0 -> owner.getFuel() >= 0.5 * fuel &&
@@ -749,28 +684,11 @@ public class GameMenuController {
             manpower *= 2;
         }
 
-        switch (tile.getTerrain()) {
-            case MOUNTAIN:
-                fuel *= 10;
-                steel *= 10;
-                sulfur *= 10;
-                manpower *= 10;
-                break;
-            case FOREST:
-                fuel *= 5;
-                steel *= 5;
-                sulfur *= 5;
-                manpower *= 5;
-                break;
-            case URBAN:
-                fuel *= 0.1;
-                steel *= 0.1;
-                sulfur *= 0.1;
-                manpower *= 0.1;
-                break;
-        }
-
         battalion.upgradeLevel();
+
+
+        System.out.println("fuel tori: " + owner.getFuel() + "steel tori: " + owner.getSteel()
+                + "sulfur tori: " + owner.getSulfur() + "manpower tori: " + owner.getManpower());
 
         switch (level) {
             case 0: owner.decreaseFuel(0.5 * fuel);
@@ -870,7 +788,7 @@ public class GameMenuController {
 
             for (Battalion battalion: deletions) dest.removeBattalion(battalion);
 
-            calculateScores(true, sourcePower - destPower, type);
+            calculateScores(source, dest, sourcePower - destPower, type);
 
             return new Result(true, "war is over\n" +
                     "winner : " + source.getOwner().toString() + "\n" +
@@ -898,7 +816,7 @@ public class GameMenuController {
             dest.getOwner().increaseSulfur((destPower - sourcePower) * 100);
             dest.getOwner().increaseFuel((destPower - sourcePower) * 100);
 
-            calculateScores(false, destPower - sourcePower, type);
+            calculateScores(dest, source, destPower - sourcePower, type);
 
             return new Result(true, "war is over\n" +
                     "winner : " + dest.getOwner().toString() + "\n" +
@@ -922,18 +840,25 @@ public class GameMenuController {
         }
     }
 
-    private static void calculateScores(boolean win, double powerDifference, BattalionType type) {
-        Player player = Game.currentPlayer;
+    private static void calculateScores(Tile winnerTile, Tile loserTile, double powerDifference, BattalionType type) {
+        Player winner = null, loser = null;
+        for (Player player: Game.currentGame.players()) {
+            if (player.getCountry() == winnerTile.getOwner())
+                winner = player;
+            if (player.getCountry() == loserTile.getOwner())
+                loser = player;
+        }
         int battalionModifier = switch (type) {
             case INFANTRY -> 5;
             case PANZER -> 7;
             case NAVY -> 10;
             case AIRFORCE -> 15;
         };
-        if (win)
-            player.increaseScore(powerDifference * 10 * battalionModifier);
-        else
-            player.decreaseScore(powerDifference * 5 * battalionModifier);
+
+        if (winner != null && loser != null) {
+            winner.increaseScore(powerDifference * 10 * battalionModifier);
+            loser.decreaseScore(powerDifference * 5 * battalionModifier);
+        }
     }
 
     private static boolean hasBattalionType(Tile tile, BattalionType type) {
@@ -1105,7 +1030,7 @@ public class GameMenuController {
     }
 
     private static boolean isCountryTaken(Country country) {
-        ArrayList<Player> players = Game.currentGame.getPlayers();
+        ArrayList<Player> players = Game.currentGame.players();
         for (Player player: players) {
             if (player.getCountry() == country) return true;
         }
@@ -1113,9 +1038,9 @@ public class GameMenuController {
     }
 
     public static void end() {
-        for (Player player: Game.currentGame.getPlayers()) {
+        for (Player player: Game.currentGame.players()) {
             if (player.getCountry().getLeader().getIdeology() == Ideology.FASCISM)
-                player.increaseScore(player.getScore() * 2);
+                player.increaseScore(player.getScore());
         }
     }
 }

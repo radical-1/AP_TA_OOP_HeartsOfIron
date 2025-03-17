@@ -9,7 +9,7 @@ public class GameMenuView implements Menu {
     private static Scanner scanner;
     public static void run(Scanner scanner) {
         GameMenuView.scanner = scanner;
-        for (Player player: Game.currentGame.getPlayers()) {
+        for (Player player: Game.currentGame.players()) {
             System.out.println("choosing country for " + player.getUsername() + ":");
             getCountry(player);
         }

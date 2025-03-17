@@ -2,13 +2,11 @@ package model;
 
 import java.util.ArrayList;
 
-public class Game {
+public record Game(ArrayList<Player> players) {
     private static final ArrayList<Game> games;
 
     public static Game currentGame;
     public static Player currentPlayer;
-
-    private final ArrayList<Player> players;
 
     static {
         games = new ArrayList<>();
@@ -16,10 +14,7 @@ public class Game {
 
     public Game(ArrayList<Player> players) {
         this.players = players;
-    }
-
-    public ArrayList<Player> getPlayers() {
-        return players;
+        games.add(this);
     }
 
     public static ArrayList<Game> getAllGames() {

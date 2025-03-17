@@ -11,6 +11,7 @@ public class Guest extends Player {
 
     public Guest(int number) {
         this.username = "guest" + number;
+        this.score = 0;
         allGuests.add(this);
     }
 
