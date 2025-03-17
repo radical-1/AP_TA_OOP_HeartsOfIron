@@ -1,0 +1,101 @@
+register -username Radical -password Aa123456! -email Amir@gmail.com
+back
+register -uesrname Autistic -password Aa123456! -email Kiarash@gmail.com
+back
+register -username Khanom_Niromand -password Aa123456! -email Niroomand@gmail.com
+back
+register -username Tahmasb -password Aa123456! -email Arman@gmail.com
+back
+register -username TA_Tahmasbi -password Aa123456! -email Amirmahdi@gmail.com
+login -username Radical -password Aa123456!
+play mamad mamad2 mamad3 mamad4
+play Autistic mamad mamad2 mamad3
+play Khanom_Niromand Autistic Radical mamad
+play Tahmasb TA_Tahmasbi Tahmasb Khanom_Niromand
+play TA_Tahmasbi Tahmasb Khanom_Niromand Autistic
+Islamic Republic of Iran
+China Republic
+Soviet Union
+German Reich
+German Reich
+Soviet Union
+United States
+Japan
+United Kingdom
+show detail Iran
+show detail Japan
+show detail United States
+tile owner 11
+tile owner 48
+tile owner 53
+tile neighbors 1
+tile neighbors 21
+tile neighbors 53
+tile sea neighbors 2
+tile sea neighbors 48
+tile sea neighbors 54
+show weatheer 32
+show weatheer 48
+show terrain 17
+show terrain 26
+show terrain 39
+show terrain 3
+show terrain salam
+show factories 2
+set terain 12 mamad
+set terain 48 mountain
+set terrain 3 mountain
+set terrain 8 Urben
+show terrain 12
+show terrain 48
+show terrain 3
+show terrain 8
+set weather 12 slam
+set weather 43 rainy
+set weather 6 sunny
+set weather 12 blizzard
+set weather 9 sandsotrm
+show weather 12
+show weather 43
+show weather 6
+show weather 12
+show weather 9
+add battalion 32 panzer mamad
+add battalion 2 baaaa mamad
+add battalion 2 panzer mamad
+add battalion 2 infantry mamad
+add battalion 2 infantry mamad2
+move battalion 2 mamad 3
+add battalion 3 infantry mamad
+add battalion 3 infantry mamad2
+move battalion 2 mamad2 3
+upgrade battalion 2 mamad
+upgrade battalion 3 mamad
+upgrade battalion 3 mamad2
+create faction kalak
+switch player mamadina
+switch player Khanom_Niromand
+create faction kalak
+join faction bache_hay_khoob
+join faction kalak
+create faction nerds
+switch player TA_Tahmasbi
+join faction nerds
+create fatcion systemi
+switch player Khanom_niromand
+leave faction systemi
+switch player Radical
+create faction melat_imam_hosein
+switch player Tahmasb
+join faction melat_imam_hosein
+leave faction melat_imam_hosein
+leave faction nerds
+switch player Radical
+pass the juice? Nein! Gas the jews:) jew count : 5
+sadagha allah ol aliol azim
+leaderboard
+show history
+show ranking
+back
+logout
+exit
