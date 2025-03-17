@@ -12,6 +12,7 @@ play Amirhossein Sana Mohammad Hossein
 leaderboard
 show current menu
 show ranking
+back
 play Amirhossein Sana MohammadHossein
 German Reich
 SovietUnion
@@ -79,4 +80,3 @@ build factory - 1 fuel refinery fuel1
 set terrain 1 mountain
 set terrain 1 mountain
 build factory 1 fuel refinery fuel1
-
