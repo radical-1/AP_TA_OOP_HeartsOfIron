@@ -130,10 +130,6 @@ public class GameMenuView implements Menu {
                 startElection();
                 getLeaderForElection();
             }
-            else if (Command.JEW_SULFUR.matches(input)) {
-                String jewCountString = Command.JEW_SULFUR.getGroup(input, "jewcount");
-                jewSulfur(jewCountString);
-            }
             else if (Command.END.matches(input)) {
                 end(scanner);
             }
@@ -275,12 +271,6 @@ public class GameMenuView implements Menu {
             System.out.println(result.getMessage());
             getCountry(player);
         }
-    }
-
-    private static void jewSulfur(String jewCountString) {
-        Result result = GameMenuController.jewSulfur(jewCountString);
-        if (result != null)
-            System.out.println(result.getMessage());
     }
 
     private static void end(Scanner scanner) {

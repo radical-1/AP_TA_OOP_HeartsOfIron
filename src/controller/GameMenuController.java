@@ -1112,18 +1112,6 @@ public class GameMenuController {
         return false;
     }
 
-    public static Result jewSulfur(String jewCountString) {
-        int jewCount = Integer.parseInt(jewCountString);
-        Country current = Game.currentPlayer.getCountry();
-        if (current == Country.GERMAN_REICH && current.getLeader() == Leader.HITLER) {
-            if (current.getManpower() < jewCount)
-                return new Result(false, "not enough jew");
-            current.increaseSulfur(jewCount * 100);
-            return new Result(true, "jews transformed successfully");
-        }
-        return null;
-    }
-
     public static void end() {
         for (Player player: Game.currentGame.getPlayers()) {
             if (player.getCountry().getLeader().getIdeology() == Ideology.FASCISM)
