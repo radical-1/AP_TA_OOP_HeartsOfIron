@@ -33,7 +33,7 @@ add battalion 8 navy navy1
 add battalion 8 navy navy2
 add battalion 8 navy navy2
 add battalion 8 navy navy3
-build factory 50 fuel refinery ref1
+build factory 50 fuel ref1
 add battalion 8 navy navy3
 add battalion 8 navy1 navy3
 show detail German Reich
