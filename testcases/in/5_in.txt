@@ -52,7 +52,7 @@ show battalions 8
 upgrade battalion 8 navy2
 show detail Soviet Union
 add battalion 54 navy   navy4
-set terrain 600 terrain-bad
+set terrain 23 terrain-bad
 set terrain 6 terrain-bad
 set terrain 6 mountain
 set terrain 54 mountain
